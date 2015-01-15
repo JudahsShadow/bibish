@@ -1,0 +1,10 @@
+﻿SET (frontend_src ${CMAKE_CURRENT_SOURCE_DIR}/src/front/interface.cpp)
+source_group("frontend_src" FILES ${backend_src})
+
+SET (main_src ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
+source_group("main_src" FILES ${main_src})
+
+SET ( bibish_srcs
+      ${frontend_src}
+      ${main_src}
+)

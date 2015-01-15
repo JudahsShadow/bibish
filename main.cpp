@@ -1,6 +1,11 @@
-#include <iostream>
+﻿#include <iostream>
+#include <string>
+#include "src/front/interface.h"
 
 int main(int argc, char **argv) {
-    std::cout << "Hello, world!" << std::endl;
-    return 0;
+  int exitCode = 0;
+  
+  Interface* ui = new Interface();
+  exitCode = ui->runInterface();
+  return exitCode;
 }
