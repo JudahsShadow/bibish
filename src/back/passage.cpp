@@ -1,7 +1,7 @@
 ﻿/*
  * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
  * inspired by debian's bible package
- * Copyright (C) 2015  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
+ * Copyright (C) 2015  David Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,23 +19,48 @@
  *
  */
 
-#ifndef INTERFACE_H
-#define INTERFACE_H
+#include "passage.h"
 
 #include <string>
+#include <iostream>
 
-class Interface
-{
-public:
-    int runInterface();
+#include <swmgr.h>
+#include <swmodule.h>
+#include <markupfiltmgr.h>
 
-private:
-    void showWork();
-    void showHeader();
-    void showPrompt();
-    void clearScreen();
-    std::string processCommand(std::string command);
-    
-};
+// void Passage::() const
+// {
+// 
+// }
+// 
+// void Passage::() const
+// {
+// 
+// }
 
-#endif // INTERFACE_H
+void Passage::setReference(std::string reference) {
+
+}
+
+std::string Passage::getText() {
+  std::string text = "";
+  sword::SWMgr library(new sword::MarkupFilterMgr(sword::FMT_PLAIN));
+  
+  sword::SWModule *module;
+  
+  module = library.getModule("ESV");
+  if(!module) {
+    std::cerr << "ESV not found, install it in another front-end" << std::endl;
+    text = "ESV not found error";
+    return text;
+  }
+  
+  module->setKey("Ps 1-2");
+  module->renderText();
+  
+  text = module->getKeyText();
+  text += module->renderText();
+  
+  return text;
+  
+}

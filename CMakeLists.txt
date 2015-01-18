@@ -3,8 +3,8 @@ project(bibish)
 
 
 INCLUDE("${CMAKE_CURRENT_SOURCE_DIR}/cmake/Sources.cmake")
-# add_executable(bibish ${bibish_srcs})
-add_executable(bibish ${CMAKE_CURRENT_SOURCE_DIR}/src/front/interface.cpp ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
+add_executable(bibish ${bibish_srcs})
+#add_executable(bibish ${CMAKE_CURRENT_SOURCE_DIR}/src/front/interface.cpp ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
 
 
 #add_library(interface ${CMAKE_CURRENT_SOURCE_DIR}/src/front/interface.cpp)

@@ -19,23 +19,22 @@
  *
  */
 
-#ifndef INTERFACE_H
-#define INTERFACE_H
+#ifndef PASSAGE_H
+#define PASSAGE_H
 
 #include <string>
 
-class Interface
+#include <swmgr.h>
+#include <swmodule.h>
+#include <markupfiltmgr.h>
+
+class Passage
 {
 public:
-    int runInterface();
-
+    std::string getText();
+    void setReference(std::string reference);
 private:
-    void showWork();
-    void showHeader();
-    void showPrompt();
-    void clearScreen();
-    std::string processCommand(std::string command);
-    
+    sword::SWKey key;
 };
 
-#endif // INTERFACE_H
+#endif // PASSAGE_H

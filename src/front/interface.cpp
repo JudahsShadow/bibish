@@ -1,6 +1,7 @@
 ﻿/*
- * <one line to give the program's name and a brief idea of what it does.>
- * Copyright (C) 2015  David Blue <yudahsshadow@gmx.com>
+ * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
+ * inspired by debian's bible package
+ * Copyright (C) 2015  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +22,7 @@
 #include <string>
 
 #include "interface.h"
+#include "../back/passage.h"
 
 // void Interface::() const
 // {
@@ -49,6 +51,8 @@ void Interface::showPrompt() {
 
 std::string Interface::processCommand(std::string command) {
   std::string validCommands[2];
+  std::string text;
+  Passage pass;
   
   validCommands[0] = "quit";
   validCommands[1] = "show";
@@ -57,7 +61,13 @@ std::string Interface::processCommand(std::string command) {
     return command;
   }
   else if (command == validCommands[1]) {
-    //show a verse here.
+    text = pass.getText();
+    
+    std::string dummy = "";
+    std::cout << text << std::endl;
+    std::cout << "Press enter to continue";
+    std::getline(std::cin, dummy);
+    return command;
   }
 }
 
