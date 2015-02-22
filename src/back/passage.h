@@ -31,10 +31,12 @@
 class Passage
 {
 public:
-    std::string getText();
-    void setReference(std::string reference);
+    std::string getText(std::string reference);
+//     void setReference(std::string reference);
+    void setVersion(std::string version);
 private:
-    sword::SWKey key;
+//     sword::VerseKey key;
+    std::string version;
 };
 
 #endif // PASSAGE_H

@@ -35,60 +35,89 @@
 // }
 
 void Interface::clearScreen() {
-  int screenSize = 50; //current screen size?
-  for(int i = 0; i <= screenSize; i++) {
-    std::cout << std::endl;
-  }
+    int screenSize = 50; //current screen size?
+    for(int i = 0; i <= screenSize; i++) {
+	std::cout << std::endl;
+    }
 }
 
 void Interface::showHeader() {
-  std::cout << "Welcome to BIBISH" << std::endl;
+    std::cout << "Welcome to BIBISH" << std::endl;
 }
 
 void Interface::showPrompt() {
-  std::cout << "Enter a command (? for help): ";
+    std::cout << "Enter a command (? for help): ";
 }
 
 std::string Interface::processCommand(std::string command) {
-  std::string validCommands[2];
-  std::string text;
-  Passage pass;
-  
-  validCommands[0] = "quit";
-  validCommands[1] = "show";
-  
-  if(command == validCommands[0]) {
-    return command;
-  }
-  else if (command == validCommands[1]) {
-    text = pass.getText();
+    std::string validCommands[2];
+    std::string text = "";
+    std::string ref = "";
+    int commandLength;
+    Passage pass;
     
-    std::string dummy = "";
-    std::cout << text << std::endl;
-    std::cout << "Press enter to continue";
-    std::getline(std::cin, dummy);
-    return command;
-  }
+    validCommands[0] = "quit";
+    validCommands[1] = "show";
+    
+    if(command == validCommands[0]) {
+	return command;
+    }
+    else if (command.substr(0,4) == validCommands[1]) {
+	commandLength = command.length();
+	ref = command.substr(5,command.length());
+// 	pass.setReference(ref);
+	pass.setVersion("ESV");
+	text = pass.getText(ref);
+	if(text == "-1") {
+	    //Module not found error clear out for now
+	    return "-2";
+	}
+	
+	std::string dummy = "";
+	std::cout << text << std::endl;
+	std::cout << "Press enter to continue";
+	std::getline(std::cin, dummy);
+	return command;
+    }
+    else {
+	return "-1";
+    }
 }
 
 int Interface::runInterface() {
-  int returnCode = 0;
-  std::string command;
-  
-  //Initialize the interface
-  clearScreen();
-  command = "";
-  showHeader();
-  showPrompt();
-  std::getline(std::cin,command);
-  
-  //main program loop keep going until a quit command is given
-  while (command != "quit") {
-    command = processCommand(command);
-//     clearScreen();
+    int returnCode = 0;
+    std::string command;
+    
+    //Initialize the interface
+    clearScreen();
+    command = "";
     showHeader();
     showPrompt();
     std::getline(std::cin,command);
-  }
-  return returnCode;
+    
+    //main program loop keep going until a quit command is given
+    while (command != "quit") {
+	command = processCommand(command);
+	
+	if(command == "-1") {
+	    std::string dummy;
+	    
+	    std::cerr << "Error! invalid command! (Try ?)" << std::endl;
+	    std::cout << "Press enter to try again." << std::endl;
+	    
+	    std::getline(std::cin,dummy);
+	}
+	else if (command == "-2") {
+	    std::cerr << "Module not found. Aborting..";
+	    returnCode = -1;
+	    break;
+	}
+	
+	clearScreen();
+	showHeader();
+	showPrompt();
+	std::getline(std::cin,command);
+    }
+    
+    return returnCode;
 }

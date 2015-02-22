@@ -20,13 +20,17 @@
  */
 
 #include "passage.h"
+#include "library.h"
 
 #include <string>
 #include <iostream>
+#include <list>
 
 #include <swmgr.h>
 #include <swmodule.h>
 #include <markupfiltmgr.h>
+#include <versekey.h>
+#include <listkey.h>
 
 // void Passage::() const
 // {
@@ -38,29 +42,51 @@
 // 
 // }
 
-void Passage::setReference(std::string reference) {
+// void Passage::setReference(std::string reference) {
+//     this->key = reference;
+//     this->key.setKey(reference);
+// }
 
+void Passage::setVersion(std::string version) {
+    this->version = version;
 }
 
-std::string Passage::getText() {
-  std::string text = "";
-  sword::SWMgr library(new sword::MarkupFilterMgr(sword::FMT_PLAIN));
-  
-  sword::SWModule *module;
-  
-  module = library.getModule("ESV");
-  if(!module) {
-    std::cerr << "ESV not found, install it in another front-end" << std::endl;
-    text = "ESV not found error";
-    return text;
-  }
-  
-  module->setKey("Ps 1-2");
-  module->renderText();
-  
-  text = module->getKeyText();
-  text += module->renderText();
-  
-  return text;
-  
+std::string Passage::getText(std::string reference) {
+    std::string text = "";
+    
+    //Variables related to splitting up the reference for iteration
+    sword::ListKey refRange;
+    
+    //Module variables
+    sword::SWMgr library(new sword::MarkupFilterMgr(sword::FMT_PLAIN));    
+    sword::SWModule *module;
+    sword::VerseKey key;
+    
+    module = library.getModule(this->version.c_str());
+    if(!module) {
+	std::cerr << this->version;
+	std::cerr << " not found, install it in another front-end";
+	std::cerr << std::endl;
+	text = "-1";
+	return text;
+    }
+    
+    refRange = key.parseVerseList(reference.c_str(), key, true);
+   
+//     module->setKey(reference.c_str());
+//     module->renderText();
+    
+    for(refRange = sword::TOP; !refRange.popError(); refRange++) {
+	module->setKey(refRange);
+	text += module->getKeyText();
+	text += " ";
+	text += module->renderText();
+// 	text += "\n";	
+    }
+    
+//     text = module->getKeyText();
+//     text += ": ";
+//     text += module->renderText();
+    
+    return text;  
 }
