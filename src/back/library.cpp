@@ -19,21 +19,28 @@
  *
  */
 
-#ifndef PASSAGE_H
-#define PASSAGE_H
-
-#include <string>
-
+#include "library.h"
 #include <swmgr.h>
-#include <swmodule.h>
 #include <markupfiltmgr.h>
+#include <string>
+#include <list>
 
-class Passage {
-  public:
-    std::string getText (std::string reference);
-    void setVersion (std::string version);
-  private:
-    std::string version;
-};
+Library::Library()
+{
+    sword::SWMgr lib(new sword::MarkupFilterMgr(sword::FMT_PLAIN));
+    this->bibles = lib;
 
-#endif // PASSAGE_H
+}
+
+Library::~Library()
+{
+
+}
+
+std::list Library::getBibles()
+{
+  std::list<std::string> theList;
+  theList = this->bibles.Modules;
+  return theList;
+}
+

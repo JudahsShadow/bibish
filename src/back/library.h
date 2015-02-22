@@ -1,7 +1,7 @@
 ﻿/*
  * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
  * inspired by debian's bible package
- * Copyright (C) 2015  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
+//  * Copyright (C) 2015  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,21 +19,20 @@
  *
  */
 
-#ifndef PASSAGE_H
-#define PASSAGE_H
+#ifndef LIBRARY_H
+#define LIBRARY_H
 
 #include <string>
-
 #include <swmgr.h>
-#include <swmodule.h>
-#include <markupfiltmgr.h>
 
-class Passage {
-  public:
-    std::string getText (std::string reference);
-    void setVersion (std::string version);
-  private:
-    std::string version;
+class Library
+{
+public:
+    Library();
+    ~Library();
+    std::string getBibles();
+private:
+    sword::SWMgr bibles;
 };
 
-#endif // PASSAGE_H
+#endif // LIBRARY_H
