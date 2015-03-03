@@ -21,6 +21,9 @@
 #include <iostream>
 #include <string>
 
+#include <swmgr.h>
+#include <markupfiltmgr.h>
+
 #include "interface.h"
 #include "../back/passage.h"
 
@@ -34,28 +37,54 @@
 //
 // }
 
-void Interface::clearScreen() {
-    int screenSize = 50; //current screen size?
+void Interface::initalize() {
+    int lineCount = 0;
+    int maxLine = 1000;
+    
+    for(int i = maxLine; i >= 1; i--) {
+     std::cout << i << std::endl;
+    }
+    std::cout << "Enter the number at the top of the screen: ";
+    std::string input;
+    std::getline(std::cin, input);
+    
+    lineCount = atoi(input.c_str());
+    this->screenSize = lineCount + 1;
+    
+    clearScreen();
+    std::cout  << "Initalizing SWORD, please wait..." << std::endl;
+    this->swordLibrary = new sword::SWMgr(new sword::MarkupFilterMgr (sword::FMT_PLAIN));
+    std::cout << "Initalized, proceeding to shell..." << std::endl;
+    clearScreen();
+}
 
-    for (int i = 0; i <= screenSize; i++) {
+void Interface::clearScreen() {
+    for (int i = 0; i <= this->screenSize; i++) {
         std::cout << std::endl;
     }
 }
 
-void Interface::showHeader() {
+void Interface::displayHeader() {
     std::cout << "Welcome to BIBISH" << std::endl;
 }
 
-void Interface::showPrompt() {
+void Interface::displayPrompt() {
     std::cout << "Enter a command (? for help): ";
+}
+
+void Interface::displaySpacer() {
+   for(int i = 1; i <= this->screenSize - 2; i++) {
+        std::cout << std::endl;
+    }    
 }
 
 std::string Interface::processCommand (std::string command) {
     std::string validCommands[2];
     std::string text = "";
     std::string ref = "";
-    int commandLength;
     Passage pass;
+    int commandLength;
+
     validCommands[0] = "quit";
     validCommands[1] = "show";
 
@@ -65,6 +94,8 @@ std::string Interface::processCommand (std::string command) {
     } else if (command.substr (0, 4) == validCommands[1]) {
         commandLength = command.length();
         ref = command.substr (5, command.length());
+ 
+        pass.setLibrary(this->swordLibrary);
         pass.setVersion ("ESV");
         text = pass.getText (ref);
 
@@ -74,6 +105,8 @@ std::string Interface::processCommand (std::string command) {
         }
 
         std::string dummy = "";
+        clearScreen();
+        displayHeader();
         std::cout << text << std::endl;
         std::cout << "Press enter to continue";
         std::getline (std::cin, dummy);
@@ -88,11 +121,14 @@ std::string Interface::processCommand (std::string command) {
 int Interface::runInterface() {
     int returnCode = 0;
     std::string command;
-//Initialize the interface
+    
+    //Initialize the interface
+    initalize();
     clearScreen();
     command = "";
-    showHeader();
-    showPrompt();
+    displayHeader();
+    displaySpacer();
+    displayPrompt();
     std::getline (std::cin, command);
 
     //main program loop keep going until a quit command is given
@@ -105,18 +141,18 @@ int Interface::runInterface() {
             std::cout << "Press enter to try again." << std::endl;
             std::getline (std::cin, dummy);
         } else if (command == "-2") {
-            //Specified module not found, since we can't install (yet bail out
+            //Specified module not found, since we can't install yet bail out
             std::cerr << "Module not found. Aborting.." << std::endl;
             returnCode = -1;
             break;
         }
 
         clearScreen();
-        showHeader();
-        showPrompt();
+        displayHeader();
+        displaySpacer();
+        displayPrompt();
         std::getline (std::cin, command);
     }
 
     return returnCode;
 }
-// kate: indent-mode cstyle; indent-width 4; replace-tabs on;

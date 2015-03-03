@@ -24,17 +24,23 @@
 
 #include <string>
 
-class Interface
-{
+#include <swmgr.h>
+
+class Interface {
 public:
     int runInterface();
 
 private:
     void showWork();
-    void showHeader();
-    void showPrompt();
+    void displayHeader();
+    void displayPrompt();
+    void displaySpacer();
     void clearScreen();
+    void initalize();
     std::string processCommand(std::string command);
+    
+    int screenSize;
+    sword::SWMgr *swordLibrary;
     
 };
 

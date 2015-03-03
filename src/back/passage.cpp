@@ -51,6 +51,10 @@ void Passage::setVersion (std::string version) {
     this->version = version;
 }
 
+void Passage::setLibrary(sword::SWMgr *library) {\
+  this->swordLibrary = library;
+}
+
 std::string Passage::getText (std::string reference) {
     std::string text = "";
 
@@ -58,12 +62,11 @@ std::string Passage::getText (std::string reference) {
     sword::ListKey refRange;
 
     //Module variables
-    sword::SWMgr library (new sword::MarkupFilterMgr (sword::FMT_PLAIN));
     sword::SWModule *module;
     sword::VerseKey key;
-
-    module = library.getModule (this->version.c_str());
-    if (!module) {
+    
+    module = this->swordLibrary->getModule(this->version.c_str());
+    if(!module) {
         std::cerr << this->version;
         std::cerr << " not found, install it in another front-end";
         std::cerr << std::endl;
@@ -71,7 +74,7 @@ std::string Passage::getText (std::string reference) {
         return text;
     }
 
-    refRange = key.parseVerseList (reference.c_str(), key, true);
+    refRange = key.parseVerseList(reference.c_str(), key, true);
     for (refRange = sword::TOP; !refRange.popError(); refRange++) {
         module->setKey (refRange);
         text += module->getKeyText();
