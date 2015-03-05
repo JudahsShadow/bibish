@@ -37,10 +37,21 @@
 //
 // }
 
-void Interface::initalize() {
-    int lineCount = 0;
-    int maxLine = 1000;
+void Interface::initalize() { 
+    configLines();   
+    clearScreen();
     
+    std::cout  << "Initalizing SWORD, please wait..." << std::endl;
+    this->swordLibrary = new sword::SWMgr(new sword::MarkupFilterMgr (sword::FMT_PLAIN));
+    std::cout << "Initalized, proceeding to shell..." << std::endl;
+    clearScreen();
+}
+
+void Interface::configLines() {
+    int colCount = 0;
+    int maxLine = 1000;
+    int lineCount = 0;
+  
     for(int i = maxLine; i >= 1; i--) {
      std::cout << i << std::endl;
     }
@@ -50,13 +61,8 @@ void Interface::initalize() {
     
     lineCount = atoi(input.c_str());
     this->screenSize = lineCount + 1;
-    
-    clearScreen();
-    std::cout  << "Initalizing SWORD, please wait..." << std::endl;
-    this->swordLibrary = new sword::SWMgr(new sword::MarkupFilterMgr (sword::FMT_PLAIN));
-    std::cout << "Initalized, proceeding to shell..." << std::endl;
-    clearScreen();
 }
+
 
 void Interface::clearScreen() {
     for (int i = 0; i <= this->screenSize; i++) {
@@ -72,14 +78,14 @@ void Interface::displayPrompt() {
     std::cout << "Enter a command (? for help): ";
 }
 
-void Interface::displaySpacer() {
-   for(int i = 1; i <= this->screenSize - 2; i++) {
+void Interface::displaySpacer(int spacing) {
+   for(int i = 1; i <= this->screenSize - (spacing + 2); i++) {
         std::cout << std::endl;
     }    
 }
 
 std::string Interface::processCommand (std::string command) {
-    std::string validCommands[2];
+    std::string validCommands[3];
     std::string text = "";
     std::string ref = "";
     Passage pass;
@@ -87,6 +93,7 @@ std::string Interface::processCommand (std::string command) {
 
     validCommands[0] = "quit";
     validCommands[1] = "show";
+    validCommands[2] = "?";
 
     if (command == validCommands[0]) {
         return command;
@@ -108,14 +115,31 @@ std::string Interface::processCommand (std::string command) {
         clearScreen();
         displayHeader();
         std::cout << text << std::endl;
+	//displaySpacer(10);
         std::cout << "Press enter to continue";
         std::getline (std::cin, dummy);
         return command;
 
+    } else if(command == validCommands[2]) {
+	displayHelp();
+	return command;
     } else {
         //Invalid command head out.
         return "-1";
     }
+}
+
+void Interface::displayHelp() {
+  clearScreen();
+  displayHeader();
+  std::cout << "Valid Commands are:" << std::endl;
+  std::cout << "show reference" << std::endl;
+  std::cout << "Displays the bible reference" << std::endl;
+  std::cout << "quit" << std::endl;
+  std::cout << "Exits program" << std::endl;
+  std::cout << "?" << std::endl;
+  std::cout << "Shows this message" << std::endl;
+  displaySpacer(6);
 }
 
 int Interface::runInterface() {
@@ -136,9 +160,13 @@ int Interface::runInterface() {
         command = processCommand (command);
 
         if (command == "-1") {
-            std::string dummy;
+	    std::string dummy;
+	    
+	    clearScreen();
+	    displayHeader();
             std::cerr << "Error! invalid command! (Try ?)" << std::endl;
-            std::cout << "Press enter to try again." << std::endl;
+	    displaySpacer(1);
+            std::cout << "Press enter to try again.";
             std::getline (std::cin, dummy);
         } else if (command == "-2") {
             //Specified module not found, since we can't install yet bail out
@@ -154,5 +182,6 @@ int Interface::runInterface() {
         std::getline (std::cin, command);
     }
 
+    clearScreen();
     return returnCode;
 }

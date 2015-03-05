@@ -32,11 +32,16 @@ public:
 
 private:
     void showWork();
+    
     void displayHeader();
     void displayPrompt();
-    void displaySpacer();
+    void displaySpacer(int spacing = 0);
+    void displayHelp();
     void clearScreen();
+    
     void initalize();
+    void configLines();
+    
     std::string processCommand(std::string command);
     
     int screenSize;
