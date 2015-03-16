@@ -20,27 +20,43 @@
  */
 
 #include "library.h"
-#include <swmgr.h>
-#include <markupfiltmgr.h>
+
 #include <string>
-#include <list>
+// #include <iostream>
 
-Library::Library()
-{
-    sword::SWMgr lib(new sword::MarkupFilterMgr(sword::FMT_PLAIN));
-    this->bibles = lib;
+#include <swmgr.h>
+#include <swmodule.h>
 
+// Library::Library()
+// {
+// }
+
+// Library::~Library()
+// {
+// 
+// }
+
+std::string Library::getBibles() {
+  std::string moduleList = "";
+  std::string bibleType = "Biblical Texts";
+  std::string moduleType = "";
+  sword::ModMap::iterator libraryIterator;
+  
+  for(libraryIterator = swordLibrary->Modules.begin();
+      libraryIterator != swordLibrary->Modules.end();
+      libraryIterator++) {
+    sword::SWModule *tempMod = libraryIterator->second;
+//     std::cerr << "Work of name: " << tempMod->getName() << " is of type:#" << tempMod->getType() << "#";
+    moduleType = tempMod->getType();
+    if(moduleType == bibleType) {
+      moduleList += tempMod->getName();
+      moduleList += " ";
+//       std::cerr << "matched bible!" << std::endl;
+    }
+  }
+  return moduleList;
 }
 
-Library::~Library()
-{
-
+void Library::setSwordLibrary(sword::SWMgr *library) {
+  this->swordLibrary = library;
 }
-
-std::list Library::getBibles()
-{
-  std::list<std::string> theList;
-  theList = this->bibles.Modules;
-  return theList;
-}
-

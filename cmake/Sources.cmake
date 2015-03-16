@@ -1,9 +1,14 @@
-﻿SET (backend_src ${CMAKE_CURRENT_SOURCE_DIR}/src/back/passage.cpp
-		 
+﻿SET (backend_src ${CMAKE_CURRENT_SOURCE_DIR}/src/back/library.cpp
+		 ${CMAKE_CURRENT_SOURCE_DIR}/src/back/passage.cpp		 
 )
+
 source_group("backend_src" FILES ${backend_src})
 
-SET (frontend_src ${CMAKE_CURRENT_SOURCE_DIR}/src/front/interface.cpp)
+SET (frontend_src ${CMAKE_CURRENT_SOURCE_DIR}/src/front/parser.cpp
+		  ${CMAKE_CURRENT_SOURCE_DIR}/src/front/interface.cpp		
+  
+)
+
 source_group("frontend_src" FILES ${frontend_src})
 
 SET (main_src ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
