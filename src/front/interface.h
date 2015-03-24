@@ -44,6 +44,8 @@ private:
     std::string processCommand(std::string command);
     
     int screenSize;
+    
+    std::string selectedVersion;
     sword::SWMgr *swordLibrary;
     
 };

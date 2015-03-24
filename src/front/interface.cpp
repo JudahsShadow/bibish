@@ -29,16 +29,6 @@
 #include "../back/passage.h"
 #include "../back/library.h"
 
-// void Interface::() const
-// {
-//
-// }
-
-// void Interface::() const
-// {
-//
-// }
-
 void Interface::initalize() {
     configLines();
     clearScreen();
@@ -115,7 +105,17 @@ std::string Interface::processCommand (std::string command) {
         ref = command.substr (5, command.length());
 
         pass.setLibrary(this->swordLibrary);
-        pass.setVersion ("ESV");
+        //pass.setVersion ("ESV");
+        if (selectedVersion == "") {
+            std::string dummy;
+            
+            std::cerr <<  "Error: No version selected. (Try list)";
+            std::cerr << std::endl;
+            std::cerr <<  "Press enter to continue." <<  std::endl;
+            std::getline(std::cin, dummy);
+            return command;
+        }
+        pass.setVersion(selectedVersion);
         text = pass.getText (ref);
 
         if (text == "-1") {
@@ -136,20 +136,51 @@ std::string Interface::processCommand (std::string command) {
         displayHelp();
         return command;
         
-    } else if(command.substr(0, 4) == validCommands[3]) {
-        tempBibles = library.getBibles();
+    } else if(command == validCommands[3]) {
         std::string selectedBible = "";
+        int numBibles = 0;
         
         library.setSwordLibrary(swordLibrary);
+        tempBibles = library.getBibles();
         bibles = worksParser.tokenize(tempBibles);
-
-        for(std::list<std::string>::iterator i = bibles.begin();
-                i != bibles.end(); i++) {
-
+        
+        if (bibles.size() ==  0) {
+            std::cerr <<  "No bibles found, please install in another frontend";
+            std::cerr <<  std::endl;
+            return "-3";
+        } else {
+            numBibles = bibles.size();
+        }
+        
+//         clearScreen();
+//         displayHeader();
+        std::string curBible;
+        while (!bibles.empty()) {
+            curBible = bibles.front();
+            std::cout << "Bible = " <<  curBible;
+            std::cout << std::endl;
+            bibles.pop_front();
+        }
+        displaySpacer(numBibles);
+        std::cout << "Select a bible from above: ";
+        getline(std::cin, selectedBible);
+        
+        if (selectedBible != "") {
+            selectedVersion = selectedBible;
+        }
+        else {
+            clearScreen();
+            displayHeader();
+            displaySpacer(3);
+            std::cerr << "No bible selected" << std::endl;
+            std::cerr << "Try command again" << std::endl;
+            std::string dummy;
+            std::getline(std::cin, dummy);
+            return command;
         }
 
-        clearScreen();
-        displayHeader();
+        //clearScreen();
+        //displayHeader();
         return command;
     } else {
         //Invalid command head out.
@@ -202,6 +233,10 @@ int Interface::runInterface() {
             //Specified module not found, since we can't install yet bail out
             std::cerr << "Module not found. Aborting.." << std::endl;
             returnCode = -1;
+            break;
+        } else if (command ==  "-3") {
+            returnCode = -2;
+            std::cerr <<  "No modules found. Aborting.." <<  std::endl;
             break;
         }
 
