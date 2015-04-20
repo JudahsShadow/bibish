@@ -25,7 +25,7 @@
 #include <sstream>
 
 Parser::Parser() {
-
+    argumentCount = 0;
 }
 
 Parser::~Parser() {
@@ -36,11 +36,55 @@ int Parser::getNumberArguments() {
     return argumentCount;
 }
 
+std::list< std::string > Parser::parseCommand(std::string command) {
+    std::list<std::string> tokenizedCommand;
+    std::string commandPart;
+    std::list<std::string> argumentPart;
+    std::list<std::string> parsedCommand;
+    
+    parsedCommand.clear();
+    argumentPart.clear();
+    
+    tokenizedCommand = tokenize(command);
+    
+    commandPart = tokenizedCommand.front();
+    tokenizedCommand.pop_front();
+    
+    parsedCommand.push_back(commandPart);
+    
+    if (tokenizedCommand.empty()) {
+        argumentCount = 0;
+        return parsedCommand;
+    } else {
+        argumentPart = tokenizedCommand;
+    }
+    
+    if (commandPart == ("show")) {
+        // TODO:Don't hardcode this  all we should have to parse is 
+        //making sure all the components of the argument
+        // are one for passing back to the interface
+        
+        while (!argumentPart.empty()) {
+            parsedCommand.push_back(argumentPart.front());
+            argumentPart.pop_front();
+        }
+    }
+    else if (commandPart == "select") {
+        //select has only one argument, stick it in line and ignore the rest
+        parsedCommand.push_back(argumentPart.front());
+    }
+    return parsedCommand;
+}
+
+
 std::list<std::string> Parser::tokenize(std::string string) {
   tokens.clear();
-  tokens = split(string);
-  
-  return tokens;
+  if(string == "") {
+      return tokens;
+  } else {
+      tokens = split(string);
+      return tokens;
+  }
 }
 
 std::list<std::string> Parser::split(std::string string) {

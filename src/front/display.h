@@ -1,11 +1,11 @@
-﻿/*
+/*
  * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
  * inspired by debian's bible package
  * Copyright (C) 2015  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; version 2 of the License
+ * the Free Software Foundation; version 2 of the License.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -18,29 +18,23 @@
  *
  */
 
-#ifndef INTERFACE_H
-#define INTERFACE_H
+#ifndef DISPLAY_H
+#define DISPLAY_H
 
-#include <string>
+#include <sys/types.h>
 
-#include <swmgr.h>
+class Display {
+    public:
+        void displayHeader();
+        void displayPrompt();
+        void displaySpacer(int spacing = 0);
+        void displayHelp();
+        void clearScreen();
+        void setSize(uint size);
+        uint getSize();
+    private:
+        uint screenSize;
 
-#include "display.h"
-
-class Interface {
-public:
-    int runInterface();
-
-private:
-    void initalize();
-    void configLines();
-    
-    std::string processCommand(std::string command);
-    
-    std::string selectedVersion;
-    sword::SWMgr *swordLibrary;
-    Display display;
-    
 };
 
-#endif // INTERFACE_H
+#endif // DISPLAY_H

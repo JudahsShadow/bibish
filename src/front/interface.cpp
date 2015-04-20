@@ -20,30 +20,32 @@
 #include <iostream>
 #include <string>
 #include <list>
+#include <sys/types.h>
 
 #include <swmgr.h>
 #include <markupfiltmgr.h>
 
 #include "interface.h"
 #include "parser.h"
+#include "display.h"
 #include "../back/passage.h"
 #include "../back/library.h"
 
 void Interface::initalize() {
     configLines();
-    clearScreen();
+//     display.clearScreen();
 
     std::cout  << "Initalizing SWORD, please wait..." << std::endl;
     this->swordLibrary = new sword::SWMgr(new sword::MarkupFilterMgr
                                           (sword::FMT_PLAIN));
     std::cout << "Initalized, proceeding to shell..." << std::endl;
-    clearScreen();
+//     display.clearScreen();
 }
 
 void Interface::configLines() {
-    int colCount = 0;
-    int maxLine = 1000;
-    int lineCount = 0;
+//     int colCount = 0;
+    uint maxLine = 1000;
+    uint lineCount = 0;
 
     for(int i = maxLine; i >= 1; i--) {
         std::cout << i << std::endl;
@@ -54,32 +56,11 @@ void Interface::configLines() {
     std::getline(std::cin, input);
 
     lineCount = atoi(input.c_str());
-    this->screenSize = lineCount + 1;
+    display.setSize(lineCount + 1);
 }
 
-
-void Interface::clearScreen() {
-    for (int i = 0; i <= this->screenSize; i++) {
-        std::cout << std::endl;
-    }
-}
-
-void Interface::displayHeader() {
-    std::cout << "Welcome to BIBISH" << std::endl;
-}
-
-void Interface::displayPrompt() {
-    std::cout << "Enter a command (? for help): ";
-}
-
-void Interface::displaySpacer(int spacing) {
-    for(int i = 1; i <= this->screenSize - (spacing + 2); i++) {
-        std::cout << std::endl;
-    }
-}
-
-std::string Interface::processCommand (std::string command) {
-    std::string validCommands[4];
+std::string Interface::processCommand(std::string command) {
+    std::string validCommands[5];
     std::string text = "";
     std::string ref = "";
 
@@ -88,166 +69,155 @@ std::string Interface::processCommand (std::string command) {
     Parser commandParser;
     Parser worksParser;
 
-    int commandLength = command.length();
+    std::string commandPart;
+
     std::list<std::string> bibles;
+    std::list<std::string> parsedCommand;
+
+    parsedCommand = commandParser.parseCommand(command);
+    commandPart = parsedCommand.front();
+    parsedCommand.pop_front();
 
     std::string tempBibles;
 
     validCommands[0] = "quit";
     validCommands[1] = "show";
     validCommands[2] = "?";
-    validCommands[3]  = "list";
+    validCommands[3] = "list";
+    validCommands[4] = "select";
 
-    if (command == validCommands[0]) {
-        return command;
+    if(commandPart == validCommands[0]) {
+        return commandPart;
 
-    } else if (command.substr (0, 4) == validCommands[1]) {
-        ref = command.substr (5, command.length());
-
+    } else if(commandPart == validCommands[1]) {
         pass.setLibrary(this->swordLibrary);
-        //pass.setVersion ("ESV");
-        if (selectedVersion == "") {
-            std::string dummy;
-            
-            std::cerr <<  "Error: No version selected. (Try list)";
-            std::cerr << std::endl;
-            std::cerr <<  "Press enter to continue." <<  std::endl;
-            std::getline(std::cin, dummy);
-            return command;
-        }
-        pass.setVersion(selectedVersion);
-        text = pass.getText (ref);
+        int errSpaces = 0;
 
-        if (text == "-1") {
+        if(parsedCommand.empty()) {
+            display.displayHeader();
+            std::cout <<  "No reference Specified";
+            std::cout << std::endl;
+//             display.displaySpacer(1);
+            errSpaces++;
+        } else {
+            ref = parsedCommand.front();
+        }
+
+        if(selectedVersion == "") {
+            errSpaces++;
+            std::cerr <<  "Error: No version selected. (Try select)";
+            std::cerr << std::endl;
+            display.displaySpacer(errSpaces);
+            return commandPart;
+        }
+
+        pass.setVersion(selectedVersion);
+
+        text = pass.getText(ref);
+
+        if(text == "-1") {
             //Module not found error clear out for now
             return "-2";
         }
 
         std::string dummy = "";
-        clearScreen();
-        displayHeader();
+        display.displayHeader();
         std::cout << text << std::endl;
-        //displaySpacer(10);
-        std::cout << "Press enter to continue";
-        std::getline (std::cin, dummy);
-        return command;
-
-    } else if(command == validCommands[2]) {
-        displayHelp();
-        return command;
-        
-    } else if(command == validCommands[3]) {
-        std::string selectedBible = "";
+        display.displaySpacer(errSpaces);
+        return commandPart;
+    } else if(commandPart == validCommands[2]) {
+        display.displayHelp();
+        return commandPart;
+    } else if(commandPart == validCommands[3]) {
         int numBibles = 0;
-        
+
         library.setSwordLibrary(swordLibrary);
         tempBibles = library.getBibles();
         bibles = worksParser.tokenize(tempBibles);
         
-        if (bibles.size() ==  0) {
+        if(bibles.empty()) {
             std::cerr <<  "No bibles found, please install in another frontend";
             std::cerr <<  std::endl;
+            display.displaySpacer(1);
             return "-3";
-        } else {
-            numBibles = bibles.size();
+        }
+        else {
+            numBibles = 0;
         }
         
-//         clearScreen();
-//         displayHeader();
         std::string curBible;
-        while (!bibles.empty()) {
+
+        while(!bibles.empty()) {
             curBible = bibles.front();
-            std::cout << "Bible = " <<  curBible;
+            std::cout <<  curBible;
             std::cout << std::endl;
             bibles.pop_front();
         }
-        displaySpacer(numBibles);
-        std::cout << "Select a bible from above: ";
-        getline(std::cin, selectedBible);
-        
-        if (selectedBible != "") {
-            selectedVersion = selectedBible;
+
+        display.displaySpacer(numBibles + 1);
+
+        return commandPart;
+    } else if (commandPart == validCommands[4]) {
+        //TODO: Stop assuming bibles here then handle actual arguments
+        std::string selectedWork;
+       
+        if(parsedCommand.empty()) {
+            std::cerr << "No module provided (Try list)" << std::endl;
+            display.displaySpacer(1);
         }
         else {
-            clearScreen();
-            displayHeader();
-            displaySpacer(3);
-            std::cerr << "No bible selected" << std::endl;
-            std::cerr << "Try command again" << std::endl;
-            std::string dummy;
-            std::getline(std::cin, dummy);
-            return command;
+            selectedWork =  parsedCommand.front();
+            selectedVersion = selectedWork;
         }
-
-        //clearScreen();
-        //displayHeader();
-        return command;
-    } else {
+        return commandPart;
+    }
+    else {
         //Invalid command head out.
         return "-1";
     }
 }
 
-void Interface::displayHelp() {
-    clearScreen();
-    displayHeader();
-    std::cout << "Valid Commands are:" << std::endl;
-    std::cout << "show reference" << std::endl;
-    std::cout << "Displays the bible reference" << std::endl;
-    std::cout << "quit" << std::endl;
-    std::cout <<  "list" << std::endl;
-    std::cout <<  "lists available bibles" <<  std::endl;
-    std::cout << "Exits program" << std::endl;
-    std::cout << "?" << std::endl;
-    std::cout << "Shows this message" << std::endl;
-    displaySpacer(6);
-}
-
 int Interface::runInterface() {
     int returnCode = 0;
-    std::string command;
+    std::string command = "";
 
     //Initialize the interface
     initalize();
-    clearScreen();
-    command = "";
-    displayHeader();
-    displaySpacer();
-    displayPrompt();
-    std::getline (std::cin, command);
+    display.clearScreen();
+    display.displayHeader();
+    display.displaySpacer();
+    display.displayPrompt();
+    std::getline(std::cin, command);
 
     //main program loop keep going until a quit command is given
-    while (command != "quit") {
-        command = processCommand (command);
+    while(command != "quit") {
+        display.clearScreen();
+        display.displayHeader();
+        command = processCommand(command);
 
-        if (command == "-1") {
-            std::string dummy;
+        if(command == "-1") {
+//             std::string dummy;
 
-            clearScreen();
-            displayHeader();
+//             display.displayHeader();
             std::cerr << "Error! invalid command! (Try ?)" << std::endl;
-            displaySpacer(1);
-            std::cout << "Press enter to try again.";
-            std::getline (std::cin, dummy);
-        } else if (command == "-2") {
+            display.displaySpacer(1);
+//             display.displayPrompt();
+//             std::getline(std::cin, command);
+        } else if(command == "-2") {
             //Specified module not found, since we can't install yet bail out
             std::cerr << "Module not found. Aborting.." << std::endl;
             returnCode = -1;
             break;
-        } else if (command ==  "-3") {
+        } else if(command ==  "-3") {
             returnCode = -2;
             std::cerr <<  "No modules found. Aborting.." <<  std::endl;
             break;
         }
 
-        clearScreen();
-        displayHeader();
-        displaySpacer();
-        displayPrompt();
-        std::getline (std::cin, command);
+        display.displayPrompt();
+        std::getline(std::cin, command);
     }
 
-    clearScreen();
     delete this->swordLibrary;
     return returnCode;
 }

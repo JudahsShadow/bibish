@@ -4,7 +4,8 @@
 
 source_group("backend_src" FILES ${backend_src})
 
-SET (frontend_src ${CMAKE_CURRENT_SOURCE_DIR}/src/front/parser.cpp
+SET (frontend_src ${CMAKE_CURRENT_SOURCE_DIR}/src/front/display.cpp
+                  ${CMAKE_CURRENT_SOURCE_DIR}/src/front/parser.cpp
 		  ${CMAKE_CURRENT_SOURCE_DIR}/src/front/interface.cpp		
   
 )
