@@ -23,4 +23,4 @@ Type=GCC
 VersionControlSupport=kdevgit
 
 [SourceFileTemplates]
-LastUsedTemplate=/home/david/.local/share/kdevfiletemplates/template_descriptions/cpp_basic.desktop
+LastUsedTemplate=/home/david/.kde4/share/apps/kdevfiletemplates/template_descriptions/cpp_basic.desktop
