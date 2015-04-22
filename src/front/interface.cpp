@@ -26,10 +26,10 @@
 #include <markupfiltmgr.h>
 
 #include "interface.h"
-#include "parser.h"
 #include "display.h"
 #include "../back/passage.h"
 #include "../back/library.h"
+#include "../back/parser.h"
 
 void Interface::initalize() {
     configLines();

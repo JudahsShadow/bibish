@@ -20,7 +20,7 @@
 
 #include "pager.h"
 
-#include "../front/parser.h"
+#include "../back/parser.h"
 
 #include <sys/types.h>
 #include <string>
