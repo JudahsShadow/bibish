@@ -58,13 +58,16 @@ std::list< std::list<std::string> > Pager::getPagedText(std::string text) {
     while(!words.empty()) {
         currentWord = words.front();
         words.pop_front();
-        colCount += currentWord.length() + 2; //+2 for spaces before and after
-        if(colCount <= width) {
-            //TODO:Do Stuff
+        if(colCount + currentWord.length() + 1 <= width) {
+            currentPage.push_back(currentWord);
+            colCount += currentWord.length() + 1; //+1 for space
         } else {
-            //TODO: Do other stuff
+            //TODO: Do stuff about words that are by themselves longer than
+            //TODO the width.
+            pagedText.push_back(currentPage);
+            currentPage.clear();
+            colCount = 0;
         }
-        
     }
     
     return pagedText;
