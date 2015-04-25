@@ -27,9 +27,11 @@
 
 #include "interface.h"
 #include "display.h"
+#include "pager.h"
 #include "../back/passage.h"
 #include "../back/library.h"
 #include "../back/parser.h"
+#include "../back/types.h"
 
 void Interface::initalize() {
     configLines();
@@ -120,10 +122,46 @@ std::string Interface::processCommand(std::string command) {
             return "-2";
         }
 
-        std::string dummy = "";
-        display.displayHeader();
-        std::cout << text << std::endl;
-        display.displaySpacer(errSpaces);
+//         display.displayHeader();
+//         std::cout << text << std::endl;
+//         display.displaySpacer(errSpaces);
+        std::string dummy;
+
+        Pager textPager;
+        textPager.setSize(display.getSize());
+        std::list<page> pagedText;
+        page curPage;
+        line curLine;
+        std::string displayText;
+        pagedText = textPager.getPagedText(text);
+        int numPages = pagedText.size();
+
+        while(!pagedText.empty()) {
+            curPage = pagedText.front();
+            displayText = "";
+            int numLines = curPage.size();
+            while(!curPage.empty()) {
+                std::string curWord;
+                curLine = curPage.front();
+                while(!curLine.empty()) {
+                    curWord = curLine.front();
+                    displayText += curWord;
+                    displayText += " ";
+                    curLine.pop_front();
+                    curWord = "";
+                }
+                curPage.pop_front();
+            }
+            pagedText.pop_front();
+            std::cout << displayText;
+            std::cout << std::endl;
+            if(numPages > 1) {
+                std::string dummy = "";
+                std::cout << "Press enter for next page";
+                getline(std::cin,dummy);
+            }
+            display.displaySpacer(numLines);
+        }
         return commandPart;
     } else if(commandPart == validCommands[2]) {
         display.displayHelp();
@@ -134,7 +172,7 @@ std::string Interface::processCommand(std::string command) {
         library.setSwordLibrary(swordLibrary);
         tempBibles = library.getBibles();
         bibles = worksParser.tokenize(tempBibles);
-        
+
         if(bibles.empty()) {
             std::cerr <<  "No bibles found, please install in another frontend";
             std::cerr <<  std::endl;
@@ -144,7 +182,7 @@ std::string Interface::processCommand(std::string command) {
         else {
             numBibles = 0;
         }
-        
+
         std::string curBible;
 
         while(!bibles.empty()) {
@@ -160,7 +198,7 @@ std::string Interface::processCommand(std::string command) {
     } else if (commandPart == validCommands[4]) {
         //TODO: Stop assuming bibles here then handle actual arguments
         std::string selectedWork;
-       
+
         if(parsedCommand.empty()) {
             std::cerr << "No module provided (Try list)" << std::endl;
             display.displaySpacer(1);

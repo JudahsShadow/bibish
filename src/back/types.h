@@ -18,26 +18,13 @@
  *
  */
 
-#ifndef PAGER_H
-#define PAGER_H
+#ifndef TYPES_H
+#define TYPES_H
 
-#include "../back/types.h"
-
-#include <sys/types.h>
 #include <string>
 #include <list>
 
-class Pager
-{
-public:
-    Pager();
-    ~Pager();
+typedef std::list<std::string> line;
+typedef std::list<line> page;
 
-    void setSize(uint rowSize,uint colSize = 80);
-    std::list<page> getPagedText(std::string text);
-private:
-    uint lines;
-    uint cols;
-};
-
-#endif // PAGER_H
+#endif // TYPES_H

@@ -63,11 +63,12 @@ std::list< std::string > Parser::parseCommand(std::string command) {
         // TODO:Don't hardcode this  all we should have to parse is 
         //making sure all the components of the argument
         // are one for passing back to the interface
-        
+        std::string reference = "";
         while (!argumentPart.empty()) {
-            parsedCommand.push_back(argumentPart.front());
+            reference += argumentPart.front();
             argumentPart.pop_front();
         }
+        parsedCommand.push_back(reference);
     }
     else if (commandPart == "select") {
         //select has only one argument, stick it in line and ignore the rest

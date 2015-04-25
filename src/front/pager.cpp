@@ -21,6 +21,7 @@
 #include "pager.h"
 
 #include "../back/parser.h"
+#include "../back/types.h"
 
 #include <sys/types.h>
 #include <string>
@@ -33,43 +34,59 @@ Pager::Pager()
     this->lines = 0;
 }
 
-// Pager::~Pager()
-// {
-//
-// }
+Pager::~Pager()
+{
+
+}
 
 //This bad boy takes a raw string, and breaks it down into a list of
 //of lists (pages) of strings (lines).
-std::list< std::list<std::string> > Pager::getPagedText(std::string text) {
+std::list<page> Pager::getPagedText(std::string text) {
     uint width = this->cols;
     uint pageSize = this->lines;
-    int pageCount = 0;
+    int lineCount = 0;
     int colCount = 0;
-    
+
     Parser stringTokenizer;
     std::list<std::string> words;
     std::string currentWord;
-    
-    std::list<std::string> currentPage;
-    std::list<std::list <std::string> > pagedText;
-    
+
+    line currentLine;
+    page currentPage;
+    std::list<page> pagedText;
+
     words = stringTokenizer.tokenize(text);
-    
+
     while(!words.empty()) {
         currentWord = words.front();
         words.pop_front();
         if(colCount + currentWord.length() + 1 <= width) {
-            currentPage.push_back(currentWord);
+            currentLine.push_back(currentWord);
             colCount += currentWord.length() + 1; //+1 for space
         } else {
             //TODO: Do stuff about words that are by themselves longer than
             //TODO the width.
+            currentPage.push_back(currentLine);
+            currentLine.clear();
+            colCount = 0;
+            lineCount++;
+        }
+        if(lineCount > pageSize + 3) {
             pagedText.push_back(currentPage);
             currentPage.clear();
-            colCount = 0;
         }
     }
-    
+    //Check to see if we have any lines that didn't get pushed due to being
+    //of size < width
+    if(currentLine.size() > 0) {
+        currentPage.push_back(currentLine);
+        currentLine.clear();
+    }
+    if(currentPage.size() > 0) {
+        pagedText.push_back(currentPage);
+        currentPage.clear();
+    }
+
     return pagedText;
 }
 

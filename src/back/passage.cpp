@@ -63,7 +63,7 @@ std::string Passage::getText (std::string reference) {
     //Module variables
     sword::SWModule *module;
     sword::VerseKey key;
-    
+
     module = this->swordLibrary->getModule(this->version.c_str());
     if(!module) {
         std::cerr << this->version;
@@ -74,7 +74,7 @@ std::string Passage::getText (std::string reference) {
     }
 
     refRange = key.parseVerseList(reference.c_str(), key, true);
-    for (refRange = sword::TOP; !refRange.popError(); refRange++) {
+    for(refRange = sword::TOP; !refRange.popError(); refRange++) {
         module->setKey (refRange);
         text += module->getKeyText();
         text += " ";

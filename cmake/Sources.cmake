@@ -1,4 +1,4 @@
-﻿SET (backend_src ${CMAKE_CURRENT_SOURCE_DIR}/src/front/parser.cpp
+﻿SET (backend_src ${CMAKE_CURRENT_SOURCE_DIR}/src/back/parser.cpp
                  ${CMAKE_CURRENT_SOURCE_DIR}/src/back/library.cpp
 		 ${CMAKE_CURRENT_SOURCE_DIR}/src/back/passage.cpp		
  
