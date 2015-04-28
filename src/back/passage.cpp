@@ -76,6 +76,8 @@ std::string Passage::getText (std::string reference) {
     refRange = key.parseVerseList(reference.c_str(), key, true);
     for(refRange = sword::TOP; !refRange.popError(); refRange++) {
         module->setKey (refRange);
+        text += " "; //TODO: Fix this to show the book name on the first verse
+        //TODO: show chap and verse only after the first verse
         text += module->getKeyText();
         text += " ";
         text += module->renderText();

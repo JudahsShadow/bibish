@@ -135,21 +135,25 @@ std::string Interface::processCommand(std::string command) {
         std::string displayText;
         pagedText = textPager.getPagedText(text);
         int numPages = pagedText.size();
+        int numLines = 0;
 
         while(!pagedText.empty()) {
             curPage = pagedText.front();
             displayText = "";
-            int numLines = curPage.size();
+            numLines = curPage.size();
             while(!curPage.empty()) {
                 std::string curWord;
                 curLine = curPage.front();
                 while(!curLine.empty()) {
                     curWord = curLine.front();
+                    if(curWord != "") {
                     displayText += curWord;
                     displayText += " ";
+                    }
                     curLine.pop_front();
                     curWord = "";
                 }
+                displayText += "\n";
                 curPage.pop_front();
             }
             pagedText.pop_front();
@@ -158,9 +162,11 @@ std::string Interface::processCommand(std::string command) {
             if(numPages > 1) {
                 std::string dummy = "";
                 std::cout << "Press enter for next page";
+//                 std::cout << std::endl;
                 getline(std::cin,dummy);
+                display.clearScreen();
             }
-            display.displaySpacer(numLines);
+            //display.displaySpacer(numLines);
         }
         return commandPart;
     } else if(commandPart == validCommands[2]) {

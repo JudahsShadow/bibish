@@ -60,24 +60,32 @@ std::list<page> Pager::getPagedText(std::string text) {
     while(!words.empty()) {
         currentWord = words.front();
         words.pop_front();
+        if(currentWord == "\n") {
+            //Flush the line if we encounter a newline in the text
+            currentPage.push_back(currentLine);
+            currentWord = "endl!\n";
+            currentLine.clear();
+            lineCount++;
+        }
         if(colCount + currentWord.length() + 1 <= width) {
             currentLine.push_back(currentWord);
             colCount += currentWord.length() + 1; //+1 for space
+            currentWord = "";
         } else {
             //TODO: Do stuff about words that are by themselves longer than
             //TODO the width.
             currentPage.push_back(currentLine);
             currentLine.clear();
-            colCount = 0;
+            currentLine.push_back(currentWord);
+            colCount = currentWord.length() + 1;
             lineCount++;
         }
-        if(lineCount > pageSize + 3) {
+        if(lineCount >= pageSize - 3) {
             pagedText.push_back(currentPage);
             currentPage.clear();
         }
     }
-    //Check to see if we have any lines that didn't get pushed due to being
-    //of size < width
+    //Check to see if we have any lines that didn't get pushed and flush them in
     if(currentLine.size() > 0) {
         currentPage.push_back(currentLine);
         currentLine.clear();
