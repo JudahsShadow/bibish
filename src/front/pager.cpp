@@ -63,9 +63,18 @@ std::list<page> Pager::getPagedText(std::string text) {
         if(currentWord == "\n") {
             //Flush the line if we encounter a newline in the text
             currentPage.push_back(currentLine);
-            currentWord = "endl!\n";
             currentLine.clear();
             lineCount++;
+            currentWord = "";
+        }
+        if(currentWord == "\n\n") {
+           currentPage.push_back(currentLine);
+           currentLine.clear();
+           currentLine.push_back(" ");
+           currentPage.push_back(currentLine);
+           lineCount += 2;
+           currentLine.clear();
+           currentWord = "";
         }
         if(colCount + currentWord.length() + 1 <= width) {
             currentLine.push_back(currentWord);
@@ -83,6 +92,7 @@ std::list<page> Pager::getPagedText(std::string text) {
         if(lineCount >= pageSize - 3) {
             pagedText.push_back(currentPage);
             currentPage.clear();
+            lineCount = 0;
         }
     }
     //Check to see if we have any lines that didn't get pushed and flush them in
@@ -93,6 +103,7 @@ std::list<page> Pager::getPagedText(std::string text) {
     if(currentPage.size() > 0) {
         pagedText.push_back(currentPage);
         currentPage.clear();
+        lineCount = 0;
     }
 
     return pagedText;
