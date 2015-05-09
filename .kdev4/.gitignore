@@ -1,4 +1,4 @@
-build/
 *~
 *.lock
 BIBISH.kdev4
+BIBISH.kdev4.lock
