@@ -45,7 +45,6 @@ void Interface::initalize() {
 }
 
 void Interface::configLines() {
-//     int colCount = 0;
     uint maxLine = 1000;
     uint lineCount = 0;
 
@@ -99,7 +98,6 @@ std::string Interface::processCommand(std::string command) {
             display.displayHeader();
             std::cout <<  "No reference Specified";
             std::cout << std::endl;
-//             display.displaySpacer(1);
             errSpaces++;
         } else {
             ref = parsedCommand.front();
@@ -122,9 +120,6 @@ std::string Interface::processCommand(std::string command) {
             return "-2";
         }
 
-//         display.displayHeader();
-//         std::cout << text << std::endl;
-//         display.displaySpacer(errSpaces);
         std::string dummy;
 
         Pager textPager;
@@ -147,8 +142,8 @@ std::string Interface::processCommand(std::string command) {
                 while(!curLine.empty()) {
                     curWord = curLine.front();
                     if(curWord != "") {
-                    displayText += curWord;
-                    displayText += " ";
+                        displayText += curWord;
+                        displayText += " ";
                     }
                     curLine.pop_front();
                     curWord = "";
@@ -159,14 +154,14 @@ std::string Interface::processCommand(std::string command) {
             pagedText.pop_front();
             std::cout << displayText;
             std::cout << std::endl;
+            display.displaySpacer(numLines);
             if(numPages > 1) {
                 std::string dummy = "";
                 std::cout << "Press enter for next page";
-//                 std::cout << std::endl;
                 getline(std::cin,dummy);
                 display.clearScreen();
+                numLines = 0;
             }
-            //display.displaySpacer(numLines);
         }
         return commandPart;
     } else if(commandPart == validCommands[2]) {
@@ -212,6 +207,7 @@ std::string Interface::processCommand(std::string command) {
         else {
             selectedWork =  parsedCommand.front();
             selectedVersion = selectedWork;
+            display.displaySpacer();
         }
         return commandPart;
     }
