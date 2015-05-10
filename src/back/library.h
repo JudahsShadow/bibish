@@ -24,15 +24,14 @@
 #include <string>
 #include <swmgr.h>
 
-class Library
-{
-public:
-    //returns a space separated list of bibles in the current sword library
-    std::string getBibles();
+class Library {
+    public:
+        //returns a space separated list of bibles in the current sword library
+        std::string getBibles();
 
-    void setSwordLibrary(sword::SWMgr *library);
-private:
-  sword::SWMgr *swordLibrary;
+        void setSwordLibrary(sword::SWMgr *library);
+    private:
+        sword::SWMgr *swordLibrary;
 };
 
 #endif // LIBRARY_H

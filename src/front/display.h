@@ -21,7 +21,7 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
-#include <sys/types.h>
+#include "../back/types.h"
 
 class Display {
     public:

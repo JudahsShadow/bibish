@@ -27,4 +27,6 @@
 typedef std::list<std::string> line;
 typedef std::list<line> page;
 
+//convience type so the project doesn't have to depend on glibc
+typedef unsigned int uint;
 #endif // TYPES_H

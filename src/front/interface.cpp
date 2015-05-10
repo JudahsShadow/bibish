@@ -20,7 +20,6 @@
 #include <iostream>
 #include <string>
 #include <list>
-#include <sys/types.h>
 
 #include <swmgr.h>
 #include <markupfiltmgr.h>
@@ -35,13 +34,11 @@
 
 void Interface::initalize() {
     configLines();
-//     display.clearScreen();
 
     std::cout  << "Initalizing SWORD, please wait..." << std::endl;
     this->swordLibrary = new sword::SWMgr(new sword::MarkupFilterMgr
                                           (sword::FMT_PLAIN));
     std::cout << "Initalized, proceeding to shell..." << std::endl;
-//     display.clearScreen();
 }
 
 void Interface::configLines() {
@@ -236,13 +233,8 @@ int Interface::runInterface() {
         command = processCommand(command);
 
         if(command == "-1") {
-//             std::string dummy;
-
-//             display.displayHeader();
             std::cerr << "Error! invalid command! (Try ?)" << std::endl;
             display.displaySpacer(1);
-//             display.displayPrompt();
-//             std::getline(std::cin, command);
         } else if(command == "-2") {
             //Specified module not found, since we can't install yet bail out
             std::cerr << "Module not found. Aborting.." << std::endl;

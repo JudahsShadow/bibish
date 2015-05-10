@@ -31,21 +31,6 @@
 #include <versekey.h>
 #include <listkey.h>
 
-// void Passage::() const
-// {
-//
-// }
-//
-// void Passage::() const
-// {
-//
-// }
-
-// void Passage::setReference(std::string reference) {
-//     this->key = reference;
-//     this->key.setKey(reference);
-// }
-
 void Passage::setVersion (std::string version) {
     this->version = version;
 }

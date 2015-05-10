@@ -26,26 +26,27 @@
 #include <swmodule.h>
 
 std::string Library::getBibles() {
-  std::string moduleList = "";
-  std::string bibleType = "Biblical Texts";
-  std::string moduleType = "";
-  sword::ModMap::iterator libraryIterator;
+    std::string moduleList = "";
+    std::string bibleType = "Biblical Texts";
+    std::string moduleType = "";
+    sword::ModMap::iterator libraryIterator;
 
-  for(libraryIterator = swordLibrary->Modules.begin();
-      libraryIterator != swordLibrary->Modules.end();
-      libraryIterator++) {
-    sword::SWModule *tempMod = libraryIterator->second;
-//     std::cerr << "Work of name: " << tempMod->getName() << " is of type:#" << tempMod->getType() << "#";
-    moduleType = tempMod->getType();
-    if(moduleType == bibleType) {
-      moduleList += tempMod->getName();
-      moduleList += " ";
-//       std::cerr << "matched bible!" << std::endl;
+    for(libraryIterator = swordLibrary->Modules.begin();
+            libraryIterator != swordLibrary->Modules.end();
+            libraryIterator++) {
+
+        sword::SWModule *tempMod = libraryIterator->second;
+        moduleType = tempMod->getType();
+
+        if(moduleType == bibleType) {
+            moduleList += tempMod->getName();
+            moduleList += " ";
+        }
     }
-  }
-  return moduleList;
+
+    return moduleList;
 }
 
 void Library::setSwordLibrary(sword::SWMgr *library) {
-  this->swordLibrary = library;
+    this->swordLibrary = library;
 }

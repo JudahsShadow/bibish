@@ -1,7 +1,24 @@
-﻿SET (backend_src ${CMAKE_CURRENT_SOURCE_DIR}/src/back/parser.cpp
+﻿#BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
+#inspired by debian's bible package
+#Copyright (C) 2015  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
+#
+#This program is free software; you can redistribute it and/or modify
+#it under the terms of the GNU General Public License as published by
+#the Free Software Foundation version 2
+#
+#This program is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#GNU General Public License for more details.
+#
+#You should have received a copy of the GNU General Public License along
+#with this program; if not, write to the Free Software Foundation, Inc.,
+#51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+SET (backend_src ${CMAKE_CURRENT_SOURCE_DIR}/src/back/parser.cpp
                  ${CMAKE_CURRENT_SOURCE_DIR}/src/back/library.cpp
-		 ${CMAKE_CURRENT_SOURCE_DIR}/src/back/passage.cpp		
- 
+		 ${CMAKE_CURRENT_SOURCE_DIR}/src/back/passage.cpp
+
 )
 
 source_group("backend_src" FILES ${backend_src})
@@ -9,7 +26,7 @@ source_group("backend_src" FILES ${backend_src})
 SET (frontend_src ${CMAKE_CURRENT_SOURCE_DIR}/src/front/display.cpp
 		  ${CMAKE_CURRENT_SOURCE_DIR}/src/front/interface.cpp
 		  ${CMAKE_CURRENT_SOURCE_DIR}/src/front/pager.cpp
-  
+
 )
 
 source_group("frontend_src" FILES ${frontend_src})

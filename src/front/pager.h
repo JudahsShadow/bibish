@@ -23,21 +23,18 @@
 
 #include "../back/types.h"
 
-#include <sys/types.h>
 #include <string>
 #include <list>
 
-class Pager
-{
-public:
-    Pager();
-    ~Pager();
-
-    void setSize(uint rowSize,uint colSize = 80);
-    std::list<page> getPagedText(std::string text);
-private:
-    uint lines;
-    uint cols;
+class Pager {
+    public:
+        Pager();
+        ~Pager();
+        void setSize(uint rowSize,uint colSize = 80);
+        std::list<page> getPagedText(std::string text);
+    private:
+        uint lines;
+        uint cols;
 };
 
 #endif // PAGER_H

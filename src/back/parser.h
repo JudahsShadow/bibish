@@ -24,19 +24,17 @@
 #include <string>
 #include <list>
 
-class Parser
-{
-public:
-    Parser();
-    ~Parser();
-    int getNumberArguments();
-    std::list<std::string> tokenize(std::string string);
-    std::list<std::string> parseCommand(std::string command);
-private:
-    std::list<std::string> tokens;
-    int argumentCount;
-
-    std::list<std::string> split(std::string string);
+class Parser {
+    public:
+        Parser();
+        ~Parser();
+        int getNumberArguments();
+        std::list<std::string> tokenize(std::string string);
+        std::list<std::string> parseCommand(std::string command);
+    private:
+        std::list<std::string> tokens;
+        int argumentCount;
+        std::list<std::string> split(std::string string);
 };
 
 #endif // PARSER_H

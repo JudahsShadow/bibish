@@ -19,9 +19,9 @@
  */
 
 #include <iostream>
-#include <sys/types.h>
 
 #include "display.h"
+#include "../back/types.h"
 
 void Display::clearScreen() {
     for (int i = 0; i <= this->screenSize; i++) {

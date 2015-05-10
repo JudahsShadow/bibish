@@ -23,19 +23,16 @@
 #include "../back/parser.h"
 #include "../back/types.h"
 
-#include <sys/types.h>
 #include <string>
 #include <list>
 
 
-Pager::Pager()
-{
+Pager::Pager() {
     this->cols = 0;
     this->lines = 0;
 }
 
-Pager::~Pager()
-{
+Pager::~Pager() {
 
 }
 
@@ -60,6 +57,7 @@ std::list<page> Pager::getPagedText(std::string text) {
     while(!words.empty()) {
         currentWord = words.front();
         words.pop_front();
+
         if(currentWord == "\n") {
             //Flush the line if we encounter a newline in the text
             currentPage.push_back(currentLine);
@@ -67,39 +65,44 @@ std::list<page> Pager::getPagedText(std::string text) {
             lineCount++;
             currentWord = "";
         }
+
         if(currentWord == "\n\n") {
-           currentPage.push_back(currentLine);
-           currentLine.clear();
-           currentLine.push_back(" ");
-           currentPage.push_back(currentLine);
-           lineCount += 2;
-           currentLine.clear();
-           currentWord = "";
+            currentPage.push_back(currentLine);
+            currentLine.clear();
+            currentLine.push_back(" ");
+            currentPage.push_back(currentLine);
+            lineCount += 2;
+            currentLine.clear();
+            currentWord = "";
         }
+
         if(colCount + currentWord.length() + 1 <= width) {
             currentLine.push_back(currentWord);
             colCount += currentWord.length() + 1; //+1 for space
             currentWord = "";
         } else {
             //TODO: Do stuff about words that are by themselves longer than
-            //TODO the width.
+            //TODO: the width.
             currentPage.push_back(currentLine);
             currentLine.clear();
             currentLine.push_back(currentWord);
             colCount = currentWord.length() + 1;
             lineCount++;
         }
+
         if(lineCount >= pageSize - 3) {
             pagedText.push_back(currentPage);
             currentPage.clear();
             lineCount = 0;
         }
     }
+
     //Check to see if we have any lines that didn't get pushed and flush them in
     if(currentLine.size() > 0) {
         currentPage.push_back(currentLine);
         currentLine.clear();
     }
+
     if(currentPage.size() > 0) {
         pagedText.push_back(currentPage);
         currentPage.clear();

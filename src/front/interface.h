@@ -28,19 +28,18 @@
 #include "display.h"
 
 class Interface {
-public:
-    int runInterface();
+    public:
+        int runInterface();
 
-private:
-    void initalize();
-    void configLines();
+    private:
+        void initalize();
+        void configLines();
 
-    std::string processCommand(std::string command);
+        std::string processCommand(std::string command);
 
-    std::string selectedVersion;
-    sword::SWMgr *swordLibrary;
-    Display display;
-
+        std::string selectedVersion;
+        sword::SWMgr *swordLibrary;
+        Display display;
 };
 
 #endif // INTERFACE_H
