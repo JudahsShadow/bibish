@@ -1,0 +1,9 @@
+BIBISH Is [a] Bible Interactive SHell. It is a front-end to the SWORD Project
+library inspired by the bible package in Debian GNU/Linux. The basic commands
+are:
+
+quit - Exits the program.
+list - Lists installed modules (bibles by default).
+select - Selects a module for use.
+show - Shows a passage with the selected passage.
+help - Displays these commands and more.
