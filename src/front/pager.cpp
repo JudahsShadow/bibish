@@ -67,6 +67,7 @@ std::list<page> Pager::getPagedText(std::string text) {
         }
 
         if(currentWord == "\n\n") {
+            colCount = 0;
             currentPage.push_back(currentLine);
             currentLine.clear();
             currentLine.push_back(" ");
@@ -76,10 +77,50 @@ std::list<page> Pager::getPagedText(std::string text) {
             currentWord = "";
         }
 
+        if(currentWord.find("\n") != std::string::npos) {
+            int endlPos = 0;
+            endlPos = currentWord.find("\n");
+            if(endlPos != currentWord.back()) {
+                //we've not got a EOL newline, so we need to split it again :/
+                std::string preEndl = currentWord.substr(0, endlPos);
+                currentLine.push_back(preEndl);
+                currentPage.push_back(currentLine);
+                currentLine.clear();
+                colCount = 0;
+                lineCount++;
+
+                std::string postEndl = currentWord.substr(endlPos + 1);
+                currentWord = postEndl;
+            }
+        }
+
         if(colCount + currentWord.length() + 1 <= width) {
+            int newLineCount = 0;
+            int newLineLoc = 0;
+
+            //check for EOL or double EOL at the end of words
+            if(currentWord.find("\n") != std::string::npos) {
+                newLineCount++;
+                newLineLoc = currentWord.find("\n");
+                currentWord.replace(newLineLoc,1,"");
+                if(currentWord.find("\n") != std::string::npos) {
+                    newLineCount++;
+                    newLineLoc = currentWord.find("\n");
+                    currentWord.replace(newLineLoc,1,"");
+                }
+            }
             currentLine.push_back(currentWord);
             colCount += currentWord.length() + 1; //+1 for space
             currentWord = "";
+            if(newLineCount > 0) {
+                currentPage.push_back(currentLine);
+                currentLine.clear();
+                if(newLineCount > 1) {
+                    currentLine.push_back(" ");
+                    currentLine.clear();
+                }
+                lineCount += newLineCount;
+            }
         } else {
             //TODO: Do stuff about words that are by themselves longer than
             //TODO: the width.

@@ -53,7 +53,7 @@ void Interface::configLines() {
     std::string input;
     std::getline(std::cin, input);
 
-    lineCount = atoi(input.c_str());
+    lineCount = std::stoi(input);
     display.setSize(lineCount + 1);
 }
 
@@ -150,14 +150,13 @@ std::string Interface::processCommand(std::string command) {
             }
             pagedText.pop_front();
             std::cout << displayText;
-            std::cout << std::endl;
             display.displaySpacer(numLines);
             if(numPages > 1) {
                 std::string dummy = "";
                 std::cout << "Press enter for next page";
                 getline(std::cin,dummy);
                 display.clearScreen();
-                numLines = 0;
+                display.displayHeader();
             }
         }
         return commandPart;
@@ -190,7 +189,7 @@ std::string Interface::processCommand(std::string command) {
             bibles.pop_front();
         }
 
-        display.displaySpacer(numBibles + 1);
+        display.displaySpacer(numBibles + 2);
 
         return commandPart;
     } else if (commandPart == validCommands[4]) {
