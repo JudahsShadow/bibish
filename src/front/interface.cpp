@@ -58,6 +58,7 @@ void Interface::configLines() {
 }
 
 std::string Interface::processCommand(std::string command) {
+    //TODO: REFACTOR ME!!!!!!!!!!!!!!!!!!!!!!111111111111111111oneoneone
     std::string validCommands[5];
     std::string text = "";
     std::string ref = "";
@@ -85,8 +86,8 @@ std::string Interface::processCommand(std::string command) {
     validCommands[4] = "select";
 
     if(commandPart == validCommands[0]) {
+        //since we're quitting do nothing here
         return commandPart;
-
     } else if(commandPart == validCommands[1]) {
         pass.setLibrary(this->swordLibrary);
         int errSpaces = 0;
@@ -117,17 +118,17 @@ std::string Interface::processCommand(std::string command) {
             return "-2";
         }
 
-        std::string dummy;
-
         Pager textPager;
-        textPager.setSize(display.getSize());
         std::list<page> pagedText;
         page curPage;
         line curLine;
         std::string displayText;
-        pagedText = textPager.getPagedText(text);
-        int numPages = pagedText.size();
+        int numPages = 0;
         int numLines = 0;
+
+        textPager.setSize(display.getSize());
+        pagedText = textPager.getPagedText(text);
+        numPages = pagedText.size();
 
         while(!pagedText.empty()) {
             curPage = pagedText.front();
@@ -154,7 +155,7 @@ std::string Interface::processCommand(std::string command) {
             if(numPages > 1) {
                 std::string dummy = "";
                 std::cout << "Press enter for next page";
-                getline(std::cin,dummy);
+                std::getline(std::cin,dummy);
                 display.clearScreen();
                 display.displayHeader();
             }
