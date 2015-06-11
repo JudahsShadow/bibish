@@ -58,34 +58,24 @@ std::list<page> Pager::getPagedText(std::string text) {
         currentWord = words.front();
         words.pop_front();
 
-        if(currentWord == "\n") {
-            //Flush the line if we encounter a newline in the text
-            currentPage.push_back(currentLine);
-            currentLine.clear();
-            lineCount++;
-            currentWord = "";
+        if(currentWord == "") {
+            //We've got an empty word sometimes at the beginning of a passage
+            //ignore it and get the next one
+            currentWord = words.front();
+            words.pop_front();
         }
 
-        if(currentWord == "\n\n") {
-            colCount = 0;
-            currentPage.push_back(currentLine);
-            currentLine.clear();
-            currentLine.push_back(" ");
-            currentPage.push_back(currentLine);
-            lineCount += 2;
-            currentLine.clear();
-            currentWord = "";
-        }
-
+        //Newlines appear within words and not always at EOL, so find them and
+        //act accordingly.
         if(currentWord.find("\n") != std::string::npos) {
             int endlPos = 0;
             endlPos = currentWord.find("\n");
             if(endlPos != currentWord.back()) {
-                //we've not got a EOL newline, so we need to split it again :/
+                //we've not got an EOL newline, so we need to split it again :/
                 std::string preEndl = currentWord.substr(0, endlPos);
-                currentLine.push_back(preEndl);
+                currentLine += preEndl + "\n";
                 currentPage.push_back(currentLine);
-                currentLine.clear();
+                currentLine = "";
                 colCount = 0;
                 lineCount++;
 
@@ -109,24 +99,27 @@ std::list<page> Pager::getPagedText(std::string text) {
                     currentWord.replace(newLineLoc,1,"");
                 }
             }
-            currentLine.push_back(currentWord);
-            colCount += currentWord.length() + 1; //+1 for space
+            currentLine += currentWord + " ";
+            colCount += currentWord.length() + 1;
             currentWord = "";
             if(newLineCount > 0) {
+                currentLine += "\n";
                 currentPage.push_back(currentLine);
-                currentLine.clear();
+                currentLine = "";
                 if(newLineCount > 1) {
-                    currentLine.push_back(" ");
-                    currentLine.clear();
+                    currentLine += "\n";
+                    currentPage.push_back(currentLine);
+                    currentLine = "";
                 }
                 lineCount += newLineCount;
             }
         } else {
             //TODO: Do stuff about words that are by themselves longer than
             //TODO: the width.
+            currentLine += "\n";
             currentPage.push_back(currentLine);
-            currentLine.clear();
-            currentLine.push_back(currentWord);
+            currentLine = "";
+            currentLine += currentWord + " ";
             colCount = currentWord.length() + 1;
             lineCount++;
         }
@@ -141,7 +134,7 @@ std::list<page> Pager::getPagedText(std::string text) {
     //Check to see if we have any lines that didn't get pushed and flush them in
     if(currentLine.size() > 0) {
         currentPage.push_back(currentLine);
-        currentLine.clear();
+        currentLine = "";
     }
 
     if(currentPage.size() > 0) {

@@ -135,18 +135,8 @@ std::string Interface::processCommand(std::string command) {
             displayText = "";
             numLines = curPage.size();
             while(!curPage.empty()) {
-                std::string curWord;
                 curLine = curPage.front();
-                while(!curLine.empty()) {
-                    curWord = curLine.front();
-                    if(curWord != "") {
-                        displayText += curWord;
-                        displayText += " ";
-                    }
-                    curLine.pop_front();
-                    curWord = "";
-                }
-                displayText += "\n";
+                displayText += curLine;
                 curPage.pop_front();
             }
             pagedText.pop_front();

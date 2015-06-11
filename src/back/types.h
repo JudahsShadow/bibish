@@ -24,7 +24,11 @@
 #include <string>
 #include <list>
 
-typedef std::list<std::string> line;
+//Keep this around in case it is decided to keep lines as lists of words
+//instead of a block of text
+// typedef std::list<std::string> line;
+
+typedef std::string line;
 typedef std::list<line> page;
 
 //convience type so the project doesn't have to depend on glibc
