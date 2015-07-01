@@ -131,17 +131,12 @@ std::string Interface::processCommand(std::string command) {
         numPages = pagedText.size();
 
         while(!pagedText.empty()) {
-            curPage = pagedText.front();
             displayText = "";
-            numLines = curPage.size();
-            while(!curPage.empty()) {
-                curLine = curPage.front();
-                displayText += curLine;
-                curPage.pop_front();
-            }
-            pagedText.pop_front();
+            curPage = pagedText.front();
+            displayText = curPage;
             std::cout << displayText;
-            display.displaySpacer(numLines);
+//             display.displaySpacer(numLines);
+            pagedText.pop_front();
             if(numPages > 1) {
                 std::string dummy = "";
                 std::cout << "Press enter for next page";

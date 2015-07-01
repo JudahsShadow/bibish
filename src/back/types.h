@@ -27,9 +27,12 @@
 //Keep this around in case it is decided to keep lines as lists of words
 //instead of a block of text
 // typedef std::list<std::string> line;
+// typedef std::list<line> page;
 
 typedef std::string line;
-typedef std::list<line> page;
+typedef std::string page;
+
+
 
 //convience type so the project doesn't have to depend on glibc
 typedef unsigned int uint;

@@ -74,7 +74,7 @@ std::list<page> Pager::getPagedText(std::string text) {
                 //we've not got an EOL newline, so we need to split it again :/
                 std::string preEndl = currentWord.substr(0, endlPos);
                 currentLine += preEndl + "\n";
-                currentPage.push_back(currentLine);
+                currentPage += currentLine;
                 currentLine = "";
                 colCount = 0;
                 lineCount++;
@@ -104,11 +104,11 @@ std::list<page> Pager::getPagedText(std::string text) {
             currentWord = "";
             if(newLineCount > 0) {
                 currentLine += "\n";
-                currentPage.push_back(currentLine);
+                currentPage += currentLine;
                 currentLine = "";
                 if(newLineCount > 1) {
                     currentLine += "\n";
-                    currentPage.push_back(currentLine);
+                    currentPage +=currentLine;
                     currentLine = "";
                 }
                 lineCount += newLineCount;
@@ -117,7 +117,7 @@ std::list<page> Pager::getPagedText(std::string text) {
             //TODO: Do stuff about words that are by themselves longer than
             //TODO: the width.
             currentLine += "\n";
-            currentPage.push_back(currentLine);
+            currentPage += currentLine;
             currentLine = "";
             currentLine += currentWord + " ";
             colCount = currentWord.length() + 1;
@@ -126,20 +126,20 @@ std::list<page> Pager::getPagedText(std::string text) {
 
         if(lineCount >= pageSize - 3) {
             pagedText.push_back(currentPage);
-            currentPage.clear();
+            currentPage = "";
             lineCount = 0;
         }
     }
 
     //Check to see if we have any lines that didn't get pushed and flush them in
     if(currentLine.size() > 0) {
-        currentPage.push_back(currentLine);
+        currentPage += currentLine;
         currentLine = "";
     }
 
     if(currentPage.size() > 0) {
         pagedText.push_back(currentPage);
-        currentPage.clear();
+        currentPage = "";
         lineCount = 0;
     }
 
