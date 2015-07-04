@@ -133,9 +133,10 @@ std::string Interface::processCommand(std::string command) {
         while(!pagedText.empty()) {
             displayText = "";
             curPage = pagedText.front();
-            displayText = curPage;
+            displayText = curPage.content;
+            numLines = curPage.lineCount;
             std::cout << displayText;
-//             display.displaySpacer(numLines);
+            display.displaySpacer(numLines);
             pagedText.pop_front();
             if(numPages > 1) {
                 std::string dummy = "";

@@ -30,7 +30,12 @@
 // typedef std::list<line> page;
 
 typedef std::string line;
-typedef std::string page;
+struct Page {
+    int lineCount;
+    line content;
+};
+
+typedef Page page;
 
 
 

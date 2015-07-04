@@ -59,7 +59,7 @@ std::list<page> Pager::getPagedText(std::string text) {
         words.pop_front();
 
         if(currentWord == "") {
-            //We've got an empty word sometimes at the beginning of a passage
+            //We get an empty word sometimes
             //ignore it and get the next one
             currentWord = words.front();
             words.pop_front();
@@ -74,7 +74,7 @@ std::list<page> Pager::getPagedText(std::string text) {
                 //we've not got an EOL newline, so we need to split it again :/
                 std::string preEndl = currentWord.substr(0, endlPos);
                 currentLine += preEndl + "\n";
-                currentPage += currentLine;
+                currentPage.content += currentLine;
                 currentLine = "";
                 colCount = 0;
                 lineCount++;
@@ -104,11 +104,11 @@ std::list<page> Pager::getPagedText(std::string text) {
             currentWord = "";
             if(newLineCount > 0) {
                 currentLine += "\n";
-                currentPage += currentLine;
+                currentPage.content += currentLine;
                 currentLine = "";
                 if(newLineCount > 1) {
                     currentLine += "\n";
-                    currentPage +=currentLine;
+                    currentPage.content +=currentLine;
                     currentLine = "";
                 }
                 lineCount += newLineCount;
@@ -117,7 +117,7 @@ std::list<page> Pager::getPagedText(std::string text) {
             //TODO: Do stuff about words that are by themselves longer than
             //TODO: the width.
             currentLine += "\n";
-            currentPage += currentLine;
+            currentPage.content += currentLine;
             currentLine = "";
             currentLine += currentWord + " ";
             colCount = currentWord.length() + 1;
@@ -125,22 +125,27 @@ std::list<page> Pager::getPagedText(std::string text) {
         }
 
         if(lineCount >= pageSize - 3) {
+            currentPage.lineCount = lineCount;
             pagedText.push_back(currentPage);
-            currentPage = "";
+            currentPage.content = "";
             lineCount = 0;
+            currentPage.lineCount = lineCount;
         }
     }
 
     //Check to see if we have any lines that didn't get pushed and flush them in
-    if(currentLine.size() > 0) {
-        currentPage += currentLine;
+    if(currentLine.length() > 0) {
+        currentPage.content += currentLine + "\n";
         currentLine = "";
+        lineCount++;
     }
 
-    if(currentPage.size() > 0) {
+    if(currentPage.content.length() > 0) {
+        currentPage.lineCount = lineCount;
         pagedText.push_back(currentPage);
-        currentPage = "";
+        currentPage.content = "";
         lineCount = 0;
+        currentPage.lineCount = lineCount;
     }
 
     return pagedText;
