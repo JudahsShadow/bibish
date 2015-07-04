@@ -128,13 +128,14 @@ std::string Interface::processCommand(std::string command) {
 
         textPager.setSize(display.getSize());
         pagedText = textPager.getPagedText(text);
-        numPages = pagedText.size();
 
         while(!pagedText.empty()) {
             displayText = "";
             curPage = pagedText.front();
             displayText = curPage.content;
             numLines = curPage.lineCount;
+            numPages = pagedText.size();
+            
             std::cout << displayText;
             display.displaySpacer(numLines);
             pagedText.pop_front();
