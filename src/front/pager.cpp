@@ -58,13 +58,6 @@ std::list<page> Pager::getPagedText(std::string text) {
         currentWord = words.front();
         words.pop_front();
 
-        if(currentWord == "") {
-            //We get an empty word sometimes
-            //ignore it and get the next one
-            currentWord = words.front();
-            words.pop_front();
-        }
-
         //Newlines appear within words and not always at EOL, so find them and
         //act accordingly.
         if(currentWord.find("\n") != std::string::npos) {

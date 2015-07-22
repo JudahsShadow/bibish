@@ -103,8 +103,10 @@ std::list<std::string> Parser::split(std::string string) {
       std::string token;
       std::getline(tokenStream, token, ' ');
 
-      // do this even if we've already seen EOF.
-      parts.push_back(token);
+      // do this even if we've already seen EOF. unless token is ""
+      if( token != "") {
+          parts.push_back(token);
+      }
   }
 
   return parts;

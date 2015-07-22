@@ -135,7 +135,7 @@ std::string Interface::processCommand(std::string command) {
             displayText = curPage.content;
             numLines = curPage.lineCount;
             numPages = pagedText.size();
-            
+
             std::cout << displayText;
             display.displaySpacer(numLines);
             pagedText.pop_front();
