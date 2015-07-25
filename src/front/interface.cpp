@@ -164,7 +164,7 @@ std::string Interface::processCommand(std::string command) {
             return "-3";
         }
         else {
-            numBibles = 0;
+            numBibles = bibles.size();
         }
 
         std::string curBible;
@@ -176,7 +176,7 @@ std::string Interface::processCommand(std::string command) {
             bibles.pop_front();
         }
 
-        display.displaySpacer(numBibles + 2);
+        display.displaySpacer(numBibles);
 
         return commandPart;
     } else if (commandPart == validCommands[4]) {
