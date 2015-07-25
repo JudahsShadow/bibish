@@ -41,8 +41,9 @@ std::list<std::string> Library::getBibles() {
         modType = tempMod->getType();
 
         if(modType == sword::SWMgr::MODTYPE_BIBLES) {
-            module = tempMod->getDescription();
-            module += " - ";
+            module = "For ";
+            module += tempMod->getDescription();
+            module += " select ";
             module += tempMod->getName();
             bibleList.push_front(module);
             module = "";
