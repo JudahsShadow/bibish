@@ -155,8 +155,7 @@ std::string Interface::processCommand(std::string command) {
         int numBibles = 0;
 
         library.setSwordLibrary(swordLibrary);
-        tempBibles = library.getBibles();
-        bibles = worksParser.tokenize(tempBibles);
+        bibles = library.getBibles();
 
         if(bibles.empty()) {
             std::cerr <<  "No bibles found, please install in another frontend";

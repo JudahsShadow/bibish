@@ -21,30 +21,35 @@
 #include "library.h"
 
 #include <string>
+#include <list>
 
 #include <swmgr.h>
 #include <swmodule.h>
 
-std::string Library::getBibles() {
-    std::string moduleList = "";
-    std::string bibleType = "Biblical Texts";
-    std::string moduleType = "";
+std::list<std::string> Library::getBibles() {
+    std::string modules = "";
+    std::string module = "";
     sword::ModMap::iterator libraryIterator;
+    std::list<std::string> bibleList;
+    std::string modType;
 
     for(libraryIterator = swordLibrary->Modules.begin();
             libraryIterator != swordLibrary->Modules.end();
             libraryIterator++) {
 
         sword::SWModule *tempMod = libraryIterator->second;
-        moduleType = tempMod->getType();
+        modType = tempMod->getType();
 
-        if(moduleType == bibleType) {
-            moduleList += tempMod->getName();
-            moduleList += " ";
+        if(modType == sword::SWMgr::MODTYPE_BIBLES) {
+            module = tempMod->getDescription();
+            module += " - ";
+            module += tempMod->getName();
+            bibleList.push_front(module);
+            module = "";
         }
     }
 
-    return moduleList;
+    return bibleList;
 }
 
 void Library::setSwordLibrary(sword::SWMgr *library) {
