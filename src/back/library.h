@@ -30,6 +30,7 @@
 class Library {
     public:
         std::list<std::string> getBibles();
+        std::list<std::string> getCommentaries();
         void setSwordLibrary(sword::SWMgr *library);
     private:
         sword::SWMgr *swordLibrary;

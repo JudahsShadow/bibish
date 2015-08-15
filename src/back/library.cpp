@@ -32,6 +32,13 @@ std::list<std::string> Library::getBibles() {
     return bibles;
 }
 
+std::list< std::string > Library::getCommentaries() {
+    std::list<std::string> commentaries;
+    commentaries = getModuleList("commentary");
+    return commentaries;
+}
+
+
 std::list< std::string > Library::getModuleList(std::string moduleType) {
     std::string module = "";
     sword::ModMap::iterator libraryIterator;
