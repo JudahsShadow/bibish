@@ -52,7 +52,8 @@ std::list< std::string > Parser::parseCommand(std::string command) {
 
     parsedCommand.push_back(commandPart);
 
-    if (tokenizedCommand.empty()) {
+    //TODO: Find a better way for this corner case than to hard code it.
+    if (tokenizedCommand.empty() && commandPart != "list") {
         argumentCount = 0;
         return parsedCommand;
     } else {
@@ -74,8 +75,25 @@ std::list< std::string > Parser::parseCommand(std::string command) {
         //select has only one argument, stick it in line and ignore the rest
         parsedCommand.push_back(argumentPart.front());
     }
+    else if (commandPart == "list") {
+        if(argumentPart.front() == "bibles" ||
+           argumentPart.front() == "commentaries" ||
+           argumentPart.front() == "devotions" ||
+           argumentPart.front() == "books" ||
+           argumentPart.front() == "dictionaries") {
+
+            parsedCommand.push_back(argumentPart.front());
+
+        }
+        //TODO: Find a way to combine these options
+        else {
+            //since list was given and the argument isn't another valid type
+            //assume bibles
+            parsedCommand.push_back("bibles");
+        }
+    }
     else {
-        //Add a genral case to just pass arguments to the back.
+        //Add a genral case to just pass arguments to the back as a list
         while(!argumentPart.empty()) {
             parsedCommand.push_back(argumentPart.front());
             argumentPart.pop_front();
