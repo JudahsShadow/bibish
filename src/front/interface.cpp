@@ -162,7 +162,9 @@ std::string Interface::processCommand(std::string command) {
         }
 
         if(modules.empty()) {
-            std::cerr <<  "No bibles found, please install in another frontend";
+            std::cerr <<  "No modules found, of type: ";
+            std::cerr <<  parsedCommand.front();
+            std:: cerr << " please install in another frontend";
             std::cerr <<  std::endl;
             display.displaySpacer(1);
             return "-3";
@@ -232,7 +234,7 @@ int Interface::runInterface() {
             break;
         } else if(command ==  "-3") {
             returnCode = -2;
-            std::cerr <<  "No modules found. Aborting.." <<  std::endl;
+            std::cerr <<  "No relevant modules found. Aborting.." <<  std::endl;
             break;
         }
 
