@@ -27,31 +27,67 @@
 #include <swmodule.h>
 
 std::list<std::string> Library::getBibles() {
-    std::string modules = "";
+    std::list<std::string> bibles;
+    bibles = getModuleList("bible");
+    return bibles;
+}
+
+std::list< std::string > Library::getModuleList(std::string moduleType) {
     std::string module = "";
     sword::ModMap::iterator libraryIterator;
-    std::list<std::string> bibleList;
+    std::list<std::string> moduleList;
+    std::string selectedType;
     std::string modType;
 
+    std::string bible = sword::SWMgr::MODTYPE_BIBLES;
+    std::string comentary = sword::SWMgr::MODTYPE_COMMENTARIES;
+    std::string devo = sword::SWMgr::MODTYPE_DAILYDEVOS;
+    std::string book = sword::SWMgr::MODTYPE_GENBOOKS;
+    std::string dict = sword::SWMgr::MODTYPE_LEXDICTS;
+
+    if(moduleType == "bible") {
+        selectedType = bible;
+    }
+    else if(moduleType == "commentary") {
+        selectedType = comentary;
+    }
+    else if(moduleType == "devotion") {
+            selectedType = devo;
+    }
+    else if(moduleType == "book") {
+            selectedType = book;
+    }
+    else if(moduleType == "dictionary") {
+            selectedType = dict;
+    }
+    else {
+            //We should never get here but you never know.
+            module = "Invalid type";
+            moduleList.push_back(module);
+            return moduleList;
+    }
+
     for(libraryIterator = swordLibrary->Modules.begin();
-            libraryIterator != swordLibrary->Modules.end();
-            libraryIterator++) {
+        libraryIterator != swordLibrary->Modules.end();
+        libraryIterator++) {
 
         sword::SWModule *tempMod = libraryIterator->second;
         modType = tempMod->getType();
 
-        if(modType == sword::SWMgr::MODTYPE_BIBLES) {
+        if(modType == selectedType) {
             module = "For ";
             module += tempMod->getDescription();
             module += " select ";
             module += tempMod->getName();
-            bibleList.push_front(module);
+            moduleList.push_front(module);
             module = "";
         }
     }
 
-    return bibleList;
+    return moduleList;
+
 }
+
 
 void Library::setSwordLibrary(sword::SWMgr *library) {
     this->swordLibrary = library;

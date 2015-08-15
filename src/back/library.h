@@ -25,15 +25,15 @@
 #include <list>
 
 #include <swmgr.h>
+#include <swmodule.h>
 
 class Library {
     public:
-        //returns a space separated list of bibles in the current sword library
         std::list<std::string> getBibles();
-
         void setSwordLibrary(sword::SWMgr *library);
     private:
         sword::SWMgr *swordLibrary;
+        std::list<std::string> getModuleList(std::string moduleType);
 };
 
 #endif // LIBRARY_H
