@@ -58,7 +58,6 @@ void Interface::configLines() {
 }
 
 std::string Interface::processCommand(std::string command) {
-    //TODO: REFACTOR ME!!!!!!!!!!!!!!!!!!!!!!111111111111111111oneoneone
     std::string validCommands[5];
     std::string text = "";
     std::string ref = "";
@@ -70,7 +69,7 @@ std::string Interface::processCommand(std::string command) {
 
     std::string commandPart;
 
-    std::list<std::string> bibles;
+    std::list<std::string> modules;
     std::list<std::string> parsedCommand;
 
     parsedCommand = commandParser.parseCommand(command);
@@ -152,31 +151,36 @@ std::string Interface::processCommand(std::string command) {
         display.displayHelp();
         return commandPart;
     } else if(commandPart == validCommands[3]) {
-        int numBibles = 0;
+        int numModules = 0;
 
         library.setSwordLibrary(swordLibrary);
-        bibles = library.getBibles();
+        if(parsedCommand.front() == "bibles") {
+            modules = library.getBibles();
+        }
+        else if (parsedCommand.front() == "commentaries") {
+            modules = library.getCommentaries();
+        }
 
-        if(bibles.empty()) {
+        if(modules.empty()) {
             std::cerr <<  "No bibles found, please install in another frontend";
             std::cerr <<  std::endl;
             display.displaySpacer(1);
             return "-3";
         }
         else {
-            numBibles = bibles.size();
+            numModules = modules.size();
         }
 
         std::string curBible;
 
-        while(!bibles.empty()) {
-            curBible = bibles.front();
+        while(!modules.empty()) {
+            curBible = modules.front();
             std::cout <<  curBible;
             std::cout << std::endl;
-            bibles.pop_front();
+            modules.pop_front();
         }
 
-        display.displaySpacer(numBibles);
+        display.displaySpacer(numModules);
 
         return commandPart;
     } else if (commandPart == validCommands[4]) {

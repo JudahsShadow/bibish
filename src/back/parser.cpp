@@ -74,6 +74,13 @@ std::list< std::string > Parser::parseCommand(std::string command) {
         //select has only one argument, stick it in line and ignore the rest
         parsedCommand.push_back(argumentPart.front());
     }
+    else {
+        //Add a genral case to just pass arguments to the back.
+        while(!argumentPart.empty()) {
+            parsedCommand.push_back(argumentPart.front());
+            argumentPart.pop_front();
+        }
+    }
     return parsedCommand;
 }
 
