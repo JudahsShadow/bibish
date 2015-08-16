@@ -85,7 +85,6 @@ std::list< std::string > Parser::parseCommand(std::string command) {
             parsedCommand.push_back(argumentPart.front());
 
         }
-        //TODO: Find a way to combine these options
         else {
             //since list was given and the argument isn't another valid type
             //assume bibles

@@ -46,10 +46,10 @@ std::string Passage::getText (std::string reference) {
     sword::ListKey refRange;
 
     //Module variables
-    sword::SWModule *module;
-    sword::VerseKey key;
+    sword::SWModule *module = \
+        this->swordLibrary->getModule(this->version.c_str());
+    sword::VerseKey *key = (sword::VerseKey*) module->getKey();
 
-    module = this->swordLibrary->getModule(this->version.c_str());
     if(!module) {
         std::cerr << this->version;
         std::cerr << " not found, install it in another front-end";
@@ -58,9 +58,9 @@ std::string Passage::getText (std::string reference) {
         return text;
     }
 
-    refRange = key.parseVerseList(reference.c_str(), key, true);
+    refRange = key->parseVerseList(reference.c_str(), *key, true);
     for(refRange = sword::TOP; !refRange.popError(); refRange++) {
-        module->setKey (refRange);
+        module->setKey(refRange);
         text += " "; //TODO: Fix this to show the book name on the first verse
         //TODO: show chap and verse only after the first verse
         text += module->getKeyText();
