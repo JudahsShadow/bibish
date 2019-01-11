@@ -46,18 +46,25 @@ std::list< std::string > Parser::parseCommand(std::string command) {
     argumentPart.clear();
 
     tokenizedCommand = tokenize(command);
-
     commandPart = tokenizedCommand.front();
     tokenizedCommand.pop_front();
 
     parsedCommand.push_back(commandPart);
 
     //TODO: Find a better way for this corner case than to hard code it.
-    if (tokenizedCommand.empty() && commandPart != "list") {
+    if (tokenizedCommand.empty() && commandPart != "list"){
         argumentCount = 0;
         return parsedCommand;
     } else {
-        argumentPart = tokenizedCommand;
+        //TODO: Fix the further conercasing this raises
+        if (tokenizedCommand.empty()) {
+            //If we've gotten here we've encountered a list command with no
+            //arguments, so make it bibles by default.
+            argumentPart.push_back("bibles");
+        }
+        else {
+            argumentPart = tokenizedCommand;
+        }
     }
 
     if (commandPart == ("show")) {
@@ -65,10 +72,7 @@ std::list< std::string > Parser::parseCommand(std::string command) {
         // making sure all the components of the argument
         // are one for passing back to the interface
         std::string reference = "";
-        while (!argumentPart.empty()) {
-            reference += argumentPart.front();
-            argumentPart.pop_front();
-        }
+        reference = this->detokenize(argumentPart);
         parsedCommand.push_back(reference);
     }
     else if (commandPart == "select") {
@@ -90,6 +94,9 @@ std::list< std::string > Parser::parseCommand(std::string command) {
             //assume bibles
             parsedCommand.push_back("bibles");
         }
+    }
+    else if(commandPart == "search") {
+
     }
     else {
         //Add a genral case to just pass arguments to the back as a list
@@ -135,4 +142,26 @@ std::list<std::string> Parser::split(std::string string) {
 
   return parts;
 
+}
+
+std::string Parser::detokenize(std::list< std::string > tokens) {
+    std::string noTokens = "";
+
+    if(tokens.empty()) {
+        return noTokens;
+    }
+    else {
+        noTokens = combine(tokens);
+    }
+
+    return noTokens;
+}
+
+std::string Parser::combine(std::list< std::string > stringList) {
+    std::string combinedString = "";
+    while(!stringList.empty()) {
+        combinedString += stringList.front();
+        combinedString += " ";
+        stringList.pop_front();
+    }
 }
