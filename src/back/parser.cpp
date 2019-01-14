@@ -110,12 +110,12 @@ std::list< std::string > Parser::parseCommand(std::string command) {
 
 
 std::list<std::string> Parser::tokenize(std::string string) {
-  tokens.clear();
+  this->tokens.clear();
   if(string == "") {
-      return tokens;
+      return this->tokens;
   } else {
       tokens = split(string);
-      return tokens;
+      return this->tokens;
   }
 }
 
@@ -164,4 +164,5 @@ std::string Parser::combine(std::list< std::string > stringList) {
         combinedString += " ";
         stringList.pop_front();
     }
+    return combinedString;
 }
