@@ -59,7 +59,7 @@ void Interface::configLines() {
 }
 
 std::string Interface::processCommand(std::string command) {
-    std::string validCommands[5];
+    std::string validCommands[6];
     std::string text = "";
     std::string ref = "";
 
