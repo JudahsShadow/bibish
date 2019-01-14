@@ -31,6 +31,7 @@
 #include "../back/library.h"
 #include "../back/parser.h"
 #include "../back/types.h"
+#include "../back/search.h"
 
 void Interface::initalize() {
     configLines();
@@ -83,6 +84,7 @@ std::string Interface::processCommand(std::string command) {
     validCommands[2] = "?";
     validCommands[3] = "list";
     validCommands[4] = "select";
+    validCommands[5] = "search";
 
     if(commandPart == validCommands[0]) {
         //since we're quitting do nothing here
@@ -199,6 +201,22 @@ std::string Interface::processCommand(std::string command) {
             display.displaySpacer();
         }
         return commandPart;
+    }
+    else if(commandPart == validCommands[5]) {
+        if(selectedVersion != "") {
+            Search searcher;
+            std::string results;
+
+            results = searcher.search("Jesus");
+            std::cout << results;
+            std::cout << std::endl;
+            return command;
+        }
+        else {
+            std::cerr << "Error: No Module Selected" << std::endl;
+            std::cerr << "Try select." << std::endl;
+            return command;
+        }
     }
     else {
         //Invalid command head out.

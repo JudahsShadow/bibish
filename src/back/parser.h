@@ -31,10 +31,12 @@ class Parser {
         int getNumberArguments();
         std::list<std::string> tokenize(std::string string);
         std::list<std::string> parseCommand(std::string command);
+        std::string detokenize(std::list< std::string > tokens);
     private:
         std::list<std::string> tokens;
         int argumentCount;
         std::list<std::string> split(std::string string);
+        std::string combine(std::list< std::string > stringList);
 };
 
 #endif // PARSER_H
