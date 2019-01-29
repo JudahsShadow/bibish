@@ -67,3 +67,29 @@ void Display::setSize(uint size) {
 uint Display::getSize() {
     return screenSize;
 }
+
+void Display::displayPages(std::list<page> text) {
+    std::string displayText = "";
+    page currentPage;
+    uint numLines = 0;
+    uint numPages = 0;
+    
+    while(!text.empty()) {
+        displayText = "";
+        currentPage = text.front();
+        displayText = currentPage.content;
+        numLines = currentPage.lineCount;
+        numPages = text.size();
+        
+        std::cout << displayText;
+        this->displaySpacer(numLines);
+        text.pop_front();
+        if(numPages > 1) {
+            std::string dummy = "";
+            std::cout << "Press enter for next page";
+            std::getline(std::cin,dummy);
+            this->clearScreen();
+            this->displayHeader();
+        }
+    }
+}

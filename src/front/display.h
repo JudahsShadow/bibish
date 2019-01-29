@@ -21,7 +21,10 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
+#include <list>
+
 #include "../back/types.h"
+#include "../front/pager.h"
 
 class Display {
     public:
@@ -32,6 +35,7 @@ class Display {
         void clearScreen();
         void setSize(uint size);
         uint getSize();
+        void displayPages(std::list<page> text);
     private:
         uint screenSize;
 

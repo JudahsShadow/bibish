@@ -54,7 +54,7 @@ std::string Search::search(std::string searchString) {
     while(!results.popError()) {
 //         verses = results.getElement()->userData;
       verses += (const char*)results;
-//       verses += std::endl;
+      verses.append("\n");
 //     std::cerr << (__u64)results.getElement()->userData;
       results++;
     }

@@ -121,33 +121,11 @@ std::string Interface::processCommand(std::string command) {
 
         Pager textPager;
         std::list<page> pagedText;
-        page curPage;
-        line curLine;
-        std::string displayText;
-        int numPages = 0;
-        int numLines = 0;
 
         textPager.setSize(display.getSize());
         pagedText = textPager.getPagedText(text);
 
-        while(!pagedText.empty()) {
-            displayText = "";
-            curPage = pagedText.front();
-            displayText = curPage.content;
-            numLines = curPage.lineCount;
-            numPages = pagedText.size();
-
-            std::cout << displayText;
-            display.displaySpacer(numLines);
-            pagedText.pop_front();
-            if(numPages > 1) {
-                std::string dummy = "";
-                std::cout << "Press enter for next page";
-                std::getline(std::cin,dummy);
-                display.clearScreen();
-                display.displayHeader();
-            }
-        }
+        display.displayPages(pagedText);
         return commandPart;
     } else if(commandPart == validCommands[2]) {
         display.displayHelp();
@@ -205,14 +183,22 @@ std::string Interface::processCommand(std::string command) {
     else if(commandPart == validCommands[5]) {
         if(selectedVersion != "") {
             Search searcher;
+            Pager resultsPager;
+            std::list<page> pagedResults;
             std::string results;
+            
+            resultsPager.setSize(display.getSize());
             
             searcher.setSwordLibrary(this->swordLibrary);
             searcher.setModule(selectedVersion);
-
+            
+            //TODO: Make this more than references or an option to do text or
+            //reference results or both.
             results = searcher.search("Jesus");
-            std::cout << results;
-            std::cout << std::endl;
+            pagedResults = resultsPager.getPagedText(results);
+            
+            display.displayPages(pagedResults);
+            
             return command;
         }
         else {
