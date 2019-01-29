@@ -206,6 +206,9 @@ std::string Interface::processCommand(std::string command) {
         if(selectedVersion != "") {
             Search searcher;
             std::string results;
+            
+            searcher.setSwordLibrary(this->swordLibrary);
+            searcher.setModule(selectedVersion);
 
             results = searcher.search("Jesus");
             std::cout << results;

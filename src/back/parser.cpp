@@ -57,7 +57,7 @@ std::list< std::string > Parser::parseCommand(std::string command) {
         return parsedCommand;
     } else {
         //TODO: Fix the further conercasing this raises
-        if (tokenizedCommand.empty()) {
+        if (commandPart == "list" && tokenizedCommand.empty()) {
             //If we've gotten here we've encountered a list command with no
             //arguments, so make it bibles by default.
             argumentPart.push_back("bibles");
@@ -96,7 +96,7 @@ std::list< std::string > Parser::parseCommand(std::string command) {
         }
     }
     else if(commandPart == "search") {
-
+        parsedCommand.push_back("search");
     }
     else {
         //Add a genral case to just pass arguments to the back as a list
