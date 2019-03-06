@@ -26,6 +26,9 @@
 
 #include <regex.h>
 #include <string>
+#include <iostream>
+
+Display Search::searchDisplay;
 
 void Search::setSwordLibrary(sword::SWMgr *library) {
     swordLibrary = library;
@@ -35,9 +38,17 @@ void Search::setModule(std::string mod) {
     module = swordLibrary->getModule(mod.c_str());
 }
 
+void Search::setDisplay(Display display) {
+    searchDisplay = display;
+}
+
 
 void Search::percentUpdate(char percent, void *userData) {
-
+    //TODO: Hook this into the display class
+    uint percentage;
+    percentage = (int) percent;
+    
+    searchDisplay.displayPercentage(percent);
 }
 
 
@@ -46,12 +57,14 @@ std::string Search::search(std::string searchString) {
     sword::ListKey results;
     char lineLen = 80;
     std::string verses = "";
-    
-    
 
+    
     results = module->search(searchString.c_str(),searchType,
-                                   REG_ICASE, 0,0, &percentUpdate, &lineLen);
+                            REG_ICASE, 0,0, &percentUpdate,
+                            &lineLen);
     while(!results.popError()) {
+        //TODO: Set this to return more than just verse references
+        //or maybe make that a separate method?
 //         verses = results.getElement()->userData;
       verses += (const char*)results;
       verses.append("\n");

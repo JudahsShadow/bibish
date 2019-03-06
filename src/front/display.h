@@ -36,6 +36,7 @@ class Display {
         void setSize(uint size);
         uint getSize();
         void displayPages(std::list<page> text);
+        void displayPercentage(uint percent);
     private:
         uint screenSize;
 

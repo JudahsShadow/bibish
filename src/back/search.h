@@ -26,17 +26,22 @@
 #include <swmgr.h>
 
 #include "library.h"
+#include "../front/display.h" //for doing search progress displays
 
 class Search {
 public:
     void setSwordLibrary(sword::SWMgr *library);
     void setModule(std::string module);
+    void setDisplay(Display display);
 
     std::string search(std::string searchString);
 private:
     static void percentUpdate(char percent,void *userData);
     sword::SWMgr *swordLibrary;
     sword::SWModule *module;
+    //this is static so it can be accessed in the percentUpdate function
+    //sword needs to be static
+    static Display searchDisplay;
 };
 
 #endif // SEARCH_H

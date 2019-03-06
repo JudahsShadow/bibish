@@ -40,6 +40,7 @@ void Interface::initalize() {
     this->swordLibrary = new sword::SWMgr(new sword::MarkupFilterMgr
                                           (sword::FMT_PLAIN));
     std::cout << "Initalized, proceeding to shell..." << std::endl;
+//     this->display = new Display;
 }
 
 void Interface::configLines() {
@@ -191,6 +192,7 @@ std::string Interface::processCommand(std::string command) {
             
             searcher.setSwordLibrary(this->swordLibrary);
             searcher.setModule(selectedVersion);
+            searcher.setDisplay(display);
             
             //TODO: Make this more than references or an option to do text or
             //reference results or both.

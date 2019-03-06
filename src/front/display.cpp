@@ -65,7 +65,7 @@ void Display::setSize(uint size) {
 }
 
 uint Display::getSize() {
-    return screenSize;
+    return this->screenSize;
 }
 
 void Display::displayPages(std::list<page> text) {
@@ -92,4 +92,12 @@ void Display::displayPages(std::list<page> text) {
             this->displayHeader();
         }
     }
+}
+
+void Display::displayPercentage(uint percent) {
+    this->clearScreen();
+    this->displayHeader();
+    this->displaySpacer(2);
+    std::cout << "Searching " << percent;
+    std::cout << "% complete" << std::endl;
 }
