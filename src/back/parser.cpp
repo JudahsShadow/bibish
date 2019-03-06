@@ -46,8 +46,13 @@ std::list< std::string > Parser::parseCommand(std::string command) {
     argumentPart.clear();
 
     tokenizedCommand = tokenize(command);
-    commandPart = tokenizedCommand.front();
-    tokenizedCommand.pop_front();
+    if(!tokenizedCommand.empty()) {
+        commandPart = tokenizedCommand.front();
+        tokenizedCommand.pop_front();
+    }
+    else {
+        commandPart = "";
+    }
 
     parsedCommand.push_back(commandPart);
 
