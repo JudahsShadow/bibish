@@ -187,6 +187,7 @@ std::string Interface::processCommand(std::string command) {
             Pager resultsPager;
             std::list<page> pagedResults;
             std::string results;
+            std::string searchTerms = "";
             
             resultsPager.setSize(display.getSize());
             
@@ -194,14 +195,31 @@ std::string Interface::processCommand(std::string command) {
             searcher.setModule(selectedVersion);
             searcher.setDisplay(display);
             
+            //If no argument is provided to the command, propmpt for the
+            //search terms, otherwise recombine the arguments into a string
+            if (parsedCommand.empty()) {
+                display.displayHeader();
+                display.displaySpacer(2);
+                std::cout << "Enter a word or phrase to search for: ";
+                std::getline(std::cin,searchTerms);
+
+            }
+            else {
+                while(!parsedCommand.empty()) {
+                    searchTerms += parsedCommand.front();
+//                     searchTerms += " ";
+                    parsedCommand.pop_front();
+                }
+            }
+
             //TODO: Make this more than references or an option to do text or
             //reference results or both.
-            results = searcher.search("Jesus");
+            results = searcher.search(searchTerms);
             pagedResults = resultsPager.getPagedText(results);
             
             display.displayPages(pagedResults);
             
-            return command;
+            return commandPart;
         }
         else {
             std::cerr << "Error: No Module Selected" << std::endl;
