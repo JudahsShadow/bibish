@@ -186,7 +186,7 @@ std::string Interface::processCommand(std::string command) {
             Search searcher;
             Pager resultsPager;
             std::list<page> pagedResults;
-            std::string results;
+            std::string results = "";
             std::string searchTerms = "";
             
             resultsPager.setSize(display.getSize());
@@ -205,11 +205,7 @@ std::string Interface::processCommand(std::string command) {
 
             }
             else {
-                while(!parsedCommand.empty()) {
-                    searchTerms += parsedCommand.front();
-//                     searchTerms += " ";
-                    parsedCommand.pop_front();
-                }
+                searchTerms = parsedCommand.front();
             }
 
             //TODO: Make this more than references or an option to do text or

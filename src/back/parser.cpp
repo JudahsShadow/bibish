@@ -101,7 +101,12 @@ std::list< std::string > Parser::parseCommand(std::string command) {
         }
     }
     else if(commandPart == "search") {
-        parsedCommand.push_back("search");
+        //For now, assume all arguments are part of the search query
+        //in the future look at this to parse actual command arguments when
+        //those exist for search.
+        std::string query = "";
+        query = detokenize(argumentPart);
+        parsedCommand.push_back(query);
     }
     else {
         //Add a genral case to just pass arguments to the back as a list
