@@ -97,7 +97,8 @@ void Display::displayPages(std::list<page> text) {
 void Display::displayPercentage(uint percent) {
     this->clearScreen();
     this->displayHeader();
-    this->displaySpacer(2);
+    this->displaySpacer(0);
     std::cout << "Searching " << percent;
-    std::cout << "% complete" << std::endl;
+    std::cout << "% complete";
+    std::flush(std::cout);
 }

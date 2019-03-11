@@ -213,6 +213,8 @@ std::string Interface::processCommand(std::string command) {
             results = searcher.search(searchTerms);
             pagedResults = resultsPager.getPagedText(results);
             
+            display.clearScreen();
+            display.displayHeader();
             display.displayPages(pagedResults);
             
             return commandPart;
