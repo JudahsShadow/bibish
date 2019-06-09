@@ -74,8 +74,8 @@ std::list< std::string > Library::getModuleList(std::string moduleType) {
             return moduleList;
     }
 
-    for(libraryIterator = swordLibrary->Modules.begin();
-        libraryIterator != swordLibrary->Modules.end();
+    for(libraryIterator = swordLibrary.Modules.begin();
+        libraryIterator != swordLibrary.Modules.end();
         libraryIterator++) {
 
         sword::SWModule *tempMod = libraryIterator->second;
@@ -96,6 +96,18 @@ std::list< std::string > Library::getModuleList(std::string moduleType) {
 }
 
 
-void Library::setSwordLibrary(sword::SWMgr *library) {
-    this->swordLibrary = library;
+void Library::setSwordLibrary(sword::SWMgr library) {
+    swordLibrary = library;
+}
+
+bool Library::isModuuleValid(std::string moduleName) {
+    sword::SWModule *tmpMod;
+    
+    tmpMod = swordLibrary.getModule(moduleName.c_str());
+    if(!tmpMod) {
+        return false;
+    }
+    else {
+        return true;
+    }
 }

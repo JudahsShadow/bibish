@@ -31,9 +31,11 @@ class Library {
     public:
         std::list<std::string> getBibles();
         std::list<std::string> getCommentaries();
-        void setSwordLibrary(sword::SWMgr *library);
+        void setSwordLibrary(sword::SWMgr library);
+        bool isModuuleValid(std::string module);
     private:
-        sword::SWMgr *swordLibrary;
+//         sword::SWMgr *swordLibrary;
+        sword::SWMgr swordLibrary;
         std::list<std::string> getModuleList(std::string moduleType);
 };
 

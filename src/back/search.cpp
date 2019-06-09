@@ -30,12 +30,12 @@
 
 Display Search::searchDisplay;
 
-void Search::setSwordLibrary(sword::SWMgr *library) {
+void Search::setSwordLibrary(sword::SWMgr library) {
     swordLibrary = library;
 }
 
 void Search::setModule(std::string mod) {
-    module = swordLibrary->getModule(mod.c_str());
+    module = swordLibrary.getModule(mod.c_str());
 }
 
 void Search::setDisplay(Display display) {

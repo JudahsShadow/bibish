@@ -37,8 +37,8 @@ void Interface::initalize() {
     configLines();
 
     std::cout  << "Initalizing SWORD, please wait..." << std::endl;
-    this->swordLibrary = new sword::SWMgr(new sword::MarkupFilterMgr
-                                          (sword::FMT_PLAIN));
+//     swordLibrary = new sword::SWMgr(new sword::MarkupFilterMgr
+//                                           (sword::FMT_PLAIN));
     std::cout << "Initalized, proceeding to shell..." << std::endl;
 //     this->display = new Display;
 }
@@ -91,7 +91,7 @@ std::string Interface::processCommand(std::string command) {
         //since we're quitting do nothing here
         return commandPart;
     } else if(commandPart == validCommands[1]) {
-        pass.setLibrary(this->swordLibrary);
+        pass.setLibrary(swordLibrary);
         int errSpaces = 0;
 
         if(parsedCommand.empty()) {
@@ -174,10 +174,20 @@ std::string Interface::processCommand(std::string command) {
             std::cerr << "No module provided (Try list)" << std::endl;
             display.displaySpacer(1);
         }
-        else {
+        else {        
             selectedWork =  parsedCommand.front();
-            selectedVersion = selectedWork;
-            display.displaySpacer();
+           
+            //Check to make sure the module is, in fact, valid before continuing
+            //on to prevent crashing later <fife>Nip it in the bud!</fife>
+            if(library.isModuuleValid(selectedWork)) {
+                selectedVersion = selectedWork;
+                display.displaySpacer();
+            }
+            else {
+                //Module didn't come up, alert the user and bail out early.'
+                std::cerr << "Module Name is invalid (Try list)" << std::endl;
+                return commandPart;
+            }
         }
         return commandPart;
     }
@@ -191,7 +201,7 @@ std::string Interface::processCommand(std::string command) {
             
             resultsPager.setSize(display.getSize());
             
-            searcher.setSwordLibrary(this->swordLibrary);
+            searcher.setSwordLibrary(swordLibrary);
             searcher.setModule(selectedVersion);
             searcher.setDisplay(display);
             
@@ -267,6 +277,6 @@ int Interface::runInterface() {
         std::getline(std::cin, command);
     }
 
-    delete this->swordLibrary;
+//     delete swordLibrary;
     return returnCode;
 }

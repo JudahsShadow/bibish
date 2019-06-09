@@ -38,7 +38,7 @@ class Interface {
         std::string processCommand(std::string command);
 
         std::string selectedVersion;
-        sword::SWMgr *swordLibrary;
+        sword::SWMgr swordLibrary;
         Display display;
 };
 

@@ -35,8 +35,8 @@ void Passage::setVersion (std::string version) {
     this->version = version;
 }
 
-void Passage::setLibrary(sword::SWMgr *library) {\
-  this->swordLibrary = library;
+void Passage::setLibrary(sword::SWMgr library) {
+  swordLibrary = library;
 }
 
 std::string Passage::getText (std::string reference) {
@@ -47,8 +47,8 @@ std::string Passage::getText (std::string reference) {
 
     //Module variables
     sword::SWModule *module = \
-        this->swordLibrary->getModule(this->version.c_str());
-    sword::VerseKey *key = (sword::VerseKey*) module->getKey();
+        swordLibrary.getModule(version.c_str());
+    sword::VerseKey key;
 
     if(!module) {
         std::cerr << this->version;
@@ -57,8 +57,9 @@ std::string Passage::getText (std::string reference) {
         text = "-1";
         return text;
     }
+    
 
-    refRange = key->parseVerseList(reference.c_str(), *key, true);
+    refRange = key.parseVerseList(reference.c_str(), key, true);
     for(refRange = sword::TOP; !refRange.popError(); refRange++) {
         module->setKey(refRange);
         text += " "; //TODO: Fix this to show the book name on the first verse
