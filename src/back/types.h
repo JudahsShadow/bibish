@@ -30,15 +30,30 @@
 // typedef std::list<line> page;
 
 typedef std::string line;
+
 struct Page {
     int lineCount;
     line content;
 };
 
+//Create a page type of the preceding struct
 typedef Page page;
 
+/* Enumerated data type for commands. parseCommand in the Parser class
+ * will take a command in, figure out what it is supposed to be based
+ * on known localized equivalents to the commands.
+ * Commands listed in an, as added order
+ */
+enum Commands {
+    cmdQuit,
+    cmdList,
+    cmdSelect,
+    cmdSearch,
+    cmdShow,
+    cmdHelp,
+    cmdUnknon
+};
 
-
-//convience type so the project doesn't have to depend on glibc
+//convenience type so the project doesn't have to depend on glibc
 typedef unsigned int uint;
 #endif // TYPES_H
