@@ -21,9 +21,14 @@
 #ifndef INTERFACE_H
 #define INTERFACE_H
 
+//C++ Standard/STL includes
 #include <string>
 
+//SWORD Project includes
 #include <swmgr.h>
+
+//BIBISH includes
+#include "../back/library.h"
 
 #include "display.h"
 
@@ -38,8 +43,9 @@ class Interface {
         std::string processCommand(std::string command);
 
         std::string selectedVersion;
-        sword::SWMgr swordLibrary;
         Display display;
+        Library library;
+        sword::SWMgr *swordLibrary;
 };
 
 #endif // INTERFACE_H

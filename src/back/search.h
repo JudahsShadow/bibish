@@ -25,7 +25,6 @@
 
 #include <swmgr.h>
 
-#include "library.h"
 #include "../front/display.h" //for doing search progress displays
 
 class Search {

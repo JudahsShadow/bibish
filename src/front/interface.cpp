@@ -17,13 +17,17 @@
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 *
 */
+
+//Standard/STL includes
 #include <iostream>
 #include <string>
 #include <list>
 
+//SWORD Project includes
 #include <swmgr.h>
 #include <markupfiltmgr.h>
 
+//Project includes
 #include "interface.h"
 #include "display.h"
 #include "pager.h"
@@ -37,10 +41,13 @@ void Interface::initalize() {
     configLines();
 
     std::cout  << "Initalizing SWORD, please wait..." << std::endl;
-//     swordLibrary = new sword::SWMgr(new sword::MarkupFilterMgr
-//                                           (sword::FMT_PLAIN));
+    this->swordLibrary = new sword::SWMgr(new sword::MarkupFilterMgr
+                                          (sword::FMT_PLAIN));
+
     std::cout << "Initalized, proceeding to shell..." << std::endl;
 //     this->display = new Display;
+    this->library.setSwordLibrary(*swordLibrary);
+
 }
 
 void Interface::configLines() {
@@ -64,7 +71,6 @@ std::string Interface::processCommand(std::string command) {
     std::string text = "";
     std::string ref = "";
 
-    Passage pass;
     Library library;
     Parser commandParser;
     Parser worksParser;
@@ -91,7 +97,6 @@ std::string Interface::processCommand(std::string command) {
         //since we're quitting do nothing here
         return commandPart;
     } else if(commandPart == validCommands[1]) {
-        pass.setLibrary(swordLibrary);
         int errSpaces = 0;
 
         if(parsedCommand.empty()) {
@@ -111,9 +116,9 @@ std::string Interface::processCommand(std::string command) {
             return commandPart;
         }
 
-        pass.setVersion(selectedVersion);
+        library.passage.setVersion(selectedVersion);
 
-        text = pass.getText(ref);
+        text = library.passage.getText(ref);
 
         if(text == "-1") {
             //Module not found error clear out for now
@@ -134,7 +139,7 @@ std::string Interface::processCommand(std::string command) {
     } else if(commandPart == validCommands[3]) {
         int numModules = 0;
 
-        library.setSwordLibrary(swordLibrary);
+
         if(parsedCommand.front() == "bibles") {
             modules = library.getBibles();
         }
@@ -143,9 +148,9 @@ std::string Interface::processCommand(std::string command) {
         }
 
         if(modules.empty()) {
-            std::cerr <<  "No modules found, of type: ";
+            std::cerr <<  "No modules of type ";
             std::cerr <<  parsedCommand.front();
-            std:: cerr << " please install in another frontend";
+            std:: cerr << " found. Please install in another frontend.";
             std::cerr <<  std::endl;
             display.displaySpacer(1);
             return "-3";
@@ -179,7 +184,7 @@ std::string Interface::processCommand(std::string command) {
            
             //Check to make sure the module is, in fact, valid before continuing
             //on to prevent crashing later <fife>Nip it in the bud!</fife>
-            if(library.isModuuleValid(selectedWork)) {
+            if(library.isModuleValid(selectedWork)) {
                 selectedVersion = selectedWork;
                 display.displaySpacer();
             }
@@ -193,7 +198,7 @@ std::string Interface::processCommand(std::string command) {
     }
     else if(commandPart == validCommands[5]) {
         if(selectedVersion != "") {
-            Search searcher;
+
             Pager resultsPager;
             std::list<page> pagedResults;
             std::string results = "";
@@ -201,9 +206,8 @@ std::string Interface::processCommand(std::string command) {
             
             resultsPager.setSize(display.getSize());
             
-            searcher.setSwordLibrary(swordLibrary);
-            searcher.setModule(selectedVersion);
-            searcher.setDisplay(display);
+            library.searcher.setModule(selectedVersion);
+            library.searcher.setDisplay(display);
             
             //If no argument is provided to the command, propmpt for the
             //search terms, otherwise recombine the arguments into a string
@@ -220,7 +224,7 @@ std::string Interface::processCommand(std::string command) {
 
             //TODO: Make this more than references or an option to do text or
             //reference results or both.
-            results = searcher.search(searchTerms);
+            results = library.searcher.search(searchTerms);
             pagedResults = resultsPager.getPagedText(results);
             
             display.clearScreen();
@@ -277,6 +281,6 @@ int Interface::runInterface() {
         std::getline(std::cin, command);
     }
 
-//     delete swordLibrary;
+    delete swordLibrary;
     return returnCode;
 }

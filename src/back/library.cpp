@@ -25,6 +25,7 @@
 
 #include <swmgr.h>
 #include <swmodule.h>
+#include <markupfiltmgr.h>
 
 std::list<std::string> Library::getBibles() {
     std::list<std::string> bibles;
@@ -74,8 +75,8 @@ std::list< std::string > Library::getModuleList(std::string moduleType) {
             return moduleList;
     }
 
-    for(libraryIterator = swordLibrary.Modules.begin();
-        libraryIterator != swordLibrary.Modules.end();
+    for(libraryIterator = this->swordLibrary.Modules.begin();
+        libraryIterator != this->swordLibrary.Modules.end();
         libraryIterator++) {
 
         sword::SWModule *tempMod = libraryIterator->second;
@@ -96,11 +97,11 @@ std::list< std::string > Library::getModuleList(std::string moduleType) {
 }
 
 
-void Library::setSwordLibrary(sword::SWMgr library) {
+void Library::setSwordLibrary(sword::SWMgr &library) {
     swordLibrary = library;
 }
 
-bool Library::isModuuleValid(std::string moduleName) {
+bool Library::isModuleValid(std::string moduleName) {
     sword::SWModule *tmpMod;
     
     tmpMod = swordLibrary.getModule(moduleName.c_str());
