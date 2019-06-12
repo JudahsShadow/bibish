@@ -182,8 +182,9 @@ std::string Interface::processCommand(std::string command) {
         else {        
             selectedWork =  parsedCommand.front();
            
-            //Check to make sure the module is, in fact, valid before continuing
-            //on to prevent crashing later <fife>Nip it in the bud!</fife>
+            //Check to make sure the module is, in fact, valid before 
+            //continuing on to prevent crashing later
+            //<fife>Nip it in the bud!</fife>
             if(library.isModuleValid(selectedWork)) {
                 selectedVersion = selectedWork;
                 display.displaySpacer();

@@ -50,14 +50,6 @@ std::string Passage::getText (std::string reference) {
         swordLibrary.getModule(version.c_str());
     sword::VerseKey key;
 
-    if(!module) {
-        std::cerr << this->version;
-        std::cerr << " not found, install it in another front-end";
-        std::cerr << std::endl;
-        text = "-1";
-        return text;
-    }
-    
 
     refRange = key.parseVerseList(reference.c_str(), key, true);
     for(refRange = sword::TOP; !refRange.popError(); refRange++) {
