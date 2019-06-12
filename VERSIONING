@@ -6,13 +6,13 @@ Development Versioning
 
 0.x.y
 
-Where x is the milsestone release as described in the MILESTONES file and
-y is the bugfix only release for that milestone.
+Where x is the milestone release as described in the MILESTONES file and
+y is the bug fix only release for that milestone.
 
 Stable Versioning
 
 1.x.y
 
 After version 1.0.0 the release is considered "Mature" and versioning will be
-as follows, minor releases y are for bugfixes only, major releases x are
-reserved for chanigng to a new SWORD project release.
+as follows, minor releases y are for bug fixes only, major releases x are
+reserved for changing to a new SWORD project release.

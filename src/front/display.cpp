@@ -1,6 +1,6 @@
 /*
  * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
- * inspired by debian's bible package
+ * inspired by Debian's bible package
  * Copyright (C) 2015  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -48,16 +48,19 @@ void Display::displayHelp() {
     displayHeader();
     std::cout << "Valid Commands are:" << std::endl;
     std::cout << "show [reference]" << std::endl;
-    std::cout << "Displays [reference] in the selected version" << std::endl;
+    std::cout << "   Displays [reference] in the selected version";
+    std::cout << std::endl;
     std::cout << "quit" << std::endl;
-    std::cout <<  "list" << std::endl;
-    std::cout <<  "lists available bibles" <<  std::endl;
-    std::cout << "select [bible]" << std::endl;
-    std::cout << "selects bible to use for showing references" << std::endl;
-    std::cout << "Exits program" << std::endl;
+    std::cout << "   Exits the program" << std::endl;
+    std::cout << "list [type]" << std::endl;
+    std::cout << "   lists available modules of [type]" <<  std::endl;
+    std::cout << "   defaults to bible if no type is specified" << std::endl;
+    std::cout << "select [module]" << std::endl;
+    std::cout << "   selects [module] to use for display with show command";
+    std::cout << std::endl;
     std::cout << "?" << std::endl;
-    std::cout << "Shows this message" << std::endl;
-    displaySpacer(11);
+    std::cout << "   Shows this message" << std::endl;
+    displaySpacer(12);
 }
 
 void Display::setSize(uint size) {

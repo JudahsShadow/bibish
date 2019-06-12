@@ -4,6 +4,11 @@ are:
 
 quit - Exits the program.
 list - Lists installed modules (bibles by default).
+    Takes arguments of bible, commentary, devo, book, dict
 select - Selects a module for use.
-show - Shows a passage with the selected passage.
+    Takes argument of a module short name
+show - Shows a passage with the selected work.
+    Takes argument of a range of scripture to show
 help - Displays these commands and more.
+search - Searches for a multi-word phrase in the selected version
+    Takes argument of the word(s) to search for.

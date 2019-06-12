@@ -1,6 +1,6 @@
 /*
  * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
- * inspired by debian's bible package
+ * inspired by Debian's bible package
  * Copyright (C) 2015  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -61,7 +61,7 @@ std::list< std::string > Parser::parseCommand(std::string command) {
         argumentCount = 0;
         return parsedCommand;
     } else {
-        //TODO: Fix the further conercasing this raises
+        //TODO: Fix the further corner-casing this raises
         if (commandPart == "list" && tokenizedCommand.empty()) {
             //If we've gotten here we've encountered a list command with no
             //arguments, so make it bibles by default.
@@ -73,7 +73,7 @@ std::list< std::string > Parser::parseCommand(std::string command) {
     }
 
     if (commandPart == ("show")) {
-        // TODO:Don't hardcode this  all we should have to parse is
+        // TODO:Don't hard-code this  all we should have to parse is
         // making sure all the components of the argument
         // are one for passing back to the interface
         std::string reference = "";
@@ -109,7 +109,7 @@ std::list< std::string > Parser::parseCommand(std::string command) {
         parsedCommand.push_back(query);
     }
     else {
-        //Add a genral case to just pass arguments to the back as a list
+        //Add a general case to just pass arguments to the back as a list
         while(!argumentPart.empty()) {
             parsedCommand.push_back(argumentPart.front());
             argumentPart.pop_front();
@@ -139,7 +139,7 @@ std::list<std::string> Parser::split(std::string string) {
   while (!tokenStream.eof()) {
       // Yes I know this is normally "The Wrong Way(TM)" to do this
       // since you shouldn't read past EOF, but getline is a bit
-      // werid about spacings on stringstreams
+      // weird about spacing on stringstreams
 
       std::string token;
       std::getline(tokenStream, token, ' ');

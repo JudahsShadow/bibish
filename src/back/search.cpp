@@ -1,6 +1,6 @@
 /*
  * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
- * inspired by debian's bible package
+ * inspired by Debian's bible package
  * Copyright (C) 2015  David Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -53,7 +53,7 @@ void Search::percentUpdate(char percent, void *userData) {
 
 
 std::string Search::search(std::string searchString) {
-    int searchType = -2; //multiword is what we will use for now
+    int searchType = -2; //multi- word is what we will use for now
     sword::ListKey results;
     char lineLen = 80;
     std::string verses = "";

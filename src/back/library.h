@@ -1,6 +1,6 @@
 ﻿/*
  * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
- * inspired by debian's bible package
+ * inspired by Debian's bible package
  * Copyright (C) 2015  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -21,7 +21,7 @@
 #ifndef LIBRARY_H
 #define LIBRARY_H
 
-//Stnadard/STL includes
+//Standard/STL includes
 #include <string>
 #include <list>
 
@@ -35,8 +35,8 @@
 
 class Library {
     public:
-        //Member objects for use externally (eg. libary.passage.method())
-        /*TODO: Decide if this will be toplevel, or if a modules object should
+        //Member objects for use externally (eg. library.passage.method())
+        /*TODO: Decide if this will be top level, or if a modules object should
          * be included
          */
         Passage passage;

@@ -1,6 +1,6 @@
 ﻿/*
 * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
-* inspired by debian's bible package
+* inspired by Debian's bible package
 * Copyright (C) 2015  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
 *
 * This program is free software; you can redistribute it and/or modify it
@@ -40,11 +40,11 @@
 void Interface::initalize() {
     configLines();
 
-    std::cout  << "Initalizing SWORD, please wait..." << std::endl;
+    std::cout  << "Initializing SWORD, please wait..." << std::endl;
     this->swordLibrary = new sword::SWMgr(new sword::MarkupFilterMgr
                                           (sword::FMT_PLAIN));
 
-    std::cout << "Initalized, proceeding to shell..." << std::endl;
+    std::cout << "Initialized, proceeding to shell..." << std::endl;
 //     this->display = new Display;
     this->library.setSwordLibrary(*swordLibrary);
 
@@ -150,7 +150,7 @@ std::string Interface::processCommand(std::string command) {
         if(modules.empty()) {
             std::cerr <<  "No modules of type ";
             std::cerr <<  parsedCommand.front();
-            std:: cerr << " found. Please install in another frontend.";
+            std:: cerr << " found. Please install in another front-end.";
             std::cerr <<  std::endl;
             display.displaySpacer(1);
             return "-3";
@@ -209,7 +209,7 @@ std::string Interface::processCommand(std::string command) {
             library.searcher.setModule(selectedVersion);
             library.searcher.setDisplay(display);
             
-            //If no argument is provided to the command, propmpt for the
+            //If no argument is provided to the command, prompt for the
             //search terms, otherwise recombine the arguments into a string
             if (parsedCommand.empty()) {
                 display.displayHeader();
