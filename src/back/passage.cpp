@@ -35,7 +35,7 @@ void Passage::setVersion (std::string version) {
     this->version = version;
 }
 
-void Passage::setLibrary(sword::SWMgr library) {
+void Passage::setLibrary(sword::SWMgr &library) {
   swordLibrary = library;
 }
 

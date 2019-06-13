@@ -36,7 +36,7 @@
 class Library {
     public:
         //Member objects for use externally (eg. library.passage.method())
-        /*TODO: Decide if this will be top level, or if a modules object should
+        /* TODO: Decide if this will be top level, or if a modules object should
          * be included
          */
         Passage passage;

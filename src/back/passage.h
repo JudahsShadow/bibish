@@ -31,7 +31,7 @@ class Passage {
     public:
         std::string getText(std::string reference);
         void setVersion(std::string version);
-        void setLibrary(sword::SWMgr library);
+        void setLibrary(sword::SWMgr &library);
     private:
         std::string version;
         sword::SWMgr swordLibrary;

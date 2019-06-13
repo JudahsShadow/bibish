@@ -39,7 +39,7 @@ private:
     sword::SWMgr swordLibrary;
     sword::SWModule *module;
     //this is static so it can be accessed in the percentUpdate function
-    //sword needs to be static
+    //that the sword api needs to be static
     static Display searchDisplay;
 };
 

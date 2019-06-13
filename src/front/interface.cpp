@@ -43,11 +43,12 @@ void Interface::initalize() {
     std::cout  << "Initializing SWORD, please wait..." << std::endl;
     this->swordLibrary = new sword::SWMgr(new sword::MarkupFilterMgr
                                           (sword::FMT_PLAIN));
-
+    
+    library.setSwordLibrary(*swordLibrary);
+    library.passage.setLibrary(*swordLibrary);    
+    
     std::cout << "Initialized, proceeding to shell..." << std::endl;
 //     this->display = new Display;
-    this->library.setSwordLibrary(*swordLibrary);
-
 }
 
 void Interface::configLines() {
@@ -116,15 +117,10 @@ std::string Interface::processCommand(std::string command) {
             return commandPart;
         }
 
-        library.passage.setVersion(selectedVersion);
+       library.passage.setVersion(selectedVersion);
 
         text = library.passage.getText(ref);
-
-        if(text == "-1") {
-            //Module not found error clear out for now
-            return "-2";
-        }
-
+        
         Pager textPager;
         std::list<page> pagedText;
 
