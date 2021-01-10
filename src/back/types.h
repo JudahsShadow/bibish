@@ -55,6 +55,17 @@ enum Commands {
     cmdEmpty
 };
 
+/* Struct for commands. This will allow for usage of the above
+ * enumerated command type First part will be the enumerated
+ * command part, second part will be a string list of arguments
+ */
+struct Command {
+    Commands commandPart;
+    std::list< std::string > argumentPart;
+};
+
+typedef Command command;
+
 //convenience type so the project doesn't have to depend on glibc
 typedef unsigned int uint;
 #endif // TYPES_H
