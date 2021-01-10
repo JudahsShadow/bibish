@@ -51,7 +51,8 @@ enum Commands {
     cmdSearch,
     cmdShow,
     cmdHelp,
-    cmdUnknon
+    cmdUnknown,
+    cmdEmpty
 };
 
 //convenience type so the project doesn't have to depend on glibc
