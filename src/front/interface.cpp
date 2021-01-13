@@ -67,46 +67,36 @@ void Interface::configLines() {
     display.setSize(lineCount + 1);
 }
 
-std::string Interface::processCommand(std::string command) {
-    std::string validCommands[6];
-    std::string text = "";
-    std::string ref = "";
+validCommands Interface::processCommand(Command parsedCommand) {
+    /*This is the basis of the main program loop. This evaluates parsedCommand
+     * and then acts accordingly.
+     */
+    //TODO: Split this into functions
 
     Library library;
-    Parser commandParser;
     Parser worksParser;
 
-    std::string commandPart;
+    validCommands commandPart;
 
     std::list<std::string> modules;
-    std::list<std::string> parsedCommand;
 
-    parsedCommand = commandParser.parseCommand(command);
-    commandPart = parsedCommand.front();
-    parsedCommand.pop_front();
+    commandPart = parsedCommand.commandPart;
 
     std::string tempBibles;
 
-    validCommands[0] = "quit";
-    validCommands[1] = "show";
-    validCommands[2] = "?";
-    validCommands[3] = "list";
-    validCommands[4] = "select";
-    validCommands[5] = "search";
-
-    if(commandPart == validCommands[0]) {
+    if(commandPart == cmdQuit) {
         //since we're quitting do nothing here
         return commandPart;
-    } else if(commandPart == validCommands[1]) {
+    } else if(commandPart == cmdShow) {
         int errSpaces = 0;
 
-        if(parsedCommand.empty()) {
+        if(parsedCommand.argumentPart.empty()) {
             display.displayHeader();
             std::cout <<  "No reference Specified";
             std::cout << std::endl;
             errSpaces++;
         } else {
-            ref = parsedCommand.front();
+            ref = parsedCommand.argumentPart.front();
         }
 
         if(selectedVersion == "") {
@@ -118,38 +108,38 @@ std::string Interface::processCommand(std::string command) {
         }
 
        library.passage.setVersion(selectedVersion);
+       
+       text = library.passage.getText(ref);
+       
+       Pager textPager;
+       std::list<page> pagedText;
 
-        text = library.passage.getText(ref);
-        
-        Pager textPager;
-        std::list<page> pagedText;
+       textPager.setSize(display.getSize());
+       pagedText = textPager.getPagedText(text);
 
-        textPager.setSize(display.getSize());
-        pagedText = textPager.getPagedText(text);
-
-        display.displayPages(pagedText);
-        return commandPart;
-    } else if(commandPart == validCommands[2]) {
+       display.displayPages(pagedText);
+       return commandPart;
+    } else if(commandPart == cmdHelp) {
         display.displayHelp();
         return commandPart;
-    } else if(commandPart == validCommands[3]) {
+    } else if(commandPart == cmdList) {
         int numModules = 0;
 
 
-        if(parsedCommand.front() == "bibles") {
+        if(parsedCommand.argumentPart.front() == "bibles") {
             modules = library.getBibles();
         }
-        else if (parsedCommand.front() == "commentaries") {
+        else if (parsedCommand.argumentPart.front() == "commentaries") {
             modules = library.getCommentaries();
         }
 
         if(modules.empty()) {
             std::cerr <<  "No modules of type ";
-            std::cerr <<  parsedCommand.front();
+            std::cerr <<  parsedCommand.argumentPart.front();
             std:: cerr << " found. Please install in another front-end.";
             std::cerr <<  std::endl;
             display.displaySpacer(1);
-            return "-3";
+            return cmdError;
         }
         else {
             numModules = modules.size();
@@ -167,16 +157,16 @@ std::string Interface::processCommand(std::string command) {
         display.displaySpacer(numModules);
 
         return commandPart;
-    } else if (commandPart == validCommands[4]) {
+    } else if (commandPart == cmdSelect) {
         //TODO: Stop assuming bibles here then handle actual arguments
         std::string selectedWork;
 
-        if(parsedCommand.empty()) {
+        if(parsedCommand.argumentPart.empty()) {
             std::cerr << "No module provided (Try list)" << std::endl;
             display.displaySpacer(1);
         }
         else {        
-            selectedWork =  parsedCommand.front();
+            selectedWork =  parsedCommand.argumentPart.front();
            
             //Check to make sure the module is, in fact, valid before 
             //continuing on to prevent crashing later
@@ -193,7 +183,7 @@ std::string Interface::processCommand(std::string command) {
         }
         return commandPart;
     }
-    else if(commandPart == validCommands[5]) {
+    else if(commandPart == cmdSearch) {
         if(selectedVersion != "") {
 
             Pager resultsPager;
@@ -208,7 +198,7 @@ std::string Interface::processCommand(std::string command) {
             
             //If no argument is provided to the command, prompt for the
             //search terms, otherwise recombine the arguments into a string
-            if (parsedCommand.empty()) {
+            if (parsedCommand.argumentPart.empty()) {
                 display.displayHeader();
                 display.displaySpacer(2);
                 std::cout << "Enter a word or phrase to search for: ";
@@ -216,7 +206,7 @@ std::string Interface::processCommand(std::string command) {
 
             }
             else {
-                searchTerms = parsedCommand.front();
+                searchTerms = parsedCommand.argumentPart.front();
             }
 
             //TODO: Make this more than references or an option to do text or
@@ -233,19 +223,22 @@ std::string Interface::processCommand(std::string command) {
         else {
             std::cerr << "Error: No Module Selected" << std::endl;
             std::cerr << "Try select." << std::endl;
-            return command;
+            return commandPart;
         }
     }
     else {
         //Invalid command head out.
-        return "-1";
+        return cmdUnknown;
     }
 }
 
 int Interface::runInterface() {
     int returnCode = 0;
     std::string command = "";
-
+    
+    Parser commandParser;
+    Command parsedCommand;
+    
     //Initialize the interface
     initalize();
     display.clearScreen();
@@ -253,29 +246,28 @@ int Interface::runInterface() {
     display.displaySpacer();
     display.displayPrompt();
     std::getline(std::cin, command);
+    
+    parsedCommand = commandParser.parseCommand(command);
 
-    //main program loop keep going until a quit command is given
-    while(command != "quit") {
+    //main program loop keep going until a quit command is given or an unrecoverable error thrown
+    while(parsedCommand.commandPart != cmdQuit) {
         display.clearScreen();
         display.displayHeader();
-        command = processCommand(command);
-
-        if(command == "-1") {
+        
+        if(parsedCommand.commandPart == cmdUnknown) {
             std::cerr << "Error! invalid command! (Try ?)" << std::endl;
             display.displaySpacer(1);
-        } else if(command == "-2") {
-            //Specified module not found, since we can't install yet bail out
-            std::cerr << "Module not found. Aborting.." << std::endl;
+        } else if(parsedCommand.commandPart == cmdError) {
+            //Some error encountered. Since some are unrecoverable, Back out.
+            std::cerr << "Unrecoverable error encountered Aborting..." << std::endl;
             returnCode = -1;
             break;
-        } else if(command ==  "-3") {
-            returnCode = -2;
-            std::cerr <<  "No relevant modules found. Aborting.." <<  std::endl;
-            break;
         }
+        parsedCommand.commandPart = processCommand(parsedCommand);
 
         display.displayPrompt();
         std::getline(std::cin, command);
+        parsedCommand = commandParser.parseCommand(command);
     }
 
     delete swordLibrary;

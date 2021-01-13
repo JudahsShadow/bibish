@@ -44,7 +44,7 @@ typedef Page page;
  * on known localized equivalents to the commands.
  * Commands listed in an, as added order
  */
-enum Commands {
+enum validCommands {
     cmdQuit,
     cmdList,
     cmdSelect,
@@ -52,7 +52,8 @@ enum Commands {
     cmdShow,
     cmdHelp,
     cmdUnknown,
-    cmdEmpty
+    cmdEmpty,
+    cmdError
 };
 
 /* Struct for commands. This will allow for usage of the above
@@ -60,7 +61,7 @@ enum Commands {
  * command part, second part will be a string list of arguments
  */
 struct Command {
-    Commands commandPart;
+    validCommands commandPart;
     std::list< std::string > argumentPart;
 };
 

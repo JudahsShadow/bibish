@@ -29,7 +29,7 @@
 
 //BIBISH includes
 #include "../back/library.h"
-
+#include "../back/types.h"
 #include "display.h"
 
 class Interface {
@@ -40,7 +40,7 @@ class Interface {
         void initalize();
         void configLines();
 
-        std::string processCommand(std::string command);
+        validCommands processCommand(Command parsedCommand);
 
         std::string selectedVersion;
         Display display;

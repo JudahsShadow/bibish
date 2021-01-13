@@ -24,13 +24,15 @@
 #include <string>
 #include <list>
 
+#include "types.h"
+
 class Parser {
     public:
         Parser();
         ~Parser();
         int getNumberArguments();
         std::list<std::string> tokenize(std::string string);
-        std::list<std::string> parseCommand(std::string command);
+        Command parseCommand(std::string command);
         std::string detokenize(std::list< std::string > tokens);
     private:
         std::list<std::string> tokens;
