@@ -23,6 +23,7 @@
 #include <string>
 #include <list>
 
+//Linux includes to get terminal info such as screen size
 #include <sys/ioctl.h>
 #include <unistd.h>
 
@@ -41,7 +42,7 @@
 #include "../back/search.h"
 
 void Interface::initalize() {
-    configLines();
+    configScreen();
 
     std::cout  << "Initializing SWORD, please wait..." << std::endl;
     this->swordLibrary = new sword::SWMgr(new sword::MarkupFilterMgr
@@ -53,20 +54,13 @@ void Interface::initalize() {
     std::cout << "Initialized, proceeding to shell..." << std::endl;
 }
 
-void Interface::configLines() {
-    uint maxLine = 1000;
-    uint lineCount = 0;
-
-    for(int i = maxLine; i >= 1; i--) {
-        std::cout << i << std::endl;
-    }
-
-    std::cout << "Enter the number at the top of the screen: ";
-    std::string input;
-    std::getline(std::cin, input);
-
-    lineCount = std::stoi(input);
-    display.setSize(lineCount + 1);
+void Interface::configScreen() {
+    struct winsize termSize;
+    
+    ioctl(STDOUT_FILENO,TIOCGWINSZ,&termSize);
+    
+    this->display.setHeight(termSize.ws_row);
+    this->display.setWidth(termSize.ws_col);
 }
 
 validCommands Interface::processCommand(Command parsedCommand) {
@@ -117,14 +111,8 @@ validCommands Interface::processCommand(Command parsedCommand) {
        
        Pager textPager;
        std::list<page> pagedText;
-       
-       int termWidth;
-       struct winsize termSize;
-       ioctl(STDOUT_FILENO,TIOCGWINSZ,&termSize);
-       termWidth = termSize.ws_col;
-       
 
-       textPager.setSize(display.getSize(),termWidth);
+       textPager.setSize(display.getHeight(),display.getWidth());
        pagedText = textPager.getPagedText(text);
 
        display.displayPages(pagedText);
@@ -201,7 +189,7 @@ validCommands Interface::processCommand(Command parsedCommand) {
             std::string results = "";
             std::string searchTerms = "";
             
-            resultsPager.setSize(display.getSize());
+            resultsPager.setSize(display.getHeight(),display.getWidth());
             
             library.searcher.setModule(selectedVersion);
             library.searcher.setDisplay(display);

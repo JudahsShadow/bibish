@@ -33,12 +33,15 @@ class Display {
         void displaySpacer(int spacing = 0);
         void displayHelp();
         void clearScreen();
-        void setSize(uint size);
-        uint getSize();
+        void setHeight(uint size);
+        uint getHeight();
+        void setWidth(uint size);
+        uint getWidth();
         void displayPages(std::list<page> text);
         void displayPercentage(uint percent);
     private:
-        uint screenSize;
+        uint screenHeight;
+        uint screenWidth;
 
 };
 

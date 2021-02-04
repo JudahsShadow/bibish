@@ -38,7 +38,7 @@ class Interface {
 
     private:
         void initalize();
-        void configLines();
+        void configScreen();
 
         validCommands processCommand(Command parsedCommand);
 
