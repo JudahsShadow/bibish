@@ -23,6 +23,9 @@
 #include <string>
 #include <list>
 
+#include <sys/ioctl.h>
+#include <unistd.h>
+
 //SWORD Project includes
 #include <swmgr.h>
 #include <markupfiltmgr.h>
@@ -48,7 +51,6 @@ void Interface::initalize() {
     library.passage.setLibrary(*swordLibrary);    
     
     std::cout << "Initialized, proceeding to shell..." << std::endl;
-//     this->display = new Display;
 }
 
 void Interface::configLines() {
@@ -83,6 +85,8 @@ validCommands Interface::processCommand(Command parsedCommand) {
     commandPart = parsedCommand.commandPart;
 
     std::string tempBibles;
+    std::string ref;
+    std::string text;
 
     if(commandPart == cmdQuit) {
         //since we're quitting do nothing here
@@ -113,8 +117,14 @@ validCommands Interface::processCommand(Command parsedCommand) {
        
        Pager textPager;
        std::list<page> pagedText;
+       
+       int termWidth;
+       struct winsize termSize;
+       ioctl(STDOUT_FILENO,TIOCGWINSZ,&termSize);
+       termWidth = termSize.ws_col;
+       
 
-       textPager.setSize(display.getSize());
+       textPager.setSize(display.getSize(),termWidth);
        pagedText = textPager.getPagedText(text);
 
        display.displayPages(pagedText);
