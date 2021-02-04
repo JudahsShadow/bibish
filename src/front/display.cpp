@@ -24,7 +24,7 @@
 #include "../back/types.h"
 
 void Display::clearScreen() {
-    for (int i = 0; i <= this->screenSize; i++) {
+    for (int i = 0; i <= this->screenHeight; i++) {
         std::cout << std::endl;
     }
 }
@@ -38,7 +38,7 @@ void Display::displayPrompt() {
 }
 
 void Display::displaySpacer(int spacing) {
-    for(int i = 1; i <= this->screenSize - (spacing + 2); i++) {
+    for(int i = 1; i <= this->screenHeight - (spacing + 2); i++) {
         std::cout << std::endl;
     }
 }
@@ -63,12 +63,12 @@ void Display::displayHelp() {
     displaySpacer(12);
 }
 
-void Display::setSize(uint size) {
-    screenSize = size;
+void Display::setHeight(uint size) {
+    screenHeight = size;
 }
 
-uint Display::getSize() {
-    return this->screenSize;
+uint Display::getHeight() {
+    return this->screenHeight;
 }
 
 void Display::displayPages(std::list<page> text) {
@@ -104,4 +104,12 @@ void Display::displayPercentage(uint percent) {
     std::cout << "Searching " << percent;
     std::cout << "% complete";
     std::flush(std::cout);
+}
+
+void Display::setWidth(uint size) {
+    this->screenWidth = size;
+}
+
+uint Display::getWidth() {
+    return this->screenWidth;
 }

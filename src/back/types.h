@@ -44,15 +44,28 @@ typedef Page page;
  * on known localized equivalents to the commands.
  * Commands listed in an, as added order
  */
-enum Commands {
+enum validCommands {
     cmdQuit,
     cmdList,
     cmdSelect,
     cmdSearch,
     cmdShow,
     cmdHelp,
-    cmdUnknon
+    cmdUnknown,
+    cmdEmpty,
+    cmdError
 };
+
+/* Struct for commands. This will allow for usage of the above
+ * enumerated command type First part will be the enumerated
+ * command part, second part will be a string list of arguments
+ */
+struct Command {
+    validCommands commandPart;
+    std::list< std::string > argumentPart;
+};
+
+typedef Command command;
 
 //convenience type so the project doesn't have to depend on glibc
 typedef unsigned int uint;

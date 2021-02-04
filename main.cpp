@@ -24,6 +24,10 @@
 
 int main(int argc, char **argv) {
     int exitCode = 0;
+    
+    //TODO: Add command line arguments for versioning, etc.
+    argc = 0;
+    argv = NULL;
 
     Interface *ui = new Interface();
     exitCode = ui->runInterface();

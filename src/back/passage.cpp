@@ -58,7 +58,9 @@ std::string Passage::getText (std::string reference) {
         //TODO: show chap and verse only after the first verse
         text += module->getKeyText();
         text += " ";
-        text += module->renderText();
+        //use stripText() instead of renderText() because we don't want anything
+        //but text
+        text += module->stripText();
     }
 
     return text;

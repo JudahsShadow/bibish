@@ -36,36 +36,46 @@ int Parser::getNumberArguments() {
     return argumentCount;
 }
 
-std::list< std::string > Parser::parseCommand(std::string command) {
+Command Parser::parseCommand(std::string command) {
     std::list<std::string> tokenizedCommand;
     std::string commandPart;
     std::list<std::string> argumentPart;
-    std::list<std::string> parsedCommand;
-
-    parsedCommand.clear();
+    Command parsedCommand;
+    
+    //Initalize the return value
+    parsedCommand.commandPart = cmdEmpty;
+    parsedCommand.argumentPart.clear();
+    
+    //Initialize the buffers
     argumentPart.clear();
+    tokenizedCommand.clear();
+    commandPart = "";
 
     tokenizedCommand = tokenize(command);
     if(!tokenizedCommand.empty()) {
+        /*If after breaking the command into tokens we have something, as
+         *opposed to nothing, put the first item in the commandPart variable
+         *for testing against valid values
+         */
         commandPart = tokenizedCommand.front();
         tokenizedCommand.pop_front();
     }
     else {
         commandPart = "";
+        parsedCommand.commandPart = cmdEmpty;
     }
 
-    parsedCommand.push_back(commandPart);
-
     //TODO: Find a better way for this corner case than to hard code it.
-    if (tokenizedCommand.empty() && commandPart != "list"){
+    if (tokenizedCommand.empty() && commandPart != "list") {
         argumentCount = 0;
-        return parsedCommand;
     } else {
         //TODO: Fix the further corner-casing this raises
         if (commandPart == "list" && tokenizedCommand.empty()) {
-            //If we've gotten here we've encountered a list command with no
-            //arguments, so make it bibles by default.
+            /* If we've gotten here we've encountered a list command with no
+            * arguments, so make it bibles by default.
+            */
             argumentPart.push_back("bibles");
+            
         }
         else {
             argumentPart = tokenizedCommand;
@@ -78,11 +88,13 @@ std::list< std::string > Parser::parseCommand(std::string command) {
         // are one for passing back to the interface
         std::string reference = "";
         reference = this->detokenize(argumentPart);
-        parsedCommand.push_back(reference);
+        parsedCommand.argumentPart.push_back(reference);
+        parsedCommand.commandPart = cmdShow;
     }
     else if (commandPart == "select") {
         //select has only one argument, stick it in line and ignore the rest
-        parsedCommand.push_back(argumentPart.front());
+        parsedCommand.argumentPart.push_back(argumentPart.front());
+        parsedCommand.commandPart = cmdSelect;
     }
     else if (commandPart == "list") {
         if(argumentPart.front() == "bibles" ||
@@ -91,29 +103,37 @@ std::list< std::string > Parser::parseCommand(std::string command) {
            argumentPart.front() == "books" ||
            argumentPart.front() == "dictionaries") {
 
-            parsedCommand.push_back(argumentPart.front());
-
+            parsedCommand.argumentPart.push_back(argumentPart.front());
         }
         else {
             //since list was given and the argument isn't another valid type
             //assume bibles
-            parsedCommand.push_back("bibles");
+            parsedCommand.argumentPart.push_back("bibles");
         }
+        parsedCommand.commandPart = cmdList;
     }
     else if(commandPart == "search") {
-        //For now, assume all arguments are part of the search query
+        //For now, assume all arguments are part of tdhe search query
         //in the future look at this to parse actual command arguments when
         //those exist for search.
         std::string query = "";
         query = detokenize(argumentPart);
-        parsedCommand.push_back(query);
+        parsedCommand.argumentPart.push_back(query);
+        parsedCommand.commandPart = cmdSearch;
+    }
+    else if(commandPart == "quit") {
+        parsedCommand.commandPart = cmdQuit;
+    }
+    else if(commandPart == "help" || commandPart == "?") {
+        parsedCommand.commandPart = cmdHelp;
     }
     else {
         //Add a general case to just pass arguments to the back as a list
         while(!argumentPart.empty()) {
-            parsedCommand.push_back(argumentPart.front());
+            parsedCommand.argumentPart.push_back(argumentPart.front());
             argumentPart.pop_front();
         }
+        parsedCommand.commandPart = cmdUnknown;
     }
     return parsedCommand;
 }

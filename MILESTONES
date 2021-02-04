@@ -4,3 +4,6 @@ Milestone releases
     Planned Features:
         Allow list and select to work with commentaries as well
         Add search command, for basic word search functionality.
+0.2.0:
+    Planned Features:
+       Add support for dictionaries to list, select, show.
