@@ -233,6 +233,9 @@ validCommands Interface::commandList ( Command parsedCommand ) {
         else if (parsedCommand.argumentPart.front() == "commentaries") {
             modules = library.getCommentaries();
         }
+        else if(parsedCommand.argumentPart.front() == "lexicons") {
+            modules = library.getLexicons();
+        }
 
         if(modules.empty()) {
             std::cerr <<  "No modules of type ";

@@ -44,6 +44,7 @@ class Library {
         
         std::list<std::string> getBibles();
         std::list<std::string> getCommentaries();
+        std::list<std::string> getLexicons();
         bool isModuleValid(std::string module);
         void setSwordLibrary(sword::SWMgr &library);        
     private:

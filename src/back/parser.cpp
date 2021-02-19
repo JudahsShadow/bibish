@@ -101,7 +101,8 @@ Command Parser::parseCommand(std::string command) {
            argumentPart.front() == "commentaries" ||
            argumentPart.front() == "devotions" ||
            argumentPart.front() == "books" ||
-           argumentPart.front() == "dictionaries") {
+           argumentPart.front() == "dictionaries" ||
+            argumentPart.front() == "lexicons") {
 
             parsedCommand.argumentPart.push_back(argumentPart.front());
         }

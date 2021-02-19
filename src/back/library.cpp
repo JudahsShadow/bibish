@@ -39,6 +39,13 @@ std::list< std::string > Library::getCommentaries() {
     return commentaries;
 }
 
+std::list<std::string> Library::getLexicons() {
+    std::list<std::string> lexicons;
+    lexicons = getModuleList("dictionary");
+    return lexicons;
+}
+
+
 
 std::list< std::string > Library::getModuleList(std::string moduleType) {
     std::string module = "";
