@@ -71,6 +71,9 @@ std::string Search::search(std::string searchString) {
 //     std::cerr << (__u64)results.getElement()->userData;
       results++;
     }
+    if(verses == "") {
+        verses = "No results found\n";
+    }
     return verses;
 
 }

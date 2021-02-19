@@ -46,7 +46,7 @@ void Interface::initalize() {
 
     std::cout  << "Initializing SWORD, please wait..." << std::endl;
     this->swordLibrary = new sword::SWMgr(new sword::MarkupFilterMgr
-                                          (sword::FMT_PLAIN));
+                                        (sword::FMT_PLAIN));
     
     library.setSwordLibrary(*swordLibrary);
     library.passage.setLibrary(*swordLibrary);    
@@ -65,8 +65,8 @@ void Interface::configScreen() {
 
 validCommands Interface::processCommand(Command parsedCommand) {
     /*This is the basis of the main program loop. This evaluates parsedCommand
-     * and then acts accordingly.
-     */
+    * and then acts accordingly.
+    */
     //TODO: Split this into functions
 
     Library library;
@@ -74,111 +74,26 @@ validCommands Interface::processCommand(Command parsedCommand) {
 
     validCommands commandPart;
 
-    std::list<std::string> modules;
+
 
     commandPart = parsedCommand.commandPart;
 
     std::string tempBibles;
-    std::string ref;
-    std::string text;
 
     if(commandPart == cmdQuit) {
         //since we're quitting do nothing here
         return commandPart;
     } else if(commandPart == cmdShow) {
-        int errSpaces = 0;
-
-        if(parsedCommand.argumentPart.empty()) {
-            display.displayHeader();
-            std::cout <<  "No reference Specified";
-            std::cout << std::endl;
-            errSpaces++;
-        } else {
-            ref = parsedCommand.argumentPart.front();
-        }
-
-        if(selectedVersion == "") {
-            errSpaces++;
-            std::cerr <<  "Error: No version selected. (Try select)";
-            std::cerr << std::endl;
-            display.displaySpacer(errSpaces);
-            return commandPart;
-        }
-
-       library.passage.setVersion(selectedVersion);
-       
-       text = library.passage.getText(ref);
-       
-       Pager textPager;
-       std::list<page> pagedText;
-
-       textPager.setSize(display.getHeight(),display.getWidth());
-       pagedText = textPager.getPagedText(text);
-
-       display.displayPages(pagedText);
-       return commandPart;
+        commandShow(parsedCommand);
+        return commandPart;
     } else if(commandPart == cmdHelp) {
         display.displayHelp();
         return commandPart;
     } else if(commandPart == cmdList) {
-        int numModules = 0;
-
-
-        if(parsedCommand.argumentPart.front() == "bibles") {
-            modules = library.getBibles();
-        }
-        else if (parsedCommand.argumentPart.front() == "commentaries") {
-            modules = library.getCommentaries();
-        }
-
-        if(modules.empty()) {
-            std::cerr <<  "No modules of type ";
-            std::cerr <<  parsedCommand.argumentPart.front();
-            std:: cerr << " found. Please install in another front-end.";
-            std::cerr <<  std::endl;
-            display.displaySpacer(1);
-            return cmdError;
-        }
-        else {
-            numModules = modules.size();
-        }
-
-        std::string curBible;
-
-        while(!modules.empty()) {
-            curBible = modules.front();
-            std::cout <<  curBible;
-            std::cout << std::endl;
-            modules.pop_front();
-        }
-
-        display.displaySpacer(numModules);
-
+        commandPart = commandList(parsedCommand);
         return commandPart;
     } else if (commandPart == cmdSelect) {
-        //TODO: Stop assuming bibles here then handle actual arguments
-        std::string selectedWork;
-
-        if(parsedCommand.argumentPart.empty()) {
-            std::cerr << "No module provided (Try list)" << std::endl;
-            display.displaySpacer(1);
-        }
-        else {        
-            selectedWork =  parsedCommand.argumentPart.front();
-           
-            //Check to make sure the module is, in fact, valid before 
-            //continuing on to prevent crashing later
-            //<fife>Nip it in the bud!</fife>
-            if(library.isModuleValid(selectedWork)) {
-                selectedVersion = selectedWork;
-                display.displaySpacer();
-            }
-            else {
-                //Module didn't come up, alert the user and bail out early.'
-                std::cerr << "Module Name is invalid (Try list)" << std::endl;
-                return commandPart;
-            }
-        }
+        commandSelect(parsedCommand);
         return commandPart;
     }
     else if(commandPart == cmdSearch) {
@@ -247,7 +162,8 @@ int Interface::runInterface() {
     
     parsedCommand = commandParser.parseCommand(command);
 
-    //main program loop keep going until a quit command is given or an unrecoverable error thrown
+    //main program loop keep going until a quit command is given or an
+    //unrecoverable error thrown
     while(parsedCommand.commandPart != cmdQuit) {
         display.clearScreen();
         display.displayHeader();
@@ -257,7 +173,8 @@ int Interface::runInterface() {
             display.displaySpacer(1);
         } else if(parsedCommand.commandPart == cmdError) {
             //Some error encountered. Since some are unrecoverable, Back out.
-            std::cerr << "Unrecoverable error encountered Aborting..." << std::endl;
+            std::cerr << "Unrecoverable error encountered Aborting...";
+            std::cerr << std::endl;
             returnCode = -1;
             break;
         }
@@ -271,3 +188,100 @@ int Interface::runInterface() {
     delete swordLibrary;
     return returnCode;
 }
+
+void Interface::commandShow ( Command parsedCommand ) {
+    int errSpaces = 0;
+    Pager textPager;
+    std::list<page> pagedText;
+    std::string text; 
+    std::string ref;
+    
+    if(parsedCommand.argumentPart.empty()) {
+            display.displayHeader();
+            std::cout <<  "No reference Specified";
+            std::cout << std::endl;
+            errSpaces++;
+        } else {
+            ref = parsedCommand.argumentPart.front();
+        }
+
+        if(selectedVersion == "") {
+            errSpaces++;
+            std::cerr <<  "Error: No version selected. (Try select)";
+            std::cerr << std::endl;
+            display.displaySpacer(errSpaces);
+            return;
+        }
+
+    library.passage.setVersion(selectedVersion);
+    
+    text = library.passage.getText(ref);
+    
+    textPager.setSize(display.getHeight(),display.getWidth());
+    pagedText = textPager.getPagedText(text);
+
+    display.displayPages(pagedText);
+}
+
+validCommands Interface::commandList ( Command parsedCommand ) {
+    int numModules = 0;
+    std::list<std::string> modules;
+    
+    if(parsedCommand.argumentPart.front() == "bibles") {
+            modules = library.getBibles();
+        }
+        else if (parsedCommand.argumentPart.front() == "commentaries") {
+            modules = library.getCommentaries();
+        }
+
+        if(modules.empty()) {
+            std::cerr <<  "No modules of type ";
+            std::cerr <<  parsedCommand.argumentPart.front();
+            std:: cerr << " found. Please install in another front-end.";
+            std::cerr <<  std::endl;
+            display.displaySpacer(1);
+            return cmdError;
+        }
+        else {
+            numModules = modules.size();
+        }
+
+        std::string curBible;
+
+        while(!modules.empty()) {
+            curBible = modules.front();
+            std::cout <<  curBible;
+            std::cout << std::endl;
+            modules.pop_front();
+        }
+
+        display.displaySpacer(numModules);
+        return parsedCommand.commandPart;
+}
+
+void Interface::commandSelect( Command parsedCommand ) {
+        //TODO: Stop assuming bibles here then handle actual arguments
+        std::string selectedWork;
+
+        if(parsedCommand.argumentPart.empty()) {
+            std::cerr << "No module provided (Try list)" << std::endl;
+            display.displaySpacer(1);
+        }
+        else {        
+            selectedWork =  parsedCommand.argumentPart.front();
+        
+            //Check to make sure the module is, in fact, valid before 
+            //continuing on to prevent crashing later
+            //<fife>Nip it in the bud!</fife>
+            if(library.isModuleValid(selectedWork)) {
+                selectedVersion = selectedWork;
+                display.displaySpacer();
+            }
+            else {
+                //Module didn't come up, alert the user and bail out early.'
+                std::cerr << "Module Name is invalid (Try list)" << std::endl;
+                return;
+            }
+        }
+
+    }
