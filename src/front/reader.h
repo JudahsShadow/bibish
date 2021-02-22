@@ -31,10 +31,12 @@
 class Reader {
 public:
     void setDisplay(Display display);
-
+    void showText(std::string key = "");
+    void setModule(std::string module);
 private:
     Display display;
     Pager pager;
+    std::string selectedModule;
 };
 
 #endif // READER_H

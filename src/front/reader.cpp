@@ -19,7 +19,27 @@
 
 #include "reader.h"
 
+//STL includes
+#include <string>
+#include <list>
+
+//Project includes
+#include "pager.h"
+#include "display.h"
+#include "../back/passage.h"
+
+
 void Reader::setDisplay( Display display ) {
     this->display = display;
+}
+
+void Reader::showText( std::string key ) {
+    std::list<page> pagedText;
+    std::string text;
+    
+}
+
+void Reader::setModule( std::string module ) {
+    this->selectedModule = module;
 }
 
