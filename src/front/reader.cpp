@@ -23,6 +23,12 @@
 #include <string>
 #include <list>
 
+//SWORD includes
+#include <swmgr.h>
+#include <versekey.h>
+#include <swmodule.h>
+#include <swkey.h>
+
 //Project includes
 #include "pager.h"
 #include "display.h"
@@ -37,9 +43,44 @@ void Reader::showText( std::string key ) {
     std::list<page> pagedText;
     std::string text;
     
+    text = retrieveAllKeys(key);
+    
+    this->pager.setSize(this->display.getHeight(),this->display.getWidth());
+    
+    pagedText = this->pager.getPagedText(text);
+    this->display.displayPages(pagedText);
 }
 
 void Reader::setModule( std::string module ) {
     this->selectedModule = module;
+}
+
+void Reader::setSwordLibrary(sword::SWMgr& library) {
+    this->swordLibrary = library;
+}
+
+std::string Reader::retrieveAllKeys(std::string key) {
+    std::string entries = "";
+    sword::SWKey *moduleKey;
+    sword::SWModule *module;
+    
+    module = this->swordLibrary.getModule(this->selectedModule.c_str());
+
+    this->display.clearScreen();
+    this->display.displayHeader();
+    this->display.displaySpacer(1);
+    std::cout << "Retrieving all module entries.. For large texts this may";
+    std::cout << " take time";
+    std::cout << std::endl;
+    
+    //TODO: instead of starting at top, start at entry with key
+    for((*module) = sword::TOP; !module->popError(); (*module)++) {
+        entries += module->getKeyText();
+        entries += " ";
+        entries += module->stripText();
+        entries += "\n";
+    }
+    
+    return entries;
 }
 

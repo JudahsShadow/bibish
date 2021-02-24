@@ -128,6 +128,9 @@ Command Parser::parseCommand(std::string command) {
     else if(commandPart == "help" || commandPart == "?") {
         parsedCommand.commandPart = cmdHelp;
     }
+    else if(commandPart == "read") {
+        parsedCommand.commandPart = cmdRead;
+    }
     else {
         //Add a general case to just pass arguments to the back as a list
         while(!argumentPart.empty()) {

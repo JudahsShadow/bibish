@@ -24,6 +24,9 @@
 #include <list>
 #include <string>
 
+//SWORD includes
+#include <swmgr.h>
+
 //Project Includes
 #include "display.h"
 #include "pager.h"
@@ -33,10 +36,14 @@ public:
     void setDisplay(Display display);
     void showText(std::string key = "");
     void setModule(std::string module);
+    void setSwordLibrary(sword::SWMgr &library);
 private:
     Display display;
     Pager pager;
     std::string selectedModule;
+    sword::SWMgr swordLibrary;
+    
+    std::string retrieveAllKeys(std::string key="");
 };
 
 #endif // READER_H

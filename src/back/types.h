@@ -51,6 +51,7 @@ enum validCommands {
     cmdSearch,
     cmdShow,
     cmdHelp,
+    cmdRead,
     cmdUnknown,
     cmdEmpty,
     cmdError

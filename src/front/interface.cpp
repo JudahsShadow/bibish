@@ -35,6 +35,7 @@
 #include "interface.h"
 #include "display.h"
 #include "pager.h"
+#include "reader.h"
 #include "../back/passage.h"
 #include "../back/library.h"
 #include "../back/parser.h"
@@ -138,6 +139,15 @@ validCommands Interface::processCommand(Command parsedCommand) {
             std::cerr << "Try select." << std::endl;
             return commandPart;
         }
+    }
+    else if(commandPart == cmdRead) {
+        Reader readMode;
+        readMode.setDisplay(display);        
+        readMode.setSwordLibrary(*swordLibrary);
+        readMode.setModule(selectedVersion);
+        
+        readMode.showText();
+        return commandPart;
     }
     else {
         //Invalid command head out.

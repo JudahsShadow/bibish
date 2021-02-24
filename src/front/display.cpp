@@ -85,7 +85,7 @@ void Display::displayPages(std::list<page> text) {
         numPages = text.size();
         
         std::cout << displayText;
-        this->displaySpacer(numLines);
+//         this->displaySpacer(numLines);
         text.pop_front();
         if(numPages > 1) {
             std::string dummy = "";
