@@ -45,18 +45,18 @@ void Reader::showText( std::string key ) {
     
     text = retrieveAllKeys(key);
     
-    this->pager.setSize(this->display.getHeight(),this->display.getWidth());
+    pager.setSize(display.getHeight(),display.getWidth());
     
-    pagedText = this->pager.getPagedText(text);
-    this->display.displayPages(pagedText);
+    pagedText = pager.getPagedText(text);
+    display.displayPages(pagedText);
 }
 
 void Reader::setModule( std::string module ) {
-    this->selectedModule = module;
+    selectedModule = module;
 }
 
 void Reader::setSwordLibrary(sword::SWMgr& library) {
-    this->swordLibrary = library;
+    swordLibrary = library;
 }
 
 std::string Reader::retrieveAllKeys(std::string key) {
@@ -64,11 +64,11 @@ std::string Reader::retrieveAllKeys(std::string key) {
     sword::SWKey *moduleKey;
     sword::SWModule *module;
     
-    module = this->swordLibrary.getModule(this->selectedModule.c_str());
+    module = swordLibrary.getModule(selectedModule.c_str());
 
-    this->display.clearScreen();
-    this->display.displayHeader();
-    this->display.displaySpacer(1);
+    display.clearScreen();
+    display.displayHeader();
+    display.displaySpacer(1);
     std::cout << "Retrieving all module entries.. For large texts this may";
     std::cout << " take time";
     std::cout << std::endl;

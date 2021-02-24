@@ -80,8 +80,8 @@ std::list< std::string > Library::getModuleList(std::string moduleType) {
             return moduleList;
     }
 
-    for(libraryIterator = this->swordLibrary.Modules.begin();
-        libraryIterator != this->swordLibrary.Modules.end();
+    for(libraryIterator = swordLibrary.Modules.begin();
+        libraryIterator != swordLibrary.Modules.end();
         libraryIterator++) {
 
         sword::SWModule *tempMod = libraryIterator->second;

@@ -28,8 +28,8 @@
 
 
 Pager::Pager() {
-    this->cols = 0;
-    this->lines = 0;
+    cols = 0;
+    lines = 0;
 }
 
 Pager::~Pager() {
@@ -39,8 +39,8 @@ Pager::~Pager() {
 //This bad boy takes a raw string, and breaks it down into a list of
 //of lists (pages) of strings (lines).
 std::list<page> Pager::getPagedText(std::string text) {
-    uint width = this->cols;
-    uint pageSize = this->lines;
+    uint width = cols;
+    uint pageSize = lines;
     int lineCount = 0;
     int colCount = 0;
 
@@ -145,6 +145,6 @@ std::list<page> Pager::getPagedText(std::string text) {
 }
 
 void Pager::setSize(uint rowSize, uint colSize) {
-    this->lines = rowSize;
-    this->cols = colSize;
+    lines = rowSize;
+    cols = colSize;
 }

@@ -87,7 +87,7 @@ Command Parser::parseCommand(std::string command) {
         // making sure all the components of the argument
         // are one for passing back to the interface
         std::string reference = "";
-        reference = this->detokenize(argumentPart);
+        reference = detokenize(argumentPart);
         parsedCommand.argumentPart.push_back(reference);
         parsedCommand.commandPart = cmdShow;
     }
@@ -144,12 +144,12 @@ Command Parser::parseCommand(std::string command) {
 
 
 std::list<std::string> Parser::tokenize(std::string string) {
-  this->tokens.clear();
+  tokens.clear();
   if(string == "") {
-      return this->tokens;
+      return tokens;
   } else {
       tokens = split(string);
-      return this->tokens;
+      return tokens;
   }
 }
 

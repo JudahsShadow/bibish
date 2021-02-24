@@ -46,7 +46,7 @@ void Interface::initalize() {
     configScreen();
 
     std::cout  << "Initializing SWORD, please wait..." << std::endl;
-    this->swordLibrary = new sword::SWMgr(new sword::MarkupFilterMgr
+    swordLibrary = new sword::SWMgr(new sword::MarkupFilterMgr
                                         (sword::FMT_PLAIN));
     
     library.setSwordLibrary(*swordLibrary);
@@ -60,8 +60,8 @@ void Interface::configScreen() {
     
     ioctl(STDOUT_FILENO,TIOCGWINSZ,&termSize);
     
-    this->display.setHeight(termSize.ws_row);
-    this->display.setWidth(termSize.ws_col);
+    display.setHeight(termSize.ws_row);
+    display.setWidth(termSize.ws_col);
 }
 
 validCommands Interface::processCommand(Command parsedCommand) {

@@ -24,7 +24,7 @@
 #include "../back/types.h"
 
 void Display::clearScreen() {
-    for (int i = 0; i <= this->screenHeight; i++) {
+    for (int i = 0; i <= screenHeight; i++) {
         std::cout << std::endl;
     }
 }
@@ -38,7 +38,7 @@ void Display::displayPrompt() {
 }
 
 void Display::displaySpacer(int spacing) {
-    for(int i = 1; i <= this->screenHeight - (spacing + 2); i++) {
+    for(int i = 1; i <= screenHeight - (spacing + 2); i++) {
         std::cout << std::endl;
     }
 }
@@ -68,7 +68,7 @@ void Display::setHeight(uint size) {
 }
 
 uint Display::getHeight() {
-    return this->screenHeight;
+    return screenHeight;
 }
 
 void Display::displayPages(std::list<page> text) {
@@ -85,31 +85,31 @@ void Display::displayPages(std::list<page> text) {
         numPages = text.size();
         
         std::cout << displayText;
-//         this->displaySpacer(numLines);
+//         displaySpacer(numLines);
         text.pop_front();
         if(numPages > 1) {
             std::string dummy = "";
             std::cout << "Press enter for next page";
             std::getline(std::cin,dummy);
-            this->clearScreen();
-            this->displayHeader();
+            clearScreen();
+            displayHeader();
         }
     }
 }
 
 void Display::displayPercentage(uint percent) {
-    this->clearScreen();
-    this->displayHeader();
-    this->displaySpacer(0);
+    clearScreen();
+    displayHeader();
+    displaySpacer(0);
     std::cout << "Searching " << percent;
     std::cout << "% complete";
     std::flush(std::cout);
 }
 
 void Display::setWidth(uint size) {
-    this->screenWidth = size;
+    screenWidth = size;
 }
 
 uint Display::getWidth() {
-    return this->screenWidth;
+    return screenWidth;
 }
