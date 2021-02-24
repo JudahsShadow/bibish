@@ -85,12 +85,15 @@ void Display::displayPages(std::list<page> text) {
         numPages = text.size();
         
         std::cout << displayText;
-//         displaySpacer(numLines);
+        displaySpacer(numLines);
         text.pop_front();
         if(numPages > 1) {
             std::string dummy = "";
-            std::cout << "Press enter for next page";
+            std::cout << "Press enter for next page or q to quit: ";
             std::getline(std::cin,dummy);
+            if(dummy == "q") {
+                return;
+            }
             clearScreen();
             displayHeader();
         }
