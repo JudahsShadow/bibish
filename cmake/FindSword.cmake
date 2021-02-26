@@ -1,10 +1,9 @@
-#Taken from BibleTime Project, and preserved verbatim below
 #
 # In the name of the Father, and of the Son, and of the Holy Spirit.
 #
 # This file is part of BibleTime's source code, http://www.bibletime.info/.
 #
-# Copyright 1999-2014 by the BibleTime developers.
+# Copyright 1999-2019 by the BibleTime developers.
 # The BibleTime source code is licensed under the GNU General Public License version 2.0.
 #
 
@@ -92,7 +91,11 @@ IF(NOT Sword_FOUND)
         SET(Sword_VERSION "${RUN_OUTPUT}")
         GET_FILENAME_COMPONENT(Sword_LIBRARY_DIRS "${FindSword_LIBS}" PATH)
         SET(Sword_LIBRARIES "sword")
-        SET(Sword_LDFLAGS "-L${Sword_LIBRARY_DIRS};-l${Sword_LIBRARIES}")
+        IF(WIN32)
+            SET(Sword_LDFLAGS "${FindSword_LIBS}")
+        ELSE()
+            SET(Sword_LDFLAGS "-L${Sword_LIBRARY_DIRS};-l${Sword_LIBRARIES}")
+        ENDIF()
         SET(Sword_INCLUDE_DIRS "${FindSword_INCS}")
         SET(Sword_CFLAGS "-I${Sword_INCLUDE_DIRS}")
       ENDIF()
@@ -107,20 +110,10 @@ IF(Sword_FOUND)
 ENDIF()
 
 INCLUDE(FindPackageHandleStandardArgs)
-IF(CMAKE_VERSION VERSION_LESS 2.8.11)
-  FIND_PACKAGE_HANDLE_STANDARD_ARGS(Sword
-                                    REQUIRED_VARS FindSword_Sword_FOUND
-                                    VERSION_VAR Sword_VERSION)
-  IF(SWORD_FOUND)
-    SET(Sword_FOUND TRUE)
-  ENDIF()
-  UNSET(SWORD_FOUND)
-ELSE()
-  FIND_PACKAGE_HANDLE_STANDARD_ARGS(Sword
-                                    FOUND_VAR Sword_FOUND
-                                    REQUIRED_VARS FindSword_Sword_FOUND
-                                    VERSION_VAR Sword_VERSION)
-ENDIF()
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(Sword
+                                  FOUND_VAR Sword_FOUND
+                                  REQUIRED_VARS FindSword_Sword_FOUND
+                                  VERSION_VAR Sword_VERSION)
 UNSET(FindSword_Sword_FOUND)
 
 IF(Sword_FOUND AND NOT Sword_FIND_QUIETLY)

@@ -26,6 +26,7 @@
 
 //SWORD includes
 #include <swmgr.h>
+#include <swbuf.h>
 
 //Project Includes
 #include "display.h"
@@ -34,7 +35,7 @@
 class Reader {
 public:
     void setDisplay(Display display);
-    void showText(std::string key = "");
+    void showText(sword::SWBuf  key = "");
     void setModule(std::string module);
     void setSwordLibrary(sword::SWMgr &library);
 private:
@@ -43,7 +44,7 @@ private:
     std::string selectedModule;
     sword::SWMgr swordLibrary;
     
-    std::string retrieveAllKeys(std::string key="");
+    std::string retrieveAllKeys(sword::SWBuf key="");
 };
 
 #endif // READER_H

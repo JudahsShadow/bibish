@@ -28,6 +28,7 @@
 #include <versekey.h>
 #include <swmodule.h>
 #include <swkey.h>
+#include <swbuf.h>
 
 //Project includes
 #include "pager.h"
@@ -39,7 +40,7 @@ void Reader::setDisplay( Display display ) {
     this->display = display;
 }
 
-void Reader::showText( std::string key ) {
+void Reader::showText( sword::SWBuf key ) {
     std::list<page> pagedText;
     std::string text;
     
@@ -59,26 +60,33 @@ void Reader::setSwordLibrary(sword::SWMgr& library) {
     swordLibrary = library;
 }
 
-std::string Reader::retrieveAllKeys(std::string key) {
+std::string Reader::retrieveAllKeys(sword::SWBuf key) {
     std::string entries = "";
-    sword::SWKey *moduleKey;
+    sword::VerseKey moduleKey;
     sword::SWModule *module;
     
     module = swordLibrary.getModule(selectedModule.c_str());
-
+    
     display.clearScreen();
     display.displayHeader();
     display.displaySpacer(1);
     std::cout << "Retrieving all module entries.. For large texts this may";
     std::cout << " take time";
     std::cout << std::endl;
-    
-    //TODO: instead of starting at top, start at entry with key
-    for((*module) = sword::TOP; !module->popError(); (*module)++) {
-        entries += module->getKeyText();
-        entries += " ";
-        entries += module->stripText();
-        entries += "\n";
+
+    if(key.size()) {
+        for(module->setKeyText(key); !module->popError(); (*module)++) {
+            entries += module->getKeyText();
+            entries += " - ";
+            entries += module->stripText();
+        }        
+    }
+    else {
+        for((*module) = sword::TOP; !module->popError();(*module)++) {
+            entries += module->getKeyText();
+            entries += " - ";
+            entries += module->stripText();
+        }
     }
     
     return entries;
