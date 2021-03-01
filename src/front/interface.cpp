@@ -142,11 +142,21 @@ validCommands Interface::processCommand(Command parsedCommand) {
     }
     else if(commandPart == cmdRead) {
         Reader readMode;
+        std::string reference;
+        
+        if(selectedVersion == "") {
+            display.displayHeader();
+            display.displaySpacer(1);
+            std::cerr << "No module selected. Try Select";
+            std::cerr << std::endl;
+            return commandPart;
+        }
+        
         readMode.setDisplay(display);        
         readMode.setSwordLibrary(*swordLibrary);
         readMode.setModule(selectedVersion);
-        
-        readMode.showText();
+        reference = parsedCommand.argumentPart.front();
+        readMode.showText(reference.c_str());
         return commandPart;
     }
     else {

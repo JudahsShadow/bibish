@@ -129,6 +129,9 @@ Command Parser::parseCommand(std::string command) {
         parsedCommand.commandPart = cmdHelp;
     }
     else if(commandPart == "read") {
+        std::string reference;
+        reference = detokenize(argumentPart);
+        parsedCommand.argumentPart.push_back(reference);
         parsedCommand.commandPart = cmdRead;
     }
     else {
