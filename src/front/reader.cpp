@@ -76,6 +76,7 @@ std::string Reader::retrieveAllKeys(sword::SWBuf key) {
 
     if(key.size()) {
         for(module->setKeyText(key); !module->popError(); (*module)++) {
+           entries += " ";
             entries += module->getKeyText();
             entries += " - ";
             entries += module->stripText();
@@ -83,6 +84,7 @@ std::string Reader::retrieveAllKeys(sword::SWBuf key) {
     }
     else {
         for((*module) = sword::TOP; !module->popError();(*module)++) {
+            entries += " ";
             entries += module->getKeyText();
             entries += " - ";
             entries += module->stripText();
