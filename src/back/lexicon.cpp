@@ -17,4 +17,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+//STD and STL includes
+#include <string>
+
+//SWORD includes
+#include <swkey.h>
+#include <swbuf.h>
+#include <swmodule.h>
+
+
 #include "../back/lexicon.h"
+
+std::string Lexicon::getEntry( std::string entry ) {
+    std::string lexEntry;
+    sword::SWKey lexKey;
+    
+    return lexEntry;
+}
+

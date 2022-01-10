@@ -232,10 +232,15 @@ void Interface::commandShow ( Command parsedCommand ) {
             display.displaySpacer(errSpaces);
             return;
         }
-
-    library.passage.setVersion(selectedVersion);
-    
-    text = library.passage.getText(ref);
+        
+        std::string type = library.getModuleType(selectedVersion);
+        if(type == "bible" || type =="commentary") {
+            library.passage.setVersion(selectedVersion);
+            text = library.passage.getText(ref);            
+        }
+        else if(library.getModuleType(selectedVersion) == "lexdict") {
+        }
+            
     
     textPager.setSize(display.getHeight(),display.getWidth());
     pagedText = textPager.getPagedText(text);

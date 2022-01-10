@@ -117,3 +117,26 @@ bool Library::isModuleValid(std::string moduleName) {
         return true;
     }
 }
+
+std::string Library::getModuleType( std::string moduleName ) {
+    std::string modType;
+    std::string engineType;
+    sword::SWModule *module;
+    
+    module = swordLibrary.getModule(moduleName.c_str());
+    engineType = module->getType();
+    
+    if(engineType == sword::SWMgr::MODTYPE_BIBLES) {
+        modType = "bible";
+    }
+    else if(engineType == sword::SWMgr::MODTYPE_COMMENTARIES) {
+        modType = "commentary";
+    }
+    else if(engineType == sword::SWMgr::MODTYPE_LEXDICTS) {
+        modType = "lexdict";
+    }
+    else {
+        modType = "unsupported";
+    }
+    return modType;
+    }

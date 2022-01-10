@@ -32,6 +32,7 @@
 //Project includes
 #include "passage.h"
 #include "search.h"
+#include "lexicon.h"
 
 class Library {
     public:
@@ -40,11 +41,13 @@ class Library {
          * be included
          */
         Passage passage;
+        Lexicon lexicon;
         Search searcher;
         
         std::list<std::string> getBibles();
         std::list<std::string> getCommentaries();
         std::list<std::string> getLexicons();
+        std::string getModuleType(std::string moduleName);
         bool isModuleValid(std::string module);
         void setSwordLibrary(sword::SWMgr &library);        
     private:

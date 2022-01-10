@@ -22,12 +22,19 @@
 
 #include <swmgr.h>
 
+#include <string>
+
 class Lexicon
 {
 public:
+    void setDict(std::string module);
+    
+    std::string getEntry(std::string entry);
+
+    void setSwordLibrary(sword::SWMgr &swordLibrary);
     
 private:
-    void setSwordLibrary(sword::SWMgr &swordLibrary);
+
     sword::SWMgr *swordLibrary;
 };
 

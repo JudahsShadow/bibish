@@ -48,6 +48,7 @@ class Interface {
         validCommands commandSearch(Command parsedCommand);
 
         std::string selectedVersion;
+//         std::string selectedType;
         Display display;
         Library library;
         sword::SWMgr *swordLibrary;
