@@ -274,16 +274,22 @@ validCommands Interface::commandList ( Command parsedCommand ) {
             numModules = modules.size();
         }
 
-        std::string curBible;
+        std::string curMod;
+        std::string moduleList = "";
+        Pager modulePager;
+        std::list<page> modulePages;
+        
+        modulePager.setSize(display.getHeight(), display.getWidth());
 
         while(!modules.empty()) {
-            curBible = modules.front();
-            std::cout <<  curBible;
-            std::cout << std::endl;
+            curMod = modules.front();
+            moduleList += curMod;
+            moduleList += "\n";
             modules.pop_front();
         }
-
-        display.displaySpacer(numModules);
+        modulePages = modulePager.getPagedText(moduleList);
+        
+        display.displayPages(modulePages);
         return parsedCommand.commandPart;
 }
 
