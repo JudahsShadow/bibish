@@ -9,5 +9,5 @@ Milestone releases
         Add support for dictionaries to list, select, show.
         Add read command which will show an entire module one entry at a  time.
             Giving a periodic option to stop reading. Have optional arugment to
-            start at key X, so one can pickup where left off.
+            start at key X, so one can pickup where one left off.
         
