@@ -16,7 +16,7 @@
 #51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 SET (backend_src ${CMAKE_CURRENT_SOURCE_DIR}/src/back/parser.cpp
-                ${CMAKE_CURRENT_SOURCE_DIR/src/back/lexicon.cpp}
+                ${CMAKE_CURRENT_SOURCE_DIR}/src/back/lexicon.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/back/passage.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/back/search.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/back/library.cpp

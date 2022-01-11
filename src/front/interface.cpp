@@ -41,6 +41,7 @@
 #include "../back/parser.h"
 #include "../back/types.h"
 #include "../back/search.h"
+#include "../back/lexicon.h"
 
 void Interface::initalize() {
     configScreen();
@@ -50,7 +51,8 @@ void Interface::initalize() {
                                         (sword::FMT_PLAIN));
     
     library.setSwordLibrary(*swordLibrary);
-    library.passage.setLibrary(*swordLibrary);    
+    library.passage.setLibrary(*swordLibrary);
+    library.lexicon.setSwordLibrary(*swordLibrary);
     
     std::cout << "Initialized, proceeding to shell..." << std::endl;
 }
@@ -239,6 +241,8 @@ void Interface::commandShow ( Command parsedCommand ) {
             text = library.passage.getText(ref);            
         }
         else if(library.getModuleType(selectedVersion) == "lexdict") {
+            library.lexicon.setDict(selectedVersion);
+            text = library.lexicon.getEntry(ref);
         }
             
     

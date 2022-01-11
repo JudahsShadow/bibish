@@ -31,11 +31,12 @@ public:
     
     std::string getEntry(std::string entry);
 
-    void setSwordLibrary(sword::SWMgr &swordLibrary);
+    void setSwordLibrary(sword::SWMgr swordLib);
     
 private:
 
-    sword::SWMgr *swordLibrary;
+    sword::SWMgr swordLibrary;
+    std::string lexiDict;
 };
 
 #endif // LEXICON_H

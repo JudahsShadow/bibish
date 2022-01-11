@@ -32,7 +32,23 @@
 std::string Lexicon::getEntry( std::string entry ) {
     std::string lexEntry;
     sword::SWKey lexKey;
+    sword::SWModule *module ;
     
+    module = swordLibrary.getModule(lexiDict.c_str());
+    module->setKeyText(entry.c_str());
+    
+    lexEntry = module->getKeyText();
+    lexEntry += module->renderText();    
+
     return lexEntry;
+}
+
+void Lexicon::setDict( std::string module ) {
+    this->lexiDict = module;
+}
+
+
+void Lexicon::setSwordLibrary( sword::SWMgr swordLib ) {
+    swordLibrary = swordLib;
 }
 
