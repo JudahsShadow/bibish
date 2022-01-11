@@ -249,9 +249,9 @@ void Interface::commandShow ( Command parsedCommand ) {
 }
 
 validCommands Interface::commandList ( Command parsedCommand ) {
-    int numModules = 0;
     std::list<std::string> modules;
     
+
     if(parsedCommand.argumentPart.front() == "bibles") {
             modules = library.getBibles();
         }
@@ -261,7 +261,7 @@ validCommands Interface::commandList ( Command parsedCommand ) {
         else if(parsedCommand.argumentPart.front() == "lexicons") {
             modules = library.getLexicons();
         }
-
+        
         if(modules.empty()) {
             std::cerr <<  "No modules of type ";
             std::cerr <<  parsedCommand.argumentPart.front();
@@ -270,10 +270,6 @@ validCommands Interface::commandList ( Command parsedCommand ) {
             display.displaySpacer(1);
             return cmdError;
         }
-        else {
-            numModules = modules.size();
-        }
-
         std::string curMod;
         std::string moduleList = "";
         Pager modulePager;
