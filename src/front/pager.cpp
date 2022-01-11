@@ -58,7 +58,7 @@ std::list<page> Pager::getPagedText(std::string text) {
         currentWord = words.front();
         words.pop_front();
 
-        //Newlines appear within words and not always at EOL, so find them and
+        //Newlines appear within word groups and not always at EOL, so find them and
         //act accordingly.
         if(currentWord.find("\n") != std::string::npos) {
             int endlPos = 0;
@@ -115,8 +115,7 @@ std::list<page> Pager::getPagedText(std::string text) {
                 lineCount += newLineCount;
             }
         } else {
-            //TODO: Do stuff about words that are by themselves longer than
-            //TODO: the width.
+            //TODO: Do stuff about words that are by themselves longer than the width.
             currentLine += "\n";
             currentPage.content += currentLine;
             currentLine = "";
