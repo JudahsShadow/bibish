@@ -66,11 +66,19 @@ std::list<page> Pager::getPagedText(std::string text) {
             if(endlPos != currentWord.back()) {
                 //we've not got an EOL newline, so we need to split it again :/
                 std::string preEndl = currentWord.substr(0, endlPos);
-                currentLine += preEndl + "\n";
-                currentPage.content += currentLine;
-                currentLine = "";
-                colCount = 0;
-                lineCount++;
+                //Check to see if we need to wrap before adding the newline.
+                if(colCount + currentWord.length() +1 <= width) {
+                    currentLine += preEndl + "\n";
+                    currentPage.content += currentLine;
+                    currentLine = "";
+                    colCount = 0;
+                    lineCount++;                    
+                }
+                else {
+                    //We need to wrap before the newline, and start a new line
+                    currentPage.content += currentLine + "\n";
+                    currentLine = preEndl;
+                }
 
                 std::string postEndl = currentWord.substr(endlPos + 1);
                 currentWord = postEndl;
