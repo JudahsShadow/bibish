@@ -294,7 +294,6 @@ validCommands Interface::commandList ( Command parsedCommand ) {
 }
 
 void Interface::commandSelect( Command parsedCommand ) {
-        //TODO: Stop assuming bibles here then handle actual arguments
         std::string selectedWork;
 
         if(parsedCommand.argumentPart.empty()) {
