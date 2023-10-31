@@ -56,7 +56,7 @@ void Reader::setModule( std::string module ) {
     selectedModule = module;
 }
 
-void Reader::setSwordLibrary(sword::SWMgr& library) {
+void Reader::setSwordLibrary(sword::SWMgr *library) {
     swordLibrary = library;
 }
 
@@ -65,7 +65,7 @@ std::string Reader::retrieveAllKeys(sword::SWBuf key) {
     sword::VerseKey moduleKey;
     sword::SWModule *module;
     
-    module = swordLibrary.getModule(selectedModule.c_str());
+    module = swordLibrary->getModule(selectedModule.c_str());
     
     display.clearScreen();
     display.displayHeader();
