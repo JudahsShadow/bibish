@@ -43,15 +43,15 @@ class Library {
         Passage passage;
         Lexicon lexicon;
         Search searcher;
-        
+
         std::list<std::string> getBibles();
         std::list<std::string> getCommentaries();
         std::list<std::string> getLexicons();
         std::string getModuleType(std::string moduleName);
         bool isModuleValid(std::string module);
-        void setSwordLibrary(sword::SWMgr &library);        
+        void setSwordLibrary(sword::SWMgr *library);
     private:
-        sword::SWMgr swordLibrary;
+        sword::SWMgr *swordLibrary;
         
         std::list<std::string> getModuleList(std::string moduleType);
 };

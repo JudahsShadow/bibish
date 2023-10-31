@@ -35,7 +35,7 @@ void Passage::setVersion (std::string version) {
     this->version = version;
 }
 
-void Passage::setLibrary(sword::SWMgr &library) {
+void Passage::setLibrary(sword::SWMgr *library) {
   swordLibrary = library;
 }
 
@@ -47,7 +47,7 @@ std::string Passage::getText (std::string reference) {
 
     //Module variables
     sword::SWModule *module = \
-        swordLibrary.getModule(version.c_str());
+        swordLibrary->getModule(version.c_str());
     sword::VerseKey key;
 
 

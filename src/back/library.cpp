@@ -22,6 +22,7 @@
 
 #include <string>
 #include <list>
+#include <iostream>
 
 #include <swmgr.h>
 #include <swmodule.h>
@@ -80,11 +81,12 @@ std::list< std::string > Library::getModuleList(std::string moduleType) {
             return moduleList;
     }
 
-    for(libraryIterator = swordLibrary.Modules.begin();
-        libraryIterator != swordLibrary.Modules.end();
+    for(libraryIterator = this->swordLibrary->Modules.begin();
+        libraryIterator != this->swordLibrary->Modules.end();
         libraryIterator++) {
 
         sword::SWModule *tempMod = libraryIterator->second;
+
         modType = tempMod->getType();
 
         if(modType == selectedType) {
@@ -102,14 +104,14 @@ std::list< std::string > Library::getModuleList(std::string moduleType) {
 }
 
 
-void Library::setSwordLibrary(sword::SWMgr &library) {
-    swordLibrary = library;
+void Library::setSwordLibrary(sword::SWMgr *library) {
+    this->swordLibrary = library;
 }
 
 bool Library::isModuleValid(std::string moduleName) {
     sword::SWModule *tmpMod;
     
-    tmpMod = swordLibrary.getModule(moduleName.c_str());
+    tmpMod = this->swordLibrary->getModule(moduleName.c_str());
     if(!tmpMod) {
         return false;
     }
@@ -123,7 +125,7 @@ std::string Library::getModuleType( std::string moduleName ) {
     std::string engineType;
     sword::SWModule *module;
     
-    module = swordLibrary.getModule(moduleName.c_str());
+    module = this->swordLibrary->getModule(moduleName.c_str());
     engineType = module->getType();
     
     if(engineType == sword::SWMgr::MODTYPE_BIBLES) {
@@ -139,4 +141,4 @@ std::string Library::getModuleType( std::string moduleName ) {
         modType = "unsupported";
     }
     return modType;
-    }
+}

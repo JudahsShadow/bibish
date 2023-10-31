@@ -47,12 +47,11 @@ void Interface::initalize() {
     configScreen();
 
     std::cout  << "Initializing SWORD, please wait..." << std::endl;
-    swordLibrary = new sword::SWMgr(new sword::MarkupFilterMgr
-                                        (sword::FMT_PLAIN));
+    this->swordLibrary = new sword::SWMgr(new sword::MarkupFilterMgr(sword::FMT_PLAIN));
     
-    library.setSwordLibrary(*swordLibrary);
-    library.passage.setLibrary(*swordLibrary);
-    library.lexicon.setSwordLibrary(*swordLibrary);
+    library.setSwordLibrary(swordLibrary);
+    library.passage.setLibrary(swordLibrary);
+    library.lexicon.setSwordLibrary(swordLibrary);
     
     std::cout << "Initialized, proceeding to shell..." << std::endl;
 }
@@ -72,7 +71,7 @@ validCommands Interface::processCommand(Command parsedCommand) {
     */
     //TODO: Split this into functions
 
-    Library library;
+    // Library library;
     Parser worksParser;
 
     validCommands commandPart;
@@ -269,7 +268,7 @@ validCommands Interface::commandList ( Command parsedCommand ) {
         if(modules.empty()) {
             std::cerr <<  "No modules of type ";
             std::cerr <<  parsedCommand.argumentPart.front();
-            std:: cerr << " found. Please install in another front-end.";
+            std::cerr << " found. Please install in another front-end.";
             std::cerr <<  std::endl;
             display.displaySpacer(1);
             return cmdError;
