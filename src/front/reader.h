@@ -37,12 +37,12 @@ public:
     void setDisplay(Display display);
     void showText(sword::SWBuf  key = "");
     void setModule(std::string module);
-    void setSwordLibrary(sword::SWMgr &library);
+    void setSwordLibrary(sword::SWMgr *library);
 private:
     Display display;
     Pager pager;
     std::string selectedModule;
-    sword::SWMgr swordLibrary;
+    sword::SWMgr *swordLibrary;
     
     std::string retrieveAllKeys(sword::SWBuf key="");
 };
