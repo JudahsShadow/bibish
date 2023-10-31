@@ -261,7 +261,8 @@ validCommands Interface::commandList ( Command parsedCommand ) {
         else if (parsedCommand.argumentPart.front() == "commentaries") {
             modules = library.getCommentaries();
         }
-        else if(parsedCommand.argumentPart.front() == "lexicons") {
+        else if(parsedCommand.argumentPart.front() == "lexicons" ||
+                parsedCommand.argumentPart.front() == "dictionaries") {
             modules = library.getLexicons();
         }
         
