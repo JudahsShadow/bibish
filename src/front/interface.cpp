@@ -154,7 +154,7 @@ validCommands Interface::processCommand(Command parsedCommand) {
         }
         
         readMode.setDisplay(display);        
-        readMode.setSwordLibrary(*swordLibrary);
+        readMode.setSwordLibrary(swordLibrary);
         readMode.setModule(selectedVersion);
         reference = parsedCommand.argumentPart.front();
         readMode.showText(reference.c_str());

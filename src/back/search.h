@@ -29,14 +29,14 @@
 
 class Search {
 public:
-    void setSwordLibrary(sword::SWMgr library);
+    void setSwordLibrary(sword::SWMgr *library);
     void setModule(std::string module);
     void setDisplay(Display display);
 
     std::string search(std::string searchString);
 private:
     static void percentUpdate(char percent,void *userData);
-    sword::SWMgr swordLibrary;
+    sword::SWMgr *swordLibrary;
     sword::SWModule *module;
     //this is static so it can be accessed in the percentUpdate function
     //that the sword api needs to be static
