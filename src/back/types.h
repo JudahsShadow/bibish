@@ -1,7 +1,7 @@
 /*
  * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
  * inspired by Debian's bible package
- * Copyright (C) 2015  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
+ * Copyright (C) 2015-2023  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,7 +63,7 @@ enum validCommands {
  */
 struct Command {
     validCommands commandPart;
-    std::list< std::string > argumentPart;
+    std::list<std::string> argumentPart;
 };
 
 typedef Command command;

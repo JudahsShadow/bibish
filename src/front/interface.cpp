@@ -1,7 +1,7 @@
 ﻿/*
 * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
 * inspired by Debian's bible package
-* Copyright (C) 2015  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
+* Copyright (C) 2015-2023  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
 *
 * This program is free software; you can redistribute it and/or modify it
 * under the terms of the GNU General Public License as published by the
@@ -47,7 +47,8 @@ void Interface::initalize() {
     configScreen();
 
     std::cout  << "Initializing SWORD, please wait..." << std::endl;
-    this->swordLibrary = new sword::SWMgr(new sword::MarkupFilterMgr(sword::FMT_PLAIN));
+    this->swordLibrary = new sword::SWMgr(
+                         new sword::MarkupFilterMgr(sword::FMT_PLAIN));
     
     library.setSwordLibrary(swordLibrary);
     library.passage.setLibrary(swordLibrary);
@@ -71,12 +72,9 @@ validCommands Interface::processCommand(Command parsedCommand) {
     */
     //TODO: Split this into functions
 
-    // Library library;
     Parser worksParser;
 
     validCommands commandPart;
-
-
 
     commandPart = parsedCommand.commandPart;
 
@@ -210,7 +208,7 @@ int Interface::runInterface() {
     return returnCode;
 }
 
-void Interface::commandShow ( Command parsedCommand ) {
+void Interface::commandShow (Command parsedCommand) {
     int errSpaces = 0;
     Pager textPager;
     std::list<page> pagedText;
@@ -293,7 +291,7 @@ validCommands Interface::commandList ( Command parsedCommand ) {
         return parsedCommand.commandPart;
 }
 
-void Interface::commandSelect( Command parsedCommand ) {
+void Interface::commandSelect(Command parsedCommand) {
         std::string selectedWork;
 
         if(parsedCommand.argumentPart.empty()) {
@@ -313,6 +311,7 @@ void Interface::commandSelect( Command parsedCommand ) {
             else {
                 //Module didn't come up, alert the user and bail out early.'
                 std::cerr << "Module Name is invalid (Try list)" << std::endl;
+                display.displaySpacer(1);
                 return;
             }
         }

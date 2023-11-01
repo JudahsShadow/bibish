@@ -1,12 +1,11 @@
 /*
  *BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
  * inspired by Debian's bible package
- * Copyright (C) 2021  David Blue <yudahsshadow@gmx.com>
+ * Copyright (C) 2021-2023  David Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * the Free Software Foundation version 2
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -29,7 +28,7 @@
 
 #include "../back/lexicon.h"
 
-std::string Lexicon::getEntry( std::string entry ) {
+std::string Lexicon::getEntry(std::string entry) {
     std::string lexEntry;
     sword::SWKey lexKey;
     sword::SWModule *module ;
@@ -43,12 +42,12 @@ std::string Lexicon::getEntry( std::string entry ) {
     return lexEntry;
 }
 
-void Lexicon::setDict( std::string module ) {
+void Lexicon::setDict(std::string module) {
     this->lexiDict = module;
 }
 
 
-void Lexicon::setSwordLibrary( sword::SWMgr *swordLib ) {
+void Lexicon::setSwordLibrary(sword::SWMgr *swordLib) {
     swordLibrary = swordLib;
 }
 

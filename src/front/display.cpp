@@ -1,7 +1,7 @@
 /*
  * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
  * inspired by Debian's bible package
- * Copyright (C) 2015  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
+ * Copyright (C) 2015-2023  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -46,7 +46,7 @@ void Display::displaySpacer(int spacing) {
 void Display::displayHelp() {
     clearScreen();
     displayHeader();
-    std::cout << "Valid Commands are:" << std::endl;
+    std::cout << "Basic Commands are:" << std::endl;
     std::cout << "show [reference]" << std::endl;
     std::cout << "   Displays [reference] in the selected version";
     std::cout << std::endl;
@@ -60,7 +60,8 @@ void Display::displayHelp() {
     std::cout << std::endl;
     std::cout << "?" << std::endl;
     std::cout << "   Shows this message" << std::endl;
-    displaySpacer(12);
+    std::cout << "See README for more Commands" << std::endl;
+    displaySpacer(13);
 }
 
 void Display::setHeight(uint size) {

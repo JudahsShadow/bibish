@@ -1,7 +1,7 @@
 /*
  * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
  * inspired by Debian's bible package
- * Copyright (C) 2015  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
+ * Copyright (C) 2015-2023 David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -33,12 +33,12 @@ class Parser {
         int getNumberArguments();
         std::list<std::string> tokenize(std::string string);
         Command parseCommand(std::string command);
-        std::string detokenize(std::list< std::string > tokens);
+        std::string detokenize(std::list<std::string> tokens);
     private:
         std::list<std::string> tokens;
         int argumentCount;
         std::list<std::string> split(std::string string);
-        std::string combine(std::list< std::string > stringList);
+        std::string combine(std::list<std::string> stringList);
 };
 
 #endif // PARSER_H

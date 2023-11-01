@@ -1,7 +1,7 @@
 ﻿/*
  * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
  * inspired by Debian's bible package
- * Copyright (C) 2015  David Blue <yudahsshadow@gmx.com>
+ * Copyright (C) 2015-2023  David Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -31,7 +31,7 @@
 #include <versekey.h>
 #include <listkey.h>
 
-void Passage::setVersion (std::string version) {
+void Passage::setVersion(std::string version) {
     this->version = version;
 }
 
@@ -39,7 +39,7 @@ void Passage::setLibrary(sword::SWMgr *library) {
   swordLibrary = library;
 }
 
-std::string Passage::getText (std::string reference) {
+std::string Passage::getText(std::string reference) {
     std::string text = "";
 
     //Variables related to splitting up the reference for iteration

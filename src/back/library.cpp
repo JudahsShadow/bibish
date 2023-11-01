@@ -1,7 +1,7 @@
 ﻿/*
  * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
  * inspired by Debian's bible package
- * Copyright (C) 2015  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
+ * Copyright (C) 2015-2023  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -34,7 +34,7 @@ std::list<std::string> Library::getBibles() {
     return bibles;
 }
 
-std::list< std::string > Library::getCommentaries() {
+std::list<std::string> Library::getCommentaries() {
     std::list<std::string> commentaries;
     commentaries = getModuleList("commentary");
     return commentaries;
@@ -46,7 +46,7 @@ std::list<std::string> Library::getLexicons() {
     return lexicons;
 }
 
-std::list< std::string > Library::getModuleList(std::string moduleType) {
+std::list<std::string> Library::getModuleList(std::string moduleType) {
     std::string module = "";
     sword::ModMap::iterator libraryIterator;
     std::list<std::string> moduleList;
@@ -120,7 +120,7 @@ bool Library::isModuleValid(std::string moduleName) {
     }
 }
 
-std::string Library::getModuleType( std::string moduleName ) {
+std::string Library::getModuleType(std::string moduleName) {
     std::string modType;
     std::string engineType;
     sword::SWModule *module;
