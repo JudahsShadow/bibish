@@ -28,7 +28,7 @@
 #include <string>
 #include <iostream>
 
-// Display Search::searchDisplay;
+Display Search::searchDisplay;
 
 void Search::setSwordLibrary(sword::SWMgr *library) {
     swordLibrary = library;
