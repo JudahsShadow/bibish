@@ -11,3 +11,6 @@ Milestone releases
             Giving a periodic option to stop reading. Have optional arugment to
             start at key X, so one can pickup where one left off.
         
+0.3.0:
+    Planned Features:
+        Add support for genbooks to list, select, show, and read.
