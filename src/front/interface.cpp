@@ -237,7 +237,7 @@ void Interface::commandShow (Command parsedCommand) {
             library.passage.setVersion(selectedVersion);
             text = library.passage.getText(ref);            
         }
-        else if(library.getModuleType(selectedVersion) == "lexdict") {
+        else if(type == "lexdict") {
             library.lexicon.setDict(selectedVersion);
             text = library.lexicon.getEntry(ref);
         }
