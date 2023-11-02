@@ -263,6 +263,10 @@ validCommands Interface::commandList ( Command parsedCommand ) {
                 parsedCommand.argumentPart.front() == "dictionaries") {
             modules = library.getLexicons();
         }
+        else if(parsedCommand.argumentPart.front() == "book" ||
+                parsedCommand.argumentPart.front() == "books") {
+            modules = library.getGenBooks();
+        }
         
         if(modules.empty()) {
             std::cerr <<  "No modules of type ";

@@ -46,6 +46,13 @@ std::list<std::string> Library::getLexicons() {
     return lexicons;
 }
 
+std::list<std::string> Library::getGenBooks() {
+    std::list<std::string> books;
+    books = getModuleList("book");
+    return books;
+}
+
+
 std::list<std::string> Library::getModuleList(std::string moduleType) {
     std::string module = "";
     sword::ModMap::iterator libraryIterator;
