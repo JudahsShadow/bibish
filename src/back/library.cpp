@@ -144,6 +144,9 @@ std::string Library::getModuleType(std::string moduleName) {
     else if(engineType == sword::SWMgr::MODTYPE_LEXDICTS) {
         modType = "lexdict";
     }
+    else if(engineType == sword::SWMgr::MODTYPE_GENBOOKS) {
+        modType = "book";
+    }
     else {
         modType = "unsupported";
     }

@@ -18,10 +18,19 @@
 
 #include <swmgr.h>
 
+#include <string>
+
+#include "../front/pager.h"
+#include "../back/types.h"
+
 #include "../back/genbook.h"
 
 void Genbook::setSwordLibrary(sword::SWMgr *swordLib) {
     this->swordLibrary = swordLib;
+
+}
+
+Pager Genbook::getTOC(std::string module) {
 
 }
 

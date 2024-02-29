@@ -23,10 +23,15 @@
 
 #include <string>
 
+#include "../back/types.h"
+#include "../front/pager.h"
+
 class Genbook
 {
 public:
     void setSwordLibrary(sword::SWMgr *swordLib);
+
+    Pager getTOC(std::string module);
 
 private:
     sword::SWMgr *swordLibrary;
