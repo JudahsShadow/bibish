@@ -127,6 +127,6 @@ void Display::displayAbout() {
     std::cout << "Debian GNU/Linux." << std::endl;
     std::cout << "BIBISH is (C) 2015-2024 by David \"Judah\'s Shadow\" Blue." << std::endl;
     std::cout << "BIBISH is licensed under the GNU GPL Version 2.0 (GPL-2.0)." << std::endl;
-    std::cout << "See the included COPYING and LICENSE files for more information"; << std::endl;
+    std::cout << "See the included COPYING and LICENSE files for more information" << std::endl;
     displaySpacer(5);
 }
