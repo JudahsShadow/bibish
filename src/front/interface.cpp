@@ -158,6 +158,10 @@ validCommands Interface::processCommand(Command parsedCommand) {
         readMode.showText(reference.c_str());
         return commandPart;
     }
+    else if(commandPart == cmdAbout) {
+        display.displayAbout();
+        return commandPart;
+    }
     else {
         //Invalid command head out.
         return cmdUnknown;

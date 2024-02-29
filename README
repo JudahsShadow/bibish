@@ -13,8 +13,9 @@ help - Displays these commands and more.
 search - Searches for a multi-word phrase in the selected version
     Takes argument of the word(s) to search for.
     Currently searches the whole module.
-read - starts at a given key (reference) and proceeds to display the entire
+read - Starts at a given key (reference) and proceeds to display the entire
     module from there.
     Be careful with this command as it loads the entire module into memory and
     will eat up your processor and RAM while doing it.
     The read command is not recommended for modules of type genbook (General Book modules)
+about - Shows some basic information about the application, including license

@@ -32,6 +32,7 @@ class Display {
         void displayPrompt();
         void displaySpacer(int spacing = 0);
         void displayHelp();
+        void displayAbout();
         void clearScreen();
         void setHeight(uint size);
         uint getHeight();
