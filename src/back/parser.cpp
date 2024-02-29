@@ -19,6 +19,7 @@
  */
 
 #include "parser.h"
+#include "types.h"
 
 #include <list>
 #include <string>
@@ -133,6 +134,9 @@ Command Parser::parseCommand(std::string command) {
         reference = detokenize(argumentPart);
         parsedCommand.argumentPart.push_back(reference);
         parsedCommand.commandPart = cmdRead;
+    }
+    else if(commandPart == "about") {
+        parsedCommand.commandPart = cmdAbout;
     }
     else {
         //Add a general case to just pass arguments to the back as a list
