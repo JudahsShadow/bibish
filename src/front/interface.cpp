@@ -53,6 +53,7 @@ void Interface::initalize() {
     library.setSwordLibrary(swordLibrary);
     library.passage.setLibrary(swordLibrary);
     library.lexicon.setSwordLibrary(swordLibrary);
+    library.genbook.setSwordLibrary(swordLibrary);
     
     std::cout << "Initialized, proceeding to shell..." << std::endl;
 }
@@ -218,33 +219,45 @@ void Interface::commandShow (Command parsedCommand) {
     std::list<page> pagedText;
     std::string text; 
     std::string ref;
+
     
     if(parsedCommand.argumentPart.empty()) {
             display.displayHeader();
             std::cout <<  "No reference Specified";
             std::cout << std::endl;
             errSpaces++;
-        } else {
+    }
+    else {
             ref = parsedCommand.argumentPart.front();
-        }
+    }
 
-        if(selectedVersion == "") {
-            errSpaces++;
-            std::cerr <<  "Error: No version selected. (Try select)";
-            std::cerr << std::endl;
-            display.displaySpacer(errSpaces);
-            return;
-        }
+    if(selectedVersion == "") {
+        errSpaces++;
+        std::cerr <<  "Error: No version selected. (Try select)";
+        std::cerr << std::endl;
+        display.displaySpacer(errSpaces);
+        return;
+    }
         
-        std::string type = library.getModuleType(selectedVersion);
-        if(type == "bible" || type =="commentary") {
-            library.passage.setVersion(selectedVersion);
-            text = library.passage.getText(ref);            
-        }
-        else if(type == "lexdict") {
-            library.lexicon.setDict(selectedVersion);
-            text = library.lexicon.getEntry(ref);
-        }
+    std::string type = library.getModuleType(selectedVersion);
+    if(type == "bible" || type =="commentary") {
+        library.passage.setVersion(selectedVersion);
+        text = library.passage.getText(ref);
+    }
+    else if(type == "lexdict") {
+        library.lexicon.setDict(selectedVersion);
+        text = library.lexicon.getEntry(ref);
+    }
+    else if(type == "book") {
+        std::string toc;
+        Pager tocPager;
+        std::list<page> tocPages;
+
+        library.genbook.setModule(selectedVersion);
+        toc = library.genbook.getTOC();
+        tocPages = tocPager.getPagedText(toc);
+        display.displayPages(tocPages);
+    }
             
     
     textPager.setSize(display.getHeight(),display.getWidth());

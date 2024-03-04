@@ -17,11 +17,15 @@
  */
 
 #include <swmgr.h>
+#include <treekey.h>
+#include <swmodule.h>
 
 #include <string>
+#include <iostream>
 
 #include "../front/pager.h"
 #include "../back/types.h"
+#include "../back/library.h"
 
 #include "../back/genbook.h"
 
@@ -30,9 +34,28 @@ void Genbook::setSwordLibrary(sword::SWMgr *swordLib) {
 
 }
 
-Pager Genbook::getTOC(std::string module) {
+std::string Genbook::getTOC() {
+    sword::TreeKey *treeKey;
+    sword::SWModule *mod;
+    std::string toc = "";
+
+    mod = swordLibrary->getModule(book.c_str());
+
+    //Assume we don't have a TreeKey yet since we're just starting.
+    treeKey = dynamic_cast<sword::TreeKey*>(mod->getKey());
+
+    //Check for a first child node
+    if(treeKey->firstChild()) {
+        toc += treeKey->getText();
+    }
+
+   return toc;
 
 }
 
+void Genbook::setModule(std::string module) {
+    book = module;
+
+}
 
 

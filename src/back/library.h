@@ -33,6 +33,7 @@
 #include "passage.h"
 #include "search.h"
 #include "lexicon.h"
+#include "../back/genbook.h"
 
 class Library {
     public:
@@ -42,6 +43,7 @@ class Library {
          */
         Passage passage;
         Lexicon lexicon;
+        Genbook genbook;
         Search searcher;
 
         std::list<std::string> getBibles();

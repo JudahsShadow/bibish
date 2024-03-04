@@ -25,16 +25,19 @@
 
 #include "../back/types.h"
 #include "../front/pager.h"
+#include "swmodule.h"
 
 class Genbook
 {
 public:
     void setSwordLibrary(sword::SWMgr *swordLib);
+    void setModule(std::string module);
 
-    Pager getTOC(std::string module);
+    std::string getTOC();
 
 private:
     sword::SWMgr *swordLibrary;
+    std::string book;
 };
 
 #endif // GENBOOK_H
