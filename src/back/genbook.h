@@ -20,6 +20,7 @@
 #define GENBOOK_H
 
 #include <swmgr.h>
+#include <treekey.h>
 
 #include <string>
 
@@ -37,7 +38,11 @@ public:
 
 private:
     sword::SWMgr *swordLibrary;
+    sword::SWModule *mod;
     std::string book;
+    std::string toc;
+
+    void walkTree(sword::TreeKey *treeKey);
 };
 
 #endif // GENBOOK_H

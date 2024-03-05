@@ -35,27 +35,31 @@ void Genbook::setSwordLibrary(sword::SWMgr *swordLib) {
 }
 
 std::string Genbook::getTOC() {
-    sword::TreeKey *treeKey;
-    sword::SWModule *mod;
-    std::string toc = "";
+    sword::TreeKey *defaultKey;
 
-    mod = swordLibrary->getModule(book.c_str());
+    this->mod = swordLibrary->getModule(this->book.c_str());
 
-    //Assume we don't have a TreeKey yet since we're just starting.
-    treeKey = dynamic_cast<sword::TreeKey*>(mod->getKey());
+    defaultKey = dynamic_cast<sword::TreeKey*>(this->mod->getKey());
 
-    //Check for a first child node
-    if(treeKey->firstChild()) {
-        toc += treeKey->getText();
-    }
+    this->walkTree(defaultKey);
 
-   return toc;
-
+    return toc;
 }
 
 void Genbook::setModule(std::string module) {
     book = module;
-
 }
 
+void Genbook::walkTree(sword::TreeKey *treeKey) {
+    if(treeKey->firstChild()) {
+        while(treeKey->nextSibling()) {
+            toc += treeKey->getText();
+            toc += "\n";
+            if(treeKey->hasChildren()) {
+                this->walkTree(treeKey);
+            }
+        }
+        treeKey->parent();
+    }
+}
 

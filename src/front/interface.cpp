@@ -254,6 +254,8 @@ void Interface::commandShow (Command parsedCommand) {
         std::list<page> tocPages;
 
         library.genbook.setModule(selectedVersion);
+        std::cout << "Getting book Table of Contents (TOC) this may take several ";
+        std::cout << "moments depending on the size of the work." << std::endl;
         toc = library.genbook.getTOC();
         tocPages = tocPager.getPagedText(toc);
         display.displayPages(tocPages);
