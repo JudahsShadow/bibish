@@ -1,7 +1,7 @@
 /*
  * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
  * inspired by Debian's bible package
- * Copyright (C) 2015-2023  David Blue <yudahsshadow@gmx.com>
+ * Copyright (C) 2015-2024  David Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -18,28 +18,31 @@
  *
  */
 
-#include "search.h"
-
-#include <swmodule.h>
-#include <swmgr.h>
-#include <versekey.h>
-
+//STL/Standard Includes
 #include <regex.h>
 #include <string>
 #include <iostream>
 
+//SWORD Project Includes
+#include <swmodule.h>
+#include <swmgr.h>
+#include <versekey.h>
+
+//Project Includes
+#include "../back/search.h"
+
 Display Search::searchDisplay;
 
 void Search::setSwordLibrary(sword::SWMgr *library) {
-    swordLibrary = library;
+    this->swordLibrary = library;
 }
 
 void Search::setModule(std::string mod) {
-    module = swordLibrary->getModule(mod.c_str());
+    this->module = this->swordLibrary->getModule(mod.c_str());
 }
 
 void Search::setDisplay(Display display) {
-    searchDisplay = display;
+    this->searchDisplay = display;
 }
 
 
@@ -48,7 +51,7 @@ void Search::percentUpdate(char percent, void *userData) {
     uint percentage;
     percentage = (int) percent;
     
-    searchDisplay.displayPercentage(percent);
+    this->searchDisplay.displayPercentage(percent);
 }
 
 
@@ -59,7 +62,7 @@ std::string Search::search(std::string searchString) {
     std::string verses = "";
 
     
-    results = module->search(searchString.c_str(),searchType,
+    results = this->module->search(searchString.c_str(),searchType,
                             REG_ICASE, 0,0, &percentUpdate,
                             &lineLen);
     while(!results.popError()) {

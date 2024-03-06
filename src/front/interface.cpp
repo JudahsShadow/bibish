@@ -1,7 +1,7 @@
 ﻿/*
 * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
 * inspired by Debian's bible package
-* Copyright (C) 2015-2023  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
+* Copyright (C) 2015-2024  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
 *
 * This program is free software; you can redistribute it and/or modify it
 * under the terms of the GNU General Public License as published by the
@@ -32,10 +32,10 @@
 #include <markupfiltmgr.h>
 
 //Project includes
-#include "interface.h"
-#include "display.h"
-#include "pager.h"
-#include "reader.h"
+#include "../front/interface.h"
+#include "../front/display.h"
+#include "../front/pager.h"
+#include "../front/reader.h"
 #include "../back/passage.h"
 #include "../back/library.h"
 #include "../back/parser.h"
@@ -44,16 +44,16 @@
 #include "../back/lexicon.h"
 
 void Interface::initalize() {
-    configScreen();
+    this->configScreen();
 
     std::cout  << "Initializing SWORD, please wait..." << std::endl;
     this->swordLibrary = new sword::SWMgr(
                          new sword::MarkupFilterMgr(sword::FMT_PLAIN));
     
-    library.setSwordLibrary(swordLibrary);
-    library.passage.setLibrary(swordLibrary);
-    library.lexicon.setSwordLibrary(swordLibrary);
-    library.genbook.setSwordLibrary(swordLibrary);
+    this->library.setSwordLibrary(swordLibrary);
+    this->library.passage.setLibrary(swordLibrary);
+    this->library.lexicon.setSwordLibrary(swordLibrary);
+    this->library.genbook.setSwordLibrary(swordLibrary);
     
     std::cout << "Initialized, proceeding to shell..." << std::endl;
 }
@@ -63,8 +63,8 @@ void Interface::configScreen() {
     
     ioctl(STDOUT_FILENO,TIOCGWINSZ,&termSize);
     
-    display.setHeight(termSize.ws_row);
-    display.setWidth(termSize.ws_col);
+    this->display.setHeight(termSize.ws_row);
+    this->display.setWidth(termSize.ws_col);
 }
 
 validCommands Interface::processCommand(Command parsedCommand) {
@@ -88,7 +88,7 @@ validCommands Interface::processCommand(Command parsedCommand) {
         commandShow(parsedCommand);
         return commandPart;
     } else if(commandPart == cmdHelp) {
-        display.displayHelp();
+        this->display.displayHelp();
         return commandPart;
     } else if(commandPart == cmdList) {
         commandPart = commandList(parsedCommand);
@@ -105,16 +105,16 @@ validCommands Interface::processCommand(Command parsedCommand) {
             std::string results = "";
             std::string searchTerms = "";
             
-            resultsPager.setSize(display.getHeight(),display.getWidth());
+            resultsPager.setSize(this->display.getHeight(),this->display.getWidth());
             
-            library.searcher.setModule(selectedVersion);
-            library.searcher.setDisplay(display);
+            this->library.searcher.setModule(this->selectedVersion);
+            this->library.searcher.setDisplay(this->display);
             
             //If no argument is provided to the command, prompt for the
             //search terms, otherwise recombine the arguments into a string
             if (parsedCommand.argumentPart.empty()) {
-                display.displayHeader();
-                display.displaySpacer(2);
+                this->display.displayHeader();
+                this->display.displaySpacer(2);
                 std::cout << "Enter a word or phrase to search for: ";
                 std::getline(std::cin,searchTerms);
 
@@ -128,9 +128,9 @@ validCommands Interface::processCommand(Command parsedCommand) {
             results = library.searcher.search(searchTerms);
             pagedResults = resultsPager.getPagedText(results);
             
-            display.clearScreen();
-            display.displayHeader();
-            display.displayPages(pagedResults);
+            this->display.clearScreen();
+            this->display.displayHeader();
+            this->display.displayPages(pagedResults);
             
             return commandPart;
         }
@@ -145,22 +145,22 @@ validCommands Interface::processCommand(Command parsedCommand) {
         std::string reference;
         
         if(selectedVersion == "") {
-            display.displayHeader();
-            display.displaySpacer(1);
+            this->display.displayHeader();
+            this->display.displaySpacer(1);
             std::cerr << "No module selected. Try Select";
             std::cerr << std::endl;
             return commandPart;
         }
         
-        readMode.setDisplay(display);        
-        readMode.setSwordLibrary(swordLibrary);
-        readMode.setModule(selectedVersion);
+        readMode.setDisplay(this->display);
+        readMode.setSwordLibrary(this->swordLibrary);
+        readMode.setModule(this->selectedVersion);
         reference = parsedCommand.argumentPart.front();
         readMode.showText(reference.c_str());
         return commandPart;
     }
     else if(commandPart == cmdAbout) {
-        display.displayAbout();
+        this->display.displayAbout();
         return commandPart;
     }
     else {
@@ -178,10 +178,10 @@ int Interface::runInterface() {
     
     //Initialize the interface
     initalize();
-    display.clearScreen();
-    display.displayHeader();
-    display.displaySpacer();
-    display.displayPrompt();
+    this->display.clearScreen();
+    this->display.displayHeader();
+    this->display.displaySpacer();
+    this->display.displayPrompt();
     std::getline(std::cin, command);
     
     parsedCommand = commandParser.parseCommand(command);
@@ -189,12 +189,12 @@ int Interface::runInterface() {
     //main program loop keep going until a quit command is given or an
     //unrecoverable error thrown
     while(parsedCommand.commandPart != cmdQuit) {
-        display.clearScreen();
-        display.displayHeader();
+        this->display.clearScreen();
+        this->display.displayHeader();
         
         if(parsedCommand.commandPart == cmdUnknown) {
             std::cerr << "Error! invalid command! (Try ?)" << std::endl;
-            display.displaySpacer(1);
+            this->display.displaySpacer(1);
         } else if(parsedCommand.commandPart == cmdError) {
             //Some error encountered. Since some are unrecoverable, Back out.
             std::cerr << "Unrecoverable error encountered Aborting...";
@@ -204,7 +204,7 @@ int Interface::runInterface() {
         }
         parsedCommand.commandPart = processCommand(parsedCommand);
 
-        display.displayPrompt();
+        this->display.displayPrompt();
         std::getline(std::cin, command);
         parsedCommand = commandParser.parseCommand(command);
     }
@@ -222,11 +222,11 @@ void Interface::commandShow (Command parsedCommand) {
 
     
     if(parsedCommand.argumentPart.empty()) {
-            display.displayHeader();
+            this->display.displayHeader();
             std::cout <<  "No reference Specified";
             std::cout << std::endl;
             errSpaces++;
-            display.displaySpacer(errSpaces);
+            this->display.displaySpacer(errSpaces);
             return;
     }
     else {
@@ -237,38 +237,38 @@ void Interface::commandShow (Command parsedCommand) {
         errSpaces++;
         std::cerr <<  "Error: No version selected. (Try select)";
         std::cerr << std::endl;
-        display.displaySpacer(errSpaces);
+        this->display.displaySpacer(errSpaces);
         return;
     }
         
-    std::string type = library.getModuleType(selectedVersion);
+    std::string type = this->library.getModuleType(this->selectedVersion);
     if(type == "bible" || type =="commentary") {
-        library.passage.setVersion(selectedVersion);
-        text = library.passage.getText(ref);
+        this->library.passage.setVersion(this->selectedVersion);
+        text = this->library.passage.getText(ref);
     }
     else if(type == "lexdict") {
-        library.lexicon.setDict(selectedVersion);
-        text = library.lexicon.getEntry(ref);
+        this->library.lexicon.setDict(this->selectedVersion);
+        text = this->library.lexicon.getEntry(ref);
     }
     else if(type == "book") {
-        library.genbook.setModule(selectedVersion);
+        this->library.genbook.setModule(this->selectedVersion);
 
         if(ref == "toc"|| ref == "TOC") {
             std::cout << "Getting book Table of Contents (TOC) this may take several ";
             std::cout << "moments depending on the size of the work." << std::endl;
 
-            text = library.genbook.getTOC();
+            text = this->library.genbook.getTOC();
         }
         else {
-            text = library.genbook.getText(ref);
+            text = this->library.genbook.getText(ref);
         }
     }
             
     
-    textPager.setSize(display.getHeight(),display.getWidth());
+    textPager.setSize(this->display.getHeight(),this->display.getWidth());
     pagedText = textPager.getPagedText(text);
 
-    display.displayPages(pagedText);
+    this->display.displayPages(pagedText);
 }
 
 validCommands Interface::commandList ( Command parsedCommand ) {
@@ -276,18 +276,18 @@ validCommands Interface::commandList ( Command parsedCommand ) {
     
 
     if(parsedCommand.argumentPart.front() == "bibles") {
-            modules = library.getBibles();
+            modules = this->library.getBibles();
         }
         else if (parsedCommand.argumentPart.front() == "commentaries") {
-            modules = library.getCommentaries();
+            modules = this->library.getCommentaries();
         }
         else if(parsedCommand.argumentPart.front() == "lexicons" ||
                 parsedCommand.argumentPart.front() == "dictionaries") {
-            modules = library.getLexicons();
+            modules = this->library.getLexicons();
         }
         else if(parsedCommand.argumentPart.front() == "book" ||
                 parsedCommand.argumentPart.front() == "books") {
-            modules = library.getGenBooks();
+            modules = this->library.getGenBooks();
         }
         
         if(modules.empty()) {
@@ -295,7 +295,7 @@ validCommands Interface::commandList ( Command parsedCommand ) {
             std::cerr <<  parsedCommand.argumentPart.front();
             std::cerr << " found. Please install in another front-end.";
             std::cerr <<  std::endl;
-            display.displaySpacer(1);
+            this->display.displaySpacer(1);
             return cmdError;
         }
         std::string curMod;
@@ -303,7 +303,7 @@ validCommands Interface::commandList ( Command parsedCommand ) {
         Pager modulePager;
         std::list<page> modulePages;
         
-        modulePager.setSize(display.getHeight(), display.getWidth());
+        modulePager.setSize(this->display.getHeight(), this->display.getWidth());
 
         while(!modules.empty()) {
             curMod = modules.front();
@@ -313,7 +313,7 @@ validCommands Interface::commandList ( Command parsedCommand ) {
         }
         modulePages = modulePager.getPagedText(moduleList);
         
-        display.displayPages(modulePages);
+        this->display.displayPages(modulePages);
         return parsedCommand.commandPart;
 }
 
@@ -322,7 +322,7 @@ void Interface::commandSelect(Command parsedCommand) {
 
         if(parsedCommand.argumentPart.empty()) {
             std::cerr << "No module provided (Try list)" << std::endl;
-            display.displaySpacer(1);
+            this->display.displaySpacer(1);
         }
         else {        
             selectedWork =  parsedCommand.argumentPart.front();
@@ -330,14 +330,14 @@ void Interface::commandSelect(Command parsedCommand) {
             //Check to make sure the module is, in fact, valid before 
             //continuing on to prevent crashing later
             //<fife>Nip it in the bud!</fife>
-            if(library.isModuleValid(selectedWork)) {
-                selectedVersion = selectedWork;
-                display.displaySpacer();
+            if(this->library.isModuleValid(selectedWork)) {
+                this->selectedVersion = selectedWork;
+                this->display.displaySpacer();
             }
             else {
                 //Module didn't come up, alert the user and bail out early.'
                 std::cerr << "Module Name is invalid (Try list)" << std::endl;
-                display.displaySpacer(1);
+                this->display.displaySpacer(1);
                 return;
             }
         }

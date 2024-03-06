@@ -1,7 +1,7 @@
 /*
  * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
  * inspired by Debian's bible package
- * Copyright (C) 2015-2023  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
+ * Copyright (C) 2015-2024  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -18,18 +18,20 @@
  *
  */
 
-#include "pager.h"
-
-#include "../back/parser.h"
-#include "../back/types.h"
-
+//STL Includes
 #include <string>
 #include <list>
 
+//Project Includes
+#include "../front/pager.h"
+#include "../back/parser.h"
+#include "../back/types.h"
+
+
 
 Pager::Pager() {
-    cols = 0;
-    lines = 0;
+    this->cols = 0;
+    this->lines = 0;
 }
 
 Pager::~Pager() {
@@ -39,8 +41,8 @@ Pager::~Pager() {
 //This bad boy takes a raw string, and breaks it down into a list of
 //of lists (pages) of strings (lines).
 std::list<page> Pager::getPagedText(std::string text) {
-    uint width = cols;
-    uint pageSize = lines;
+    uint width = this->cols;
+    uint pageSize = this->lines;
     int lineCount = 0;
     int colCount = 0;
 
@@ -152,6 +154,6 @@ std::list<page> Pager::getPagedText(std::string text) {
 }
 
 void Pager::setSize(uint rowSize, uint colSize) {
-    lines = rowSize;
-    cols = colSize;
+    this->lines = rowSize;
+    this->cols = colSize;
 }

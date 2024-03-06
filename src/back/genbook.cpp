@@ -1,7 +1,7 @@
 /*
  *BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
  * inspired by Debian's bible package
- * Copyright (C) 2023  David Blue <yudahsshadow@gmx.com>
+ * Copyright (C) 2024  David Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,18 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <swmgr.h>
-#include <treekey.h>
-#include <swmodule.h>
-
+//STL Includes
 #include <string>
 #include <iostream>
 
+//SWORD Project Includes
+#include <swmgr.h>
+#include <treekey.h>
+#include <swmodule.h>
+#include <swkey.h>
+
+//Project Includes
 #include "../front/pager.h"
 #include "../back/types.h"
 #include "../back/library.h"
-#include "swkey.h"
-
 #include "../back/genbook.h"
 
 void Genbook::setSwordLibrary(sword::SWMgr *swordLib) {
@@ -48,7 +50,7 @@ std::string Genbook::getTOC() {
 }
 
 void Genbook::setModule(std::string module) {
-    book = module;
+    this->book = module;
 }
 
 void Genbook::walkTree(sword::TreeKey *treeKey) {
@@ -70,7 +72,7 @@ std::string Genbook::getText(std::string key) {
 
     this->mod = swordLibrary->getModule(this->book.c_str());
 
-    mod->setKey(key.c_str());
+    this->mod->setKey(key.c_str());
     text += mod->getKeyText();
     text += "\n";
     text += mod->stripText();

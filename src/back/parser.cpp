@@ -1,7 +1,7 @@
 /*
  * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
  * inspired by Debian's bible package
- * Copyright (C) 2015-2023  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
+ * Copyright (C) 2015-2024  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -18,15 +18,18 @@
  *
  */
 
-#include "parser.h"
-#include "types.h"
-
+//STL Includes
 #include <list>
 #include <string>
 #include <sstream>
 
+//Project Includes
+#include "../back/parser.h"
+#include "../back/types.h"
+
+
 Parser::Parser() {
-    argumentCount = 0;
+    this->argumentCount = 0;
 }
 
 Parser::~Parser() {
@@ -34,7 +37,7 @@ Parser::~Parser() {
 }
 
 int Parser::getNumberArguments() {
-    return argumentCount;
+    return this->argumentCount;
 }
 
 Command Parser::parseCommand(std::string command) {
@@ -103,7 +106,7 @@ Command Parser::parseCommand(std::string command) {
            argumentPart.front() == "devotions" ||
            argumentPart.front() == "books" ||
            argumentPart.front() == "dictionaries" ||
-            argumentPart.front() == "lexicons") {
+           argumentPart.front() == "lexicons") {
 
             parsedCommand.argumentPart.push_back(argumentPart.front());
         }

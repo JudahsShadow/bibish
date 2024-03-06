@@ -1,7 +1,7 @@
 /*
  *BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
  * inspired by Debian's bible package
- * Copyright (C) 2023  David Blue <yudahsshadow@gmx.com>
+ * Copyright (C) 2023-2024  David Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,14 +19,17 @@
 #ifndef GENBOOK_H
 #define GENBOOK_H
 
+//STL Includes
+#include <string>
+
+//SWORD Project Includes
 #include <swmgr.h>
 #include <treekey.h>
-
-#include <string>
+#include <swmodule.h>
 
 #include "../back/types.h"
 #include "../front/pager.h"
-#include "swmodule.h"
+
 
 class Genbook
 {

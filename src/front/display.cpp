@@ -1,7 +1,7 @@
 /*
  * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
  * inspired by Debian's bible package
- * Copyright (C) 2015-2023  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
+ * Copyright (C) 2015-2024  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -18,13 +18,15 @@
  *
  */
 
+//STL Includes
 #include <iostream>
 
-#include "display.h"
+//Project Includes
+#include "../front/display.h"
 #include "../back/types.h"
 
 void Display::clearScreen() {
-    for (int i = 0; i <= screenHeight; i++) {
+    for (int i = 0; i <= this->screenHeight; i++) {
         std::cout << std::endl;
     }
 }
@@ -38,7 +40,7 @@ void Display::displayPrompt() {
 }
 
 void Display::displaySpacer(int spacing) {
-    for(int i = 1; i <= screenHeight - (spacing + 2); i++) {
+    for(int i = 1; i <= this->screenHeight - (spacing + 2); i++) {
         std::cout << std::endl;
     }
 }
@@ -65,11 +67,11 @@ void Display::displayHelp() {
 }
 
 void Display::setHeight(uint size) {
-    screenHeight = size;
+    this->screenHeight = size;
 }
 
 uint Display::getHeight() {
-    return screenHeight;
+    return this->screenHeight;
 }
 
 void Display::displayPages(std::list<page> text) {
@@ -87,7 +89,7 @@ void Display::displayPages(std::list<page> text) {
         
         std::cout << displayText;
 
-//          displaySpacer(numLines);
+        displaySpacer(numLines);
         text.pop_front();
         if(numPages > 1) {
             std::string dummy = "";
@@ -95,7 +97,6 @@ void Display::displayPages(std::list<page> text) {
             std::getline(std::cin,dummy);
             if(dummy == "q") {
                 text.clear();
-//                 return;
             }
             clearScreen();
             displayHeader();
@@ -104,29 +105,29 @@ void Display::displayPages(std::list<page> text) {
 }
 
 void Display::displayPercentage(uint percent) {
-    clearScreen();
-    displayHeader();
-    displaySpacer(0);
+    this->clearScreen();
+    this->displayHeader();
+    this->displaySpacer(0);
     std::cout << "Searching " << percent;
     std::cout << "% complete";
     std::flush(std::cout);
 }
 
 void Display::setWidth(uint size) {
-    screenWidth = size;
+    this->screenWidth = size;
 }
 
 uint Display::getWidth() {
-    return screenWidth;
+    return this->screenWidth;
 }
 
 void Display::displayAbout() {
-    clearScreen();
-    displayHeader();
+    this->clearScreen();
+    this->displayHeader();
     std::cout << "BIBISH Is [a] Bible Interactive SHell inspired by the bible package found in" << std::endl;
     std::cout << "Debian GNU/Linux." << std::endl;
     std::cout << "BIBISH is (C) 2015-2024 by David \"Judah\'s Shadow\" Blue." << std::endl;
     std::cout << "BIBISH is licensed under the GNU GPL Version 2.0 (GPL-2.0)." << std::endl;
     std::cout << "See the included COPYING and LICENSE files for more information" << std::endl;
-    displaySpacer(5);
+    this->displaySpacer(5);
 }

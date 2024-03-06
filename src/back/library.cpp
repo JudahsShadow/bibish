@@ -1,7 +1,7 @@
 ﻿/*
  * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
  * inspired by Debian's bible package
- * Copyright (C) 2015-2023  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
+ * Copyright (C) 2015-2024  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -18,37 +18,40 @@
  *
  */
 
-#include "library.h"
-
+//STL Includes
 #include <string>
 #include <list>
 #include <iostream>
 
+//SWORD Project Includes
 #include <swmgr.h>
 #include <swmodule.h>
 #include <markupfiltmgr.h>
 
+//Project Includes
+#include "../back/library.h"
+
 std::list<std::string> Library::getBibles() {
     std::list<std::string> bibles;
-    bibles = getModuleList("bible");
+    bibles = this->getModuleList("bible");
     return bibles;
 }
 
 std::list<std::string> Library::getCommentaries() {
     std::list<std::string> commentaries;
-    commentaries = getModuleList("commentary");
+    commentaries = this->getModuleList("commentary");
     return commentaries;
 }
 
 std::list<std::string> Library::getLexicons() {
     std::list<std::string> lexicons;
-    lexicons = getModuleList("dictionary");
+    lexicons = this->getModuleList("dictionary");
     return lexicons;
 }
 
 std::list<std::string> Library::getGenBooks() {
     std::list<std::string> books;
-    books = getModuleList("book");
+    books = this->getModuleList("book");
     return books;
 }
 

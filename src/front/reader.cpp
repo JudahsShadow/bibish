@@ -1,7 +1,7 @@
 /*
  *BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
  * inspired by Debian's bible package
- * Copyright (C) 2021-2023  David Blue <yudahsshadow@gmx.com>
+ * Copyright (C) 2021-2024  David Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "reader.h"
-
 //STL includes
 #include <string>
 #include <list>
@@ -30,8 +28,9 @@
 #include <swbuf.h>
 
 //Project includes
-#include "pager.h"
-#include "display.h"
+#include "../front/reader.h"
+#include "../front/pager.h"
+#include "../front/display.h"
 #include "../back/passage.h"
 
 
@@ -43,20 +42,20 @@ void Reader::showText(sword::SWBuf key) {
     std::list<page> pagedText;
     std::string text;
     
-    text = retrieveAllKeys(key);
+    this->text = retrieveAllKeys(key);
     
-    pager.setSize(display.getHeight(),display.getWidth());
+    this->pager.setSize(this->display.getHeight(),this->display.getWidth());
     
     pagedText = pager.getPagedText(text);
-    display.displayPages(pagedText);
+    this->display.displayPages(pagedText);
 }
 
 void Reader::setModule(std::string module) {
-    selectedModule = module;
+    this->selectedModule = module;
 }
 
 void Reader::setSwordLibrary(sword::SWMgr *library) {
-    swordLibrary = library;
+    this->swordLibrary = library;
 }
 
 std::string Reader::retrieveAllKeys(sword::SWBuf key) {
@@ -64,11 +63,11 @@ std::string Reader::retrieveAllKeys(sword::SWBuf key) {
     sword::VerseKey moduleKey;
     sword::SWModule *module;
     
-    module = swordLibrary->getModule(selectedModule.c_str());
+    module = this->swordLibrary->getModule(selectedModule.c_str());
     
-    display.clearScreen();
-    display.displayHeader();
-    display.displaySpacer(1);
+    this->display.clearScreen();
+    this->display.displayHeader();
+    this->display.displaySpacer(1);
     std::cout << "Retrieving all module entries.. For large texts this may";
     std::cout << " take time";
     std::cout << std::endl;

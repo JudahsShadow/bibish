@@ -1,7 +1,7 @@
 /*
  *BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
  * inspired by Debian's bible package
- * Copyright (C) 2021-2023  David Blue <yudahsshadow@gmx.com>
+ * Copyright (C) 2021-2024  David Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
 #include <swbuf.h>
 #include <swmodule.h>
 
-
+//Project Includes
 #include "../back/lexicon.h"
 
 std::string Lexicon::getEntry(std::string entry) {
@@ -33,7 +33,7 @@ std::string Lexicon::getEntry(std::string entry) {
     sword::SWKey lexKey;
     sword::SWModule *module ;
     
-    module = swordLibrary->getModule(lexiDict.c_str());
+    module = this->swordLibrary->getModule(lexiDict.c_str());
     module->setKeyText(entry.c_str());
     
     lexEntry = module->getKeyText();
@@ -48,6 +48,6 @@ void Lexicon::setDict(std::string module) {
 
 
 void Lexicon::setSwordLibrary(sword::SWMgr *swordLib) {
-    swordLibrary = swordLib;
+    this->swordLibrary = swordLib;
 }
 

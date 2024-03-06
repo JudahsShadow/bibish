@@ -1,7 +1,7 @@
 ﻿/*
  * BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
  * inspired by Debian's bible package
- * Copyright (C) 2015-2023  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
+ * Copyright (C) 2015-2024  David "Judah's Shadow" Blue <yudahsshadow@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -21,18 +21,18 @@
 #ifndef LIBRARY_H
 #define LIBRARY_H
 
-//Standard/STL includes
+//STL includes
 #include <string>
 #include <list>
 
-//Sword includes
+//SWORD Project Includes
 #include <swmgr.h>
 #include <swmodule.h>
 
 //Project includes
-#include "passage.h"
-#include "search.h"
-#include "lexicon.h"
+#include "../back/passage.h"
+#include "../back/search.h"
+#include "../back/lexicon.h"
 #include "../back/genbook.h"
 
 class Library {

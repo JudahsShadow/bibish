@@ -18,25 +18,29 @@
  *
  */
 
-#include "passage.h"
-#include "library.h"
-
+//STL Includes
 #include <string>
 #include <iostream>
 #include <list>
 
+//SWORD Project Includes
 #include <swmgr.h>
 #include <swmodule.h>
 #include <markupfiltmgr.h>
 #include <versekey.h>
 #include <listkey.h>
 
+//Project Includes
+#include "../back/passage.h"
+#include "../back/library.h"
+
+
 void Passage::setVersion(std::string version) {
     this->version = version;
 }
 
 void Passage::setLibrary(sword::SWMgr *library) {
-  swordLibrary = library;
+  this->swordLibrary = library;
 }
 
 std::string Passage::getText(std::string reference) {

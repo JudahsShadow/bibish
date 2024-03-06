@@ -1,7 +1,7 @@
 /*
  *BIBISH Is [a] Bible Interactive SHell, a front-end for the SWORD Project
  * inspired by Debian's bible package
- * Copyright (C) 2021-2023  David Blue <yudahsshadow@gmx.com>
+ * Copyright (C) 2021-2024  David Blue <yudahsshadow@gmx.com>
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,9 +19,11 @@
 #ifndef LEXICON_H
 #define LEXICON_H
 
-#include <swmgr.h>
-
+//STL Includes
 #include <string>
+
+//SWORD Project Includes
+#include <swmgr.h>
 
 class Lexicon
 {
