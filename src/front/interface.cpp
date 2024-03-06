@@ -226,6 +226,8 @@ void Interface::commandShow (Command parsedCommand) {
             std::cout <<  "No reference Specified";
             std::cout << std::endl;
             errSpaces++;
+            display.displaySpacer(errSpaces);
+            return;
     }
     else {
             ref = parsedCommand.argumentPart.front();
@@ -251,10 +253,12 @@ void Interface::commandShow (Command parsedCommand) {
     else if(type == "book") {
         library.genbook.setModule(selectedVersion);
 
-        std::cout << "Getting book Table of Contents (TOC) this may take several ";
-        std::cout << "moments depending on the size of the work." << std::endl;
+        if(ref == "toc"|| ref == "TOC") {
+            std::cout << "Getting book Table of Contents (TOC) this may take several ";
+            std::cout << "moments depending on the size of the work." << std::endl;
 
-        text = library.genbook.getTOC();
+            text = library.genbook.getTOC();
+        }
     }
             
     
