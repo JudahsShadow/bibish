@@ -54,7 +54,8 @@ void Genbook::walkTree(sword::TreeKey *treeKey) {
     if(treeKey->firstChild()) {
         while(treeKey->nextSibling()) {
             toc += treeKey->getText();
-            toc += "\n";
+            //Add a space after the new line for the tokenizer to split on
+            toc += "\n ";
             if(treeKey->hasChildren()) {
                 this->walkTree(treeKey);
             }

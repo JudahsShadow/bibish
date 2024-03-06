@@ -59,7 +59,7 @@ std::list<page> Pager::getPagedText(std::string text) {
         words.pop_front();
         //Newlines appear within word groups and not always at EOL, so find them and
         //act accordingly.
-        if(currsentWord.find("\n") != std::string::npos) {
+        if(currentWord.find("\n") != std::string::npos) {
             int endlPos = 0;
             endlPos = currentWord.find("\n");
             if(endlPos != currentWord.back()) {
