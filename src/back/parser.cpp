@@ -166,7 +166,7 @@ std::list<std::string> Parser::split(std::string string) {
   parts.clear();
 
   // The following algorithm is based on the one found at
-  // http://www.cplusplus.com/faq/sequences/strings/split/#getline
+  //http://www.cplusplus.com/faq/sequences/strings/split/#getline
   while (!tokenStream.eof()) {
       // Yes I know this is normally "The Wrong Way(TM)" to do this
       // since you shouldn't read past EOF, but getline is a bit
