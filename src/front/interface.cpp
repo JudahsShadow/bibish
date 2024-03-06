@@ -259,6 +259,9 @@ void Interface::commandShow (Command parsedCommand) {
 
             text = library.genbook.getTOC();
         }
+        else {
+            text = library.genbook.getText(ref);
+        }
     }
             
     

@@ -26,6 +26,7 @@
 #include "../front/pager.h"
 #include "../back/types.h"
 #include "../back/library.h"
+#include "swkey.h"
 
 #include "../back/genbook.h"
 
@@ -64,3 +65,15 @@ void Genbook::walkTree(sword::TreeKey *treeKey) {
     }
 }
 
+std::string Genbook::getText(std::string key) {
+    std::string text;
+
+    this->mod = swordLibrary->getModule(this->book.c_str());
+
+    mod->setKey(key.c_str());
+    text += mod->getKeyText();
+    text += "\n";
+    text += mod->stripText();
+
+    return text;
+}

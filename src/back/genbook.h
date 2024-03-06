@@ -36,6 +36,8 @@ public:
 
     std::string getTOC();
 
+    std::string getText(std::string key);
+
 private:
     sword::SWMgr *swordLibrary;
     sword::SWModule *mod;
