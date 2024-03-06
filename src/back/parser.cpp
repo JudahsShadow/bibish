@@ -202,8 +202,11 @@ std::string Parser::combine(std::list< std::string > stringList) {
     std::string combinedString = "";
     while(!stringList.empty()) {
         combinedString += stringList.front();
-        combinedString += " ";
         stringList.pop_front();
+        //Only add a space if there are other items in the stringList
+        if(!stringList.empty()) {
+            combinedString += " ";
+        }
     }
     return combinedString;
 }
