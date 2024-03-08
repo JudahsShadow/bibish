@@ -345,7 +345,6 @@ void Interface::commandSearch(Command parsedCommand) {
 }
 
 void Interface::commandRead(Command parsedCommand) {
-    Reader readMode;
     std::string reference;
 
     if(selectedVersion == "") {
@@ -356,9 +355,9 @@ void Interface::commandRead(Command parsedCommand) {
         return;
     }
 
-    readMode.setDisplay(this->display);
-    readMode.setSwordLibrary(this->swordLibrary);
-    readMode.setModule(this->selectedVersion);
+    this->library.readMode.setDisplay(this->display);
+    this->library.readMode.setSwordLibrary(this->swordLibrary);
+    this->library.readMode.setModule(this->selectedVersion);
     reference = parsedCommand.argumentPart.front();
-    readMode.showText(reference.c_str());
+    this->library.readMode.showText(reference.c_str());
 }

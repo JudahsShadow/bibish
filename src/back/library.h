@@ -34,6 +34,7 @@
 #include "../back/search.h"
 #include "../back/lexicon.h"
 #include "../back/genbook.h"
+#include "../front/reader.h"
 
 class Library {
     public:
@@ -45,6 +46,7 @@ class Library {
         Lexicon lexicon;
         Genbook genbook;
         Search searcher;
+        Reader readMode;
 
         std::list<std::string> getBibles();
         std::list<std::string> getCommentaries();
