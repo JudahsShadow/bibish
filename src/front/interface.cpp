@@ -110,22 +110,7 @@ validCommands Interface::processCommand(Command parsedCommand) {
         }
     }
     else if(commandPart == cmdRead) {
-        Reader readMode;
-        std::string reference;
-        
-        if(selectedVersion == "") {
-            this->display.displayHeader();
-            this->display.displaySpacer(1);
-            std::cerr << "No module selected. Try Select";
-            std::cerr << std::endl;
-            return commandPart;
-        }
-        
-        readMode.setDisplay(this->display);
-        readMode.setSwordLibrary(this->swordLibrary);
-        readMode.setModule(this->selectedVersion);
-        reference = parsedCommand.argumentPart.front();
-        readMode.showText(reference.c_str());
+        this->commandRead(parsedCommand);
         return commandPart;
     }
     else if(commandPart == cmdAbout) {
@@ -357,4 +342,23 @@ void Interface::commandSearch(Command parsedCommand) {
     this->display.displayHeader();
     this->display.displayPages(pagedResults);
 
+}
+
+void Interface::commandRead(Command parsedCommand) {
+    Reader readMode;
+    std::string reference;
+
+    if(selectedVersion == "") {
+        this->display.displayHeader();
+        this->display.displaySpacer(1);
+        std::cerr << "No module selected. Try Select";
+        std::cerr << std::endl;
+        return;
+    }
+
+    readMode.setDisplay(this->display);
+    readMode.setSwordLibrary(this->swordLibrary);
+    readMode.setModule(this->selectedVersion);
+    reference = parsedCommand.argumentPart.front();
+    readMode.showText(reference.c_str());
 }
