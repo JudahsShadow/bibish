@@ -42,7 +42,7 @@ void Reader::showText(sword::SWBuf key) {
     std::list<page> pagedText;
     std::string text;
     
-    this->text = retrieveAllKeys(key);
+    text = retrieveAllKeys(key);
     
     this->pager.setSize(this->display.getHeight(),this->display.getWidth());
     

@@ -45,7 +45,7 @@ class Interface {
         void commandShow(Command parsedCommand);
         validCommands commandList(Command parsedCommand);
         void commandSelect(Command parsedCommand);
-        validCommands commandSearch(Command parsedCommand);
+        void commandSearch(Command parsedCommand);
 
         std::string selectedVersion;
         Display display;

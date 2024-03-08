@@ -54,6 +54,7 @@ void Interface::initalize() {
     this->library.passage.setLibrary(swordLibrary);
     this->library.lexicon.setSwordLibrary(swordLibrary);
     this->library.genbook.setSwordLibrary(swordLibrary);
+    this->library.searcher.setSwordLibrary(swordLibrary);
     
     std::cout << "Initialized, proceeding to shell..." << std::endl;
 }
@@ -85,53 +86,21 @@ validCommands Interface::processCommand(Command parsedCommand) {
         //since we're quitting do nothing here
         return commandPart;
     } else if(commandPart == cmdShow) {
-        commandShow(parsedCommand);
+        this->commandShow(parsedCommand);
         return commandPart;
     } else if(commandPart == cmdHelp) {
         this->display.displayHelp();
         return commandPart;
     } else if(commandPart == cmdList) {
-        commandPart = commandList(parsedCommand);
+        commandPart = this->commandList(parsedCommand);
         return commandPart;
     } else if (commandPart == cmdSelect) {
-        commandSelect(parsedCommand);
+        this->commandSelect(parsedCommand);
         return commandPart;
     }
     else if(commandPart == cmdSearch) {
         if(selectedVersion != "") {
-
-            Pager resultsPager;
-            std::list<page> pagedResults;
-            std::string results = "";
-            std::string searchTerms = "";
-            
-            resultsPager.setSize(this->display.getHeight(),this->display.getWidth());
-            
-            this->library.searcher.setModule(this->selectedVersion);
-            this->library.searcher.setDisplay(this->display);
-            
-            //If no argument is provided to the command, prompt for the
-            //search terms, otherwise recombine the arguments into a string
-            if (parsedCommand.argumentPart.empty()) {
-                this->display.displayHeader();
-                this->display.displaySpacer(2);
-                std::cout << "Enter a word or phrase to search for: ";
-                std::getline(std::cin,searchTerms);
-
-            }
-            else {
-                searchTerms = parsedCommand.argumentPart.front();
-            }
-
-            //TODO: Make this more than references or an option to do text or
-            //reference results or both.
-            results = library.searcher.search(searchTerms);
-            pagedResults = resultsPager.getPagedText(results);
-            
-            this->display.clearScreen();
-            this->display.displayHeader();
-            this->display.displayPages(pagedResults);
-            
+            this->commandSearch(parsedCommand);
             return commandPart;
         }
         else {
@@ -318,28 +287,74 @@ validCommands Interface::commandList ( Command parsedCommand ) {
 }
 
 void Interface::commandSelect(Command parsedCommand) {
-        std::string selectedWork;
+    std::string selectedWork;
 
-        if(parsedCommand.argumentPart.empty()) {
-            std::cerr << "No module provided (Try list)" << std::endl;
-            this->display.displaySpacer(1);
-        }
-        else {        
-            selectedWork =  parsedCommand.argumentPart.front();
+    if(parsedCommand.argumentPart.empty()) {
+        std::cerr << "No module provided (Try list)" << std::endl;
+        this->display.displaySpacer(1);
+    }
+    else {
+        selectedWork =  parsedCommand.argumentPart.front();
         
-            //Check to make sure the module is, in fact, valid before 
-            //continuing on to prevent crashing later
-            //<fife>Nip it in the bud!</fife>
-            if(this->library.isModuleValid(selectedWork)) {
-                this->selectedVersion = selectedWork;
-                this->display.displaySpacer();
-            }
-            else {
-                //Module didn't come up, alert the user and bail out early.'
-                std::cerr << "Module Name is invalid (Try list)" << std::endl;
-                this->display.displaySpacer(1);
-                return;
-            }
+        //Check to make sure the module is, in fact, valid before
+        //continuing on to prevent crashing later
+        //<fife>Nip it in the bud!</fife>
+        if(this->library.isModuleValid(selectedWork)) {
+            this->selectedVersion = selectedWork;
+            this->display.displaySpacer();
         }
+        else {
+            //Module didn't come up, alert the user and bail out early.'
+            std::cerr << "Module Name is invalid (Try list)" << std::endl;
+            this->display.displaySpacer(1);
+            return;
+        }
+    }
+
+}
+
+void Interface::commandSearch(Command parsedCommand) {
+    Pager resultsPager;
+    std::list<page> pagedResults;
+    std::string results = "";
+    std::string searchTerms = "";
+
+    std::cerr << "Top of commandSearch" << std::endl;
+
+    resultsPager.setSize(this->display.getHeight(),this->display.getWidth());
+
+    std::cerr << "Set resultsPager" << std::endl;
+
+    std::cerr << "Attempting to set module: " << this->selectedVersion << std::endl;
+
+    this->library.searcher.setModule(this->selectedVersion);
+
+    std::cerr << "Set module" << std::endl;
+
+    this->library.searcher.setDisplay(this->display);
+
+    std::cerr << "Set display" << std::endl;
+
+    //If no argument is provided to the command, prompt for the
+    //search terms, otherwise recombine the arguments into a string
+    if (parsedCommand.argumentPart.empty()) {
+        this->display.displayHeader();
+        this->display.displaySpacer(2);
+        std::cout << "Enter a word or phrase to search for: ";
+        std::getline(std::cin,searchTerms);
 
     }
+    else {
+        searchTerms = parsedCommand.argumentPart.front();
+    }
+
+    //TODO: Make this more than references or an option to do text or
+    //reference results or both.
+    results = library.searcher.search(searchTerms);
+    pagedResults = resultsPager.getPagedText(results);
+
+    this->display.clearScreen();
+    this->display.displayHeader();
+    this->display.displayPages(pagedResults);
+
+}

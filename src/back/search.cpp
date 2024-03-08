@@ -51,7 +51,7 @@ void Search::percentUpdate(char percent, void *userData) {
     uint percentage;
     percentage = (int) percent;
     
-    this->searchDisplay.displayPercentage(percent);
+    searchDisplay.displayPercentage(percent);
 }
 
 
