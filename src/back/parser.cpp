@@ -131,6 +131,10 @@ Command Parser::parseCommand(std::string command) {
     }
     else if(commandPart == "help" || commandPart == "?") {
         parsedCommand.commandPart = cmdHelp;
+        //pass the argument part back to enable help for specific commands
+        std::string arguments;
+        arguments = this->detokenize(argumentPart);
+        parsedCommand.argumentPart.push_back(arguments);
     }
     else if(commandPart == "read") {
         std::string reference;

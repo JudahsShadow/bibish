@@ -46,8 +46,8 @@ void Display::displaySpacer(int spacing) {
 }
 
 void Display::displayHelp() {
-    clearScreen();
-    displayHeader();
+    this->clearScreen();
+    this->displayHeader();
     std::cout << "Basic Commands are:" << std::endl;
     std::cout << "show [reference]" << std::endl;
     std::cout << "   Displays [reference] in the selected version";
@@ -63,7 +63,7 @@ void Display::displayHelp() {
     std::cout << "?" << std::endl;
     std::cout << "   Shows this message" << std::endl;
     std::cout << "See README for more Commands" << std::endl;
-    displaySpacer(13);
+    // this->displaySpacer(13);
 }
 
 void Display::setHeight(uint size) {

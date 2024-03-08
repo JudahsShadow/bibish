@@ -89,8 +89,15 @@ validCommands Interface::processCommand(Command parsedCommand) {
         this->commandShow(parsedCommand);
         return commandPart;
     } else if(commandPart == cmdHelp) {
-        this->display.displayHelp();
-        return commandPart;
+        if(parsedCommand.argumentPart.front() == "about" ||
+           parsedCommand.argumentPart.front() == "About") {
+            this->display.displayAbout();
+            return commandPart;
+        }
+        else {
+            this->display.displayHelp();
+            return commandPart;
+        }
     } else if(commandPart == cmdList) {
         commandPart = this->commandList(parsedCommand);
         return commandPart;
