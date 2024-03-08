@@ -55,7 +55,7 @@ Command Parser::parseCommand(std::string command) {
     tokenizedCommand.clear();
     commandPart = "";
 
-    tokenizedCommand = tokenize(command);
+    tokenizedCommand = this->tokenize(command);
     if(!tokenizedCommand.empty()) {
         /*If after breaking the command into tokens we have something, as
          *opposed to nothing, put the first item in the commandPart variable
@@ -138,7 +138,7 @@ Command Parser::parseCommand(std::string command) {
     }
     else if(commandPart == "read") {
         std::string reference;
-        reference = detokenize(argumentPart);
+        reference = this->detokenize(argumentPart);
         parsedCommand.argumentPart.push_back(reference);
         parsedCommand.commandPart = cmdRead;
     }
