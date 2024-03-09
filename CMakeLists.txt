@@ -26,7 +26,7 @@ add_executable(bibish ${bibish_srcs})
 
 
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-FIND_PACKAGE(Sword 1.8.1 REQUIRED)
+FIND_PACKAGE(Sword 1.9.0 REQUIRED)
 
 include_directories("${Sword_INCLUDE_DIRS}")
 target_link_libraries("bibish" "${Sword_LDFLAGS}")
