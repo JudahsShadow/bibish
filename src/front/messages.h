@@ -29,4 +29,6 @@ std::string msgVersionn = "0.4.0";
 
 std::string msgPrompt = "Enter a command (? for help): ";
 
+std::string msgContinue = "Press enter for next page or q to quit: ";
+
 #endif // MESSAGES_H

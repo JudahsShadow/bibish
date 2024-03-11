@@ -23,6 +23,7 @@
 
 //Project Includes
 #include "../front/display.h"
+#include "../front/messages.h"
 #include "../back/types.h"
 
 void Display::clearScreen() {
@@ -32,11 +33,11 @@ void Display::clearScreen() {
 }
 
 void Display::displayHeader() {
-    std::cout << "Welcome to BIBISH" << std::endl;
+    std::cout << msgHeader;
 }
 
 void Display::displayPrompt() {
-    std::cout << "Enter a command (? for help): ";
+    std::cout << msgPrompt;
 }
 
 void Display::displaySpacer(int spacing) {
@@ -46,23 +47,27 @@ void Display::displaySpacer(int spacing) {
 }
 
 void Display::displayHelp() {
+    Pager helpPager;
+    std::list<page> helpPages;
+
+    std::string msgHelp = "Basic Commands are:\n";
+    msgHelp += "show [reference]\n";
+    msgHelp += "   Displays [reference] in the selected version\n";
+    msgHelp += "quit\n";
+    msgHelp += "   Exits the program\n";
+    msgHelp += "list [type]\n";
+    msgHelp += "   lists available modules of [type]\n";
+    msgHelp += "   defaults to bible if no type is specified\n";
+    msgHelp += "select [module]\n";
+    msgHelp += "   selects [module] to use for display with show command\n";
+    msgHelp += "?\n";
+    msgHelp += "   Shows this message\n";
+    msgHelp += "See README for more Commands\n";
+
     this->clearScreen();
     this->displayHeader();
-    std::cout << "Basic Commands are:" << std::endl;
-    std::cout << "show [reference]" << std::endl;
-    std::cout << "   Displays [reference] in the selected version";
-    std::cout << std::endl;
-    std::cout << "quit" << std::endl;
-    std::cout << "   Exits the program" << std::endl;
-    std::cout << "list [type]" << std::endl;
-    std::cout << "   lists available modules of [type]" <<  std::endl;
-    std::cout << "   defaults to bible if no type is specified" << std::endl;
-    std::cout << "select [module]" << std::endl;
-    std::cout << "   selects [module] to use for display with show command";
-    std::cout << std::endl;
-    std::cout << "?" << std::endl;
-    std::cout << "   Shows this message" << std::endl;
-    std::cout << "See README for more Commands" << std::endl;
+    helpPages = helpPager.getPagedText(msgHelp);
+    this->displayPages(helpPages);
     // this->displaySpacer(13);
 }
 
@@ -73,13 +78,12 @@ void Display::setHeight(uint size) {
 uint Display::getHeight() {
     return this->screenHeight;
 }
-
 void Display::displayPages(std::list<page> text) {
     std::string displayText = "";
     page currentPage;
     uint numLines = 0;
     uint numPages = 0;
-    
+
     while(!text.empty()) {
         displayText = "";
         currentPage = text.front();
@@ -93,7 +97,7 @@ void Display::displayPages(std::list<page> text) {
         text.pop_front();
         if(numPages > 1) {
             std::string dummy = "";
-            std::cout << "Press enter for next page or q to quit: ";
+            std::cout << msgContinue;
             std::getline(std::cin,dummy);
             if(dummy == "q") {
                 text.clear();
