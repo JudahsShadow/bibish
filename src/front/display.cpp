@@ -52,23 +52,23 @@ void Display::displayHelp() {
 
     std::string msgHelp = "Basic Commands are:\n";
     msgHelp += "show [reference]\n";
-    msgHelp += "   Displays [reference] in the selected version\n";
+    msgHelp += "\tDisplays [reference] in the selected version\n";
     msgHelp += "quit\n";
-    msgHelp += "   Exits the program\n";
+    msgHelp += "\tExits the program\n";
     msgHelp += "list [type]\n";
-    msgHelp += "   lists available modules of [type]\n";
-    msgHelp += "   defaults to bible if no type is specified\n";
+    msgHelp += "\tlists available modules of [type]\n";
+    msgHelp += "\tdefaults to bible if no type is specified\n";
     msgHelp += "select [module]\n";
-    msgHelp += "   selects [module] to use for display with show command\n";
+    msgHelp += "\tselects [module] to use for display with show command\n";
     msgHelp += "?\n";
-    msgHelp += "   Shows this message\n";
+    msgHelp += "\tShows this message\n";
     msgHelp += "See README for more Commands\n";
 
     this->clearScreen();
     this->displayHeader();
+    helpPager.setSize(this->screenHeight,this->screenWidth);
     helpPages = helpPager.getPagedText(msgHelp);
     this->displayPages(helpPages);
-    // this->displaySpacer(13);
 }
 
 void Display::setHeight(uint size) {
@@ -85,6 +85,7 @@ void Display::displayPages(std::list<page> text) {
     uint numPages = 0;
 
     while(!text.empty()) {
+
         displayText = "";
         currentPage = text.front();
         displayText = currentPage.content;
@@ -126,12 +127,22 @@ uint Display::getWidth() {
 }
 
 void Display::displayAbout() {
+    Pager aboutPager;
+    std::list<page> aboutPages;
+
+    std::string msgAbout = "BIBISH version: ";
+    msgAbout += msgVersion;
+    msgAbout +="\n";
+    msgAbout += "BIBISH Is [a] Bible Interactive SHell inspired by the bible";
+    msgAbout += "package found in Debian GNU/Linux.\n";
+    msgAbout += "BIBISH is (C) 2015-2024 by David \"Judah\'s Shadow\" Blue.\n";
+    msgAbout += "BIBISH is licensed under the GNU GPL Version 2.0 (GPL-2.0).\n";
+    msgAbout += "See the included COPYING and LICENSE files for more information\n";
+
     this->clearScreen();
     this->displayHeader();
-    std::cout << "BIBISH Is [a] Bible Interactive SHell inspired by the bible package found in" << std::endl;
-    std::cout << "Debian GNU/Linux." << std::endl;
-    std::cout << "BIBISH is (C) 2015-2024 by David \"Judah\'s Shadow\" Blue." << std::endl;
-    std::cout << "BIBISH is licensed under the GNU GPL Version 2.0 (GPL-2.0)." << std::endl;
-    std::cout << "See the included COPYING and LICENSE files for more information" << std::endl;
-    this->displaySpacer(5);
+
+    aboutPager.setSize(this->screenHeight, this->screenWidth);
+    aboutPages = aboutPager.getPagedText(msgAbout);
+    this->displayPages(aboutPages);
 }

@@ -25,7 +25,7 @@
 
 std::string msgHeader = "Welcome to BIBISH\n";
 
-std::string msgVersionn = "0.4.0";
+std::string msgVersion = "0.4.0";
 
 std::string msgPrompt = "Enter a command (? for help): ";
 
