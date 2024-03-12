@@ -4,3 +4,7 @@ New: Added about command showing copyright and license information.
      Added about argument to help command showing the same as about command
      Added support for genbooks, and TOC argument to show command for showing
      the Table of Contents of Genbooks.
+0.4.0
+Changed:
+     Messages moved into variables and help/about messages paginated.
+     Added support for devotionals as separate category under list.

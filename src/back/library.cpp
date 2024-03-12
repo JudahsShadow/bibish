@@ -55,6 +55,12 @@ std::list<std::string> Library::getGenBooks() {
     return books;
 }
 
+std::list<std::string> Library::getDevotionals() {
+    std::list<std::string> devos;
+    devos = this->getModuleList("devotion");
+    return devos;
+}
+
 
 std::list<std::string> Library::getModuleList(std::string moduleType) {
     std::string module = "";
@@ -68,6 +74,8 @@ std::list<std::string> Library::getModuleList(std::string moduleType) {
     std::string devo = sword::SWMgr::MODTYPE_DAILYDEVOS;
     std::string book = sword::SWMgr::MODTYPE_GENBOOKS;
     std::string dict = sword::SWMgr::MODTYPE_LEXDICTS;
+
+    const char *category;
 
     if(moduleType == "bible") {
         selectedType = bible;
@@ -97,7 +105,19 @@ std::list<std::string> Library::getModuleList(std::string moduleType) {
 
         sword::SWModule *tempMod = libraryIterator->second;
 
-        modType = tempMod->getType();
+        category = tempMod->getConfigEntry("Category");
+
+        //Devotions will never match on straight type, so check category or
+        //features and set the module type to devotion, otherwise accept the
+        //type from the module.
+        if(category == "Daily Devotions" ||
+            tempMod->getConfig().has("Feature","DailyDevotion")) {
+
+            modType = devo;
+        }
+        else {
+            modType = tempMod->getType();
+        }
 
         if(modType == selectedType) {
             module = "For ";

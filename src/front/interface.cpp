@@ -250,6 +250,9 @@ validCommands Interface::commandList ( Command parsedCommand ) {
                 parsedCommand.argumentPart.front() == "books") {
             modules = this->library.getGenBooks();
         }
+        else if(parsedCommand.argumentPart.front() == "devotions") {
+            modules = this->library.getDevotionals();
+        }
         
         if(modules.empty()) {
             std::cerr <<  "No modules of type ";

@@ -14,3 +14,10 @@ Milestone releases
 0.3.0:
     Planned Features:
         Add support for genbooks to list, select, show, and read.
+
+0.4.0:
+    Planned Features:
+        Add new devo command to show daily devotional for today, tomorrow, yesterday
+            or arbitrary date (in MM.DD format)
+        Add support for listing devotionals seperate from parent category of
+            lexicons in list command
