@@ -272,7 +272,7 @@ std::string Parser::parseDate(std::string date) {
     else if(month == "November" || month == "Nov") {
         parsedDate += "11."
     }
-    else if(month == 'December' || month == "Dec") {
+    else if(month == "December" || month == "Dec") {
         parsedDate += "12.";
     }
     else {
