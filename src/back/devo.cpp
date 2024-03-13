@@ -23,14 +23,36 @@
 
 //SWORD Project Includes
 #include <swmgr.h>
+#include <swmodule.h>
 
 //Project Includes
 #include "../back/devo.h"
+#include "../back/parser.h"
 
 void Devo::setSwordLibrary(sword::SWMgr *swordLib) {
     this->swordLibrary = swordLib;
 }
 
 std::string getDevo(std::string date) {
+    Parser dateParser;
+    std::string parsedDate;
+    std::string devo;
+    sword::SWModule *devotion;
 
+    devotion = this->swordLibrary.getModule(this->mod.c_str());
+
+    parsedDate = date.Parser.parseDate(date);
+
+    devotion->setKey(parsedDate);
+
+    devo = devotion->getKeyText();
+    devo += "\n";
+    devo += devotion->stripText();
+
+    return devo;
+
+}
+
+void Devo::setDevotion(std::string module) {
+    this->mod = module;
 }

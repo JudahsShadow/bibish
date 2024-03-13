@@ -30,11 +30,13 @@ class Devo
 {
 public:
     void setSwordLibrary(sword::SWMgr *swordLib);
+    void setDevotion(std::string module);
 
     std::string getDevo(std::string date);
 
 private:
     sword::SWMgr *swordLibrary;
+    std::string mod;
 };
 
 #endif // DEVO_H
