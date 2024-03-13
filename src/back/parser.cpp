@@ -148,6 +148,12 @@ Command Parser::parseCommand(std::string command) {
     else if(commandPart == "about") {
         parsedCommand.commandPart = cmdAbout;
     }
+    else if(commandPart == "devo") {
+        std::string date;
+        parsedCommand.commandPart = cmdDevo;
+        date = this->detokenize(argumentPart);
+        parsedCommand.argumentPart.push_back(date);
+    }
     else {
         //Add a general case to just pass arguments to the back as a list
         while(!argumentPart.empty()) {
