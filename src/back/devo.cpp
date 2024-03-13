@@ -33,17 +33,17 @@ void Devo::setSwordLibrary(sword::SWMgr *swordLib) {
     this->swordLibrary = swordLib;
 }
 
-std::string getDevo(std::string date) {
+std::string Devo::getDevo(std::string date) {
     Parser dateParser;
     std::string parsedDate;
     std::string devo;
     sword::SWModule *devotion;
 
-    devotion = this->swordLibrary.getModule(this->mod.c_str());
+    devotion = this->swordLibrary->getModule(this->mod.c_str());
 
-    parsedDate = date.Parser.parseDate(date);
+    parsedDate = dateParser.parseDate(date);
 
-    devotion->setKey(parsedDate);
+    devotion->setKey(parsedDate.c_str());
 
     devo = devotion->getKeyText();
     devo += "\n";

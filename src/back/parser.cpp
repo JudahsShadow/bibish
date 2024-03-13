@@ -236,8 +236,8 @@ std::string Parser::parseDate(std::string date) {
     tokenizedDate = this->tokenize(date);
 
     //Assume we've been given a month and year separated by space'
-    month = tokenizedDate->first();
-    day = tokenizedDate->second();
+    month = tokenizedDate.front();
+    day = tokenizedDate.back();
 
     if(month == "January" || month == "Jan") {
         parsedDate += "01.";
@@ -249,7 +249,7 @@ std::string Parser::parseDate(std::string date) {
         parsedDate +=  "03.";
     }
     else if(month == "April" || month == "Apr") {
-        parsedDate += "04."
+        parsedDate += "04.";
     }
     else if(month == "May") {
         parsedDate += "05.";
@@ -263,21 +263,21 @@ std::string Parser::parseDate(std::string date) {
     else if(month == "August" || month == "Aug") {
         parsedDate += "08.";
     }
-    else if(month == "September" || month -- "Sept") {
+    else if(month == "September" || month == "Sept") {
         parsedDate += "09.";
     }
-    else if(month == "October" || month == "Oct") [
+    else if(month == "October" || month == "Oct") {
         parsedDate += "10.";
-    ]
+    }
     else if(month == "November" || month == "Nov") {
-        parsedDate += "11."
+        parsedDate += "11.";
     }
     else if(month == "December" || month == "Dec") {
         parsedDate += "12.";
     }
     else {
         //We don't have a text month so just pass what we have along
-        parsedDate += month;'
+        parsedDate += month;
     }
 
     //For now assume the day portion is valid and add it in
