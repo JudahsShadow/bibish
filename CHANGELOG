@@ -8,3 +8,5 @@ New: Added about command showing copyright and license information.
 Changed:
      Messages moved into variables and help/about messages paginated.
      Added support for devotionals as separate category under list.
+     Added devo command that takes arguments of "today", "yesterday", or a month
+     and day combination, and defaults to today if no argument is given.

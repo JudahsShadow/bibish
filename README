@@ -8,7 +8,7 @@ list - Lists installed modules (bibles by default).
 select - Selects a module for use.
     Takes argument of a module short name
 show - Shows a passage with the selected work.
-    Takes argument of a range of scripture to show
+    Takes argument of a range of scripture to show.
 help - Displays these commands and more.
 search - Searches for a multi-word phrase in the selected version
     Takes argument of the word(s) to search for.
@@ -17,5 +17,12 @@ read - Starts at a given key (reference) and proceeds to display the entire
     module from there.
     Be careful with this command as it loads the entire module into memory and
     will eat up your processor and RAM while doing it.
-    The read command is not recommended for modules of type genbook (General Book modules)
+    The read command is not recommended for modules of type genbook (General
+    Book modules)
 about - Shows some basic information about the application, including license
+devo - Shows the daily devotional for a given month and day (i.e. Jan 31 or
+    February 28)Also accepts today or yesterday as arguments and defaults to
+    today if no argument is given. The specific module key format (i.e. 04.05)
+    will work as well.
+    If a work other than a dauly devotional is given, then the module will
+    display the nearest match to the provided.
