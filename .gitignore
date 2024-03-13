@@ -8,3 +8,4 @@ CMakeCache.txt
 .kdev4/*.kdev4
 .directory
 .directory.lock
+.cache/*
