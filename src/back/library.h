@@ -34,6 +34,7 @@
 #include "../back/search.h"
 #include "../back/lexicon.h"
 #include "../back/genbook.h"
+#include "../back/devo.h"
 #include "../front/reader.h"
 
 class Library {
@@ -47,6 +48,7 @@ class Library {
         Genbook genbook;
         Search searcher;
         Reader readMode;
+        Devo devotion;
 
         std::list<std::string> getBibles();
         std::list<std::string> getCommentaries();

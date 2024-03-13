@@ -55,6 +55,7 @@ void Interface::initalize() {
     this->library.lexicon.setSwordLibrary(swordLibrary);
     this->library.genbook.setSwordLibrary(swordLibrary);
     this->library.searcher.setSwordLibrary(swordLibrary);
+    this->library.devotion.setSwordLibrary(swordLibrary);
     
     std::cout << "Initialized, proceeding to shell..." << std::endl;
 }
@@ -122,6 +123,23 @@ validCommands Interface::processCommand(Command parsedCommand) {
     }
     else if(commandPart == cmdAbout) {
         this->display.displayAbout();
+        return commandPart;
+    }
+    else if(commandPart == cmdDevo) {
+        Pager devotionPager;
+        std::list<page> devotionPages;
+        std::string devotionText;
+
+        this->library.devotion.setDevotion(this->selectedVersion);
+
+        devotionText = this->library.devotion.getDevo( \
+            parsedCommand.argumentPart.front());
+
+        devotionPager.setSize(this->display.getHeight(),this->display.getWidth());
+
+        devotionPages = devotionPager.getPagedText(devotionText);
+
+        this->display.displayPages(devotionPages);
         return commandPart;
     }
     else {

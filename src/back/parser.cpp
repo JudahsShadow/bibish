@@ -233,11 +233,35 @@ std::string Parser::parseDate(std::string date) {
     std::string day;
     std::list<std::string> tokenizedDate;
 
-    tokenizedDate = this->tokenize(date);
+    auto now = std::chrono::system_clock::now();
+    std::time_t t_dateTime = std::chrono::system_clock::to_time_t(now);
+    std::string dateTime = std::ctime(&t_dateTime);
 
-    //Assume we've been given a month and year separated by space'
-    month = tokenizedDate.front();
-    day = tokenizedDate.back();
+
+    if(date == "today") {
+        month = dateTime.substr(4,3);
+        day = dateTime.substr(8,2);
+    }
+    else if(date == "yesterday") {
+        uint numericDate;
+        month = dateTime.substr(4,3);
+        day = dateTime.substr(8,2);
+        numericDate = std::stoi(day);
+        numericDate--;
+        if(numericDate < 10) {
+            day = "0";
+            day += std::to_string(numericDate);
+        }
+        else {
+            day = std::to_string(numericDate);
+        }
+    }
+    else {
+        tokenizedDate = this->tokenize(date);
+        //Assume we've been given a month and year separated by space'
+        month = tokenizedDate.front();
+        day = tokenizedDate.back();
+    }
 
     if(month == "January" || month == "Jan") {
         parsedDate += "01.";
@@ -263,7 +287,7 @@ std::string Parser::parseDate(std::string date) {
     else if(month == "August" || month == "Aug") {
         parsedDate += "08.";
     }
-    else if(month == "September" || month == "Sept") {
+    else if(month == "September" || month == "Sep") {
         parsedDate += "09.";
     }
     else if(month == "October" || month == "Oct") {

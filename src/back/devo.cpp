@@ -20,6 +20,7 @@
 
 //STL Includes
 #include <string>
+#include <iostream>
 
 //SWORD Project Includes
 #include <swmgr.h>
@@ -39,10 +40,8 @@ std::string Devo::getDevo(std::string date) {
     std::string devo;
     sword::SWModule *devotion;
 
-    devotion = this->swordLibrary->getModule(this->mod.c_str());
-
     parsedDate = dateParser.parseDate(date);
-
+    devotion = this->swordLibrary->getModule(this->mod.c_str());
     devotion->setKey(parsedDate.c_str());
 
     devo = devotion->getKeyText();
