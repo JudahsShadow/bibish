@@ -21,6 +21,7 @@ SET (backend_src ${CMAKE_CURRENT_SOURCE_DIR}/src/back/parser.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/back/search.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/back/library.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/back/genbook.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/src/back/devo.cpp
 )
 
 source_group("backend_src" FILES ${backend_src})
