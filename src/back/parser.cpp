@@ -151,7 +151,12 @@ Command Parser::parseCommand(std::string command) {
     else if(commandPart == "devo") {
         std::string date;
         parsedCommand.commandPart = cmdDevo;
-        date = this->detokenize(argumentPart);
+        if(argumentPart.empty()) {
+            date = "today";
+        }
+        else {
+            date = this->detokenize(argumentPart);
+        }
         parsedCommand.argumentPart.push_back(date);
     }
     else {
@@ -233,6 +238,7 @@ std::string Parser::parseDate(std::string date) {
     std::string day;
     std::list<std::string> tokenizedDate;
 
+    //compute today's date for use with today and yesterday as an argument
     auto now = std::chrono::system_clock::now();
     std::time_t t_dateTime = std::chrono::system_clock::to_time_t(now);
     std::string dateTime = std::ctime(&t_dateTime);
