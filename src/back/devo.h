@@ -20,6 +20,9 @@
 #ifndef DEVO_H
 #define DEVO_H
 
+//STL Includes
+#include <string>
+
 //SWORD Project Includes
 #include <swmgr.h>
 
@@ -27,6 +30,8 @@ class Devo
 {
 public:
     void setSwordLibrary(sword::SWMgr *swordLib);
+
+    std::string getDevo(std::string date);
 
 private:
     sword::SWMgr *swordLibrary;

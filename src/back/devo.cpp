@@ -18,13 +18,19 @@
  *
  */
 
+//STL Includes
+#include <string>
+
 //SWORD Project Includes
 #include <swmgr.h>
-
 
 //Project Includes
 #include "../back/devo.h"
 
 void Devo::setSwordLibrary(sword::SWMgr *swordLib) {
     this->swordLibrary = swordLib;
+}
+
+std::string getDevo(std::string date) {
+
 }

@@ -22,6 +22,9 @@
 #include <list>
 #include <string>
 #include <sstream>
+#include <chrono>
+#include <ctime>
+#include <iostream>
 
 //Project Includes
 #include "../back/parser.h"
@@ -216,4 +219,63 @@ std::string Parser::combine(std::list< std::string > stringList) {
         }
     }
     return combinedString;
+}
+
+std::string Parser::parseDate(std::string date) {
+    std::string parsedDate ="";
+    std::string month;
+    std::string day;
+    std::list<std::string> tokenizedDate;
+
+    tokenizedDate = this->tokenize(date);
+
+    //Assume we've been given a month and year separated by space'
+    month = tokenizedDate->first();
+    day = tokenizedDate->second();
+
+    if(month == "January" || month == "Jan") {
+        parsedDate += "01.";
+    }
+    else if(month == "February" || month == "Feb") {
+        parsedDate += "02.";
+    }
+    else if(month == "March" || month == "Mar") {
+        parsedDate +=  "03.";
+    }
+    else if(month == "April" || month == "Apr") {
+        parsedDate += "04."
+    }
+    else if(month == "May") {
+        parsedDate += "05.";
+    }
+    else if(month == "June" || month == "Jun") {
+        parsedDate += "06.";
+    }
+    else if(month == "July" || month == "Jul") {
+        parsedDate += "07.";
+    }
+    else if(month == "August" || month == "Aug") {
+        parsedDate += "08.";
+    }
+    else if(month == "September" || month -- "Sept") {
+        parsedDate += "09.";
+    }
+    else if(month == "October" || month == "Oct") [
+        parsedDate += "10.";
+    ]
+    else if(month == "November" || month == "Nov") {
+        parsedDate += "11."
+    }
+    else if(month == 'December' || month == "Dec") {
+        parsedDate += "12.";
+    }
+    else {
+        //We don't have a text month so just pass what we have along
+        parsedDate += month;'
+    }
+
+    //For now assume the day portion is valid and add it in
+    parsedDate += day;
+
+    return parsedDate;
 }

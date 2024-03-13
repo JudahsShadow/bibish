@@ -18,7 +18,7 @@ project(bibish)
 
 
 INCLUDE("${CMAKE_CURRENT_SOURCE_DIR}/cmake/Sources.cmake")
-SET(CMAKE_CXX_FLAGS "-std=c++11")
+SET(CMAKE_CXX_FLAGS "-std=c++20")
 set(CMAKE_BUILD_TYPE="Debug")
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 add_executable(bibish ${bibish_srcs})
