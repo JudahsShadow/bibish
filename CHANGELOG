@@ -7,6 +7,7 @@ New: Added about command showing copyright and license information.
 0.4.0
 Changed:
      Messages moved into variables and help/about messages paginated.
+     Version number added to about screen
 New:
      Added support for devotionals as separate category under list.
      Added devo command that takes arguments of "today", "yesterday", or a month

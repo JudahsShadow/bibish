@@ -43,8 +43,8 @@ Pager::~Pager() {
 std::list<page> Pager::getPagedText(std::string text) {
     uint width = this->cols;
     uint pageSize = this->lines;
-    int lineCount = 0;
-    int colCount = 0;
+    uint lineCount = 0;
+    uint colCount = 0;
 
     Parser stringTokenizer;
     std::list<std::string> words;

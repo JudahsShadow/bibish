@@ -156,7 +156,7 @@ int Interface::runInterface() {
     Command parsedCommand;
     
     //Initialize the interface
-    initalize();
+    this->initalize();
     this->display.clearScreen();
     this->display.displayHeader();
     this->display.displaySpacer();
@@ -212,7 +212,7 @@ void Interface::commandShow (Command parsedCommand) {
             ref = parsedCommand.argumentPart.front();
     }
 
-    if(selectedVersion == "") {
+    if(this->selectedVersion == "") {
         errSpaces++;
         std::cerr <<  "Error: No version selected. (Try select)";
         std::cerr << std::endl;
@@ -375,7 +375,7 @@ void Interface::commandSearch(Command parsedCommand) {
 void Interface::commandRead(Command parsedCommand) {
     std::string reference;
 
-    if(selectedVersion == "") {
+    if(this->selectedVersion == "") {
         this->display.displayHeader();
         this->display.displaySpacer(1);
         std::cerr << "No module selected. Try Select";

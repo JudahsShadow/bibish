@@ -33,7 +33,7 @@ std::string Lexicon::getEntry(std::string entry) {
     sword::SWKey lexKey;
     sword::SWModule *module ;
     
-    module = this->swordLibrary->getModule(lexiDict.c_str());
+    module = this->swordLibrary->getModule(this->lexiDict.c_str());
     module->setKeyText(entry.c_str());
     
     lexEntry = module->getKeyText();

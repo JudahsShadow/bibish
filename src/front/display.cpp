@@ -94,7 +94,7 @@ void Display::displayPages(std::list<page> text) {
         
         std::cout << displayText;
 
-        displaySpacer(numLines);
+        this->displaySpacer(numLines);
         text.pop_front();
         if(numPages > 1) {
             std::string dummy = "";
@@ -107,8 +107,8 @@ void Display::displayPages(std::list<page> text) {
                 this->displaySpacer();
             }
             else {
-                clearScreen();
-                displayHeader();
+                this->clearScreen();
+                this->displayHeader();
             }
         }
     }
@@ -142,7 +142,8 @@ void Display::displayAbout() {
     msgAbout += "package found in Debian GNU/Linux.\n";
     msgAbout += "BIBISH is (C) 2015-2024 by David \"Judah\'s Shadow\" Blue.\n";
     msgAbout += "BIBISH is licensed under the GNU GPL Version 2.0 (GPL-2.0).\n";
-    msgAbout += "See the included COPYING and LICENSE files for more information\n";
+    msgAbout += "See the included COPYING and LICENSE files for more";
+    msgAbout += "information\n";
 
     this->clearScreen();
     this->displayHeader();

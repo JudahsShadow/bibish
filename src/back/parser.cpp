@@ -176,7 +176,7 @@ std::list<std::string> Parser::tokenize(std::string string) {
   if(string == "") {
       return tokens;
   } else {
-      tokens = split(string);
+      tokens = this->split(string);
       return tokens;
   }
 }
@@ -213,7 +213,7 @@ std::string Parser::detokenize(std::list< std::string > tokens) {
         return noTokens;
     }
     else {
-        noTokens = combine(tokens);
+        noTokens = this->combine(tokens);
     }
 
     return noTokens;
@@ -264,7 +264,7 @@ std::string Parser::parseDate(std::string date) {
     }
     else {
         tokenizedDate = this->tokenize(date);
-        //Assume we've been given a month and year separated by space'
+        //Assume we've been given a month and day separated by space'
         month = tokenizedDate.front();
         day = tokenizedDate.back();
     }
