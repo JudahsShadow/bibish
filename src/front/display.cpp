@@ -102,9 +102,14 @@ void Display::displayPages(std::list<page> text) {
             std::getline(std::cin,dummy);
             if(dummy == "q") {
                 text.clear();
+                this->clearScreen();
+                this->displayHeader();
+                this->displaySpacer();
             }
-            clearScreen();
-            displayHeader();
+            else {
+                clearScreen();
+                displayHeader();
+            }
         }
     }
 }
