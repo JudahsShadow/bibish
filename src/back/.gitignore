@@ -5,3 +5,4 @@ CMakeCache.txt
 *~
 .kdev4/*.lock
 *.o
+*.kate-swp
