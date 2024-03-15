@@ -103,9 +103,14 @@ std::list<std::string> Library::getModuleList(std::string moduleType) {
         libraryIterator != this->swordLibrary->Modules.end();
         libraryIterator++) {
 
+        std::cerr << "Top of loop" << std::endl;
+        std::cerr << "selectedType: " << selectedType << std::endl;
+
         sword::SWModule *tempMod = libraryIterator->second;
 
         category = tempMod->getConfigEntry("Category");
+
+        std::cerr << "Got category: " << category << std::endl;
 
         //Devotions will never match on straight type, so check category or
         //features and set the module type to devotion, otherwise accept the
@@ -114,6 +119,9 @@ std::list<std::string> Library::getModuleList(std::string moduleType) {
             tempMod->getConfig().has("Feature","DailyDevotion")) {
 
             modType = devo;
+        }
+        else if(category == "Maps") {
+            modType = "Unsupported";
         }
         else {
             modType = tempMod->getType();
@@ -127,6 +135,9 @@ std::list<std::string> Library::getModuleList(std::string moduleType) {
             moduleList.push_front(module);
             module = "";
         }
+
+        std::cerr << "Bottom of loop" << std::endl;
+
     }
 
     return moduleList;
