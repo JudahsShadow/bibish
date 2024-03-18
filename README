@@ -3,7 +3,8 @@ library inspired by the bible package in Debian GNU/Linux. The basic commands
 are:
 
 quit - Exits the program.
-list - Lists installed modules (bibles by default).
+list - Lists installed modules (bibles by default) and their short names for the
+    select command.
     Takes arguments of bible, commentaries, devotions, books, dictionaries,
     lexicons
     Any other arguments will result in the list of bibles being displayed.
