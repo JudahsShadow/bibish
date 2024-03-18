@@ -8,9 +8,13 @@ New: Added about command showing copyright and license information.
 Changed:
      Messages moved into variables and help/about messages paginated.
      Version number added to about screen
+     Maps and other modules featuring images no longer appear in list.
+     Unorthodox modules no longer appear with the main modules
 New:
      Added support for devotionals as separate category under list.
      Added devo command that takes arguments of "today", "yesterday", or a month
      and day combination, and defaults to today if no argument is given.
+     Added unorthodox to the arguments list takes to show modules of an
+     unorthodox nature.
 Fixed:
      Spacing is now correct when bailing out early from paged text. Fixes #5
