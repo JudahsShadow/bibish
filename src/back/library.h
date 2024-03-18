@@ -55,6 +55,7 @@ class Library {
         std::list<std::string> getLexicons();
         std::list<std::string> getGenBooks();
         std::list<std::string> getDevotionals();
+        std::list<std::string> getUnorthodox();
         std::string getModuleType(std::string moduleName);
         bool isModuleValid(std::string module);
         void setSwordLibrary(sword::SWMgr *library);

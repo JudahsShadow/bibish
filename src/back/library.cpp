@@ -62,6 +62,12 @@ std::list<std::string> Library::getDevotionals() {
     return devos;
 }
 
+std::list<std::string> Library::getUnorthodox() {
+    std::list<std::string> unorthodox;
+    unorthodox = this->getModuleList("unorthodox");
+    return unorthodox;
+}
+
 
 std::list<std::string> Library::getModuleList(std::string moduleType) {
     std::string module = "";
@@ -94,6 +100,9 @@ std::list<std::string> Library::getModuleList(std::string moduleType) {
     }
     else if(moduleType == "dictionary") {
             selectedType = dict;
+    }
+    else if(moduleType == "unorthodox") {
+        selectedType = "cultish";
     }
     else {
             //We should never get here but you never know.
