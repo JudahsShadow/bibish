@@ -4,12 +4,19 @@ are:
 
 quit - Exits the program.
 list - Lists installed modules (bibles by default).
-    Takes arguments of bible, commentary, devo, book, dict
+    Takes arguments of bible, commentaries, devotions, books, dictionaries,
+    lexicons
+    Any other arguments will result in the list of bibles being displayed.
 select - Selects a module for use.
-    Takes argument of a module short name
-show - Shows a passage with the selected work.
-    Takes argument of a range of scripture to show.
-help - Displays these commands and more.
+    Takes argument of a module short name. Short name is case sensitive.
+show - Shows a passage or entry with the selected work.
+    Takes argument of a range of scripture for bibles and commentaries, a key
+    for lexicons or dictionaries, a date in the format of MM.DD for devotions,
+    and a key path for general books.
+    Given how long key paths for books can be, it is currently recommended to
+    paste the key path from the list command if your terminal supports that
+help - Displays basic help message.
+    Accepts an argument of about to display version and license information.
 search - Searches for a multi-word phrase in the selected version
     Takes argument of the word(s) to search for.
     Currently searches the whole module.
@@ -20,9 +27,11 @@ read - Starts at a given key (reference) and proceeds to display the entire
     The read command is not recommended for modules of type genbook (General
     Book modules)
 about - Shows some basic information about the application, including license
-devo - Shows the daily devotional for a given month and day (i.e. Jan 31 or
-    February 28)Also accepts today or yesterday as arguments and defaults to
-    today if no argument is given. The specific module key format (i.e. 04.05)
-    will work as well.
-    If a work other than a dauly devotional is given, then the module will
-    display the nearest match to the provided.
+    and version information.
+devo - Shows the daily devotional for a given month and day in either the full
+    month name, or three letter abbreviation followed by a day, (i.e. February
+    24 or Jan 31), or a date in the format  MM.DD (i.e. 04.21). This command
+    will also accept today and yesterday as arugments and show the entry for
+    those days. Defaults to showing today if no argument is given.
+    If a work other than a dauly devotional is selected, then the module will
+    display the nearest match to the key provided in the argument.
