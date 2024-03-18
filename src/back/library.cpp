@@ -77,6 +77,8 @@ std::list<std::string> Library::getModuleList(std::string moduleType) {
 
     const char *category;
 
+    sword::SWModule *tempMod;
+
     if(moduleType == "bible") {
         selectedType = bible;
     }
@@ -103,10 +105,9 @@ std::list<std::string> Library::getModuleList(std::string moduleType) {
         libraryIterator != this->swordLibrary->Modules.end();
         libraryIterator++) {
 
-        sword::SWModule *tempMod = libraryIterator->second;
+        tempMod = libraryIterator->second;
 
         category = tempMod->getConfigEntry("Category");
-
 
         //Devotions will never match on straight type, so check category or
         //features and set the module type to devotion, otherwise accept the
@@ -116,7 +117,11 @@ std::list<std::string> Library::getModuleList(std::string moduleType) {
 
             modType = devo;
         }
-        else if(category == "Maps") {
+        //Modules with images aren't supported since this is a text only
+        //application so set the type to something selectedType will never
+        //match against
+        else if(category == "Maps" || category == "Images" ||
+            tempMod->getConfig().has("Feature", "Images")) {
             modType = "Unsupported";
         }
         else {
