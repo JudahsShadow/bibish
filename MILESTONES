@@ -8,7 +8,7 @@ Milestone releases
     Planned Features:
         Add support for dictionaries to list, select, show.
         Add read command which will show an entire module one entry at a  time.
-            Giving a periodic option to stop reading. Have optional arugment to
+            Giving a periodic option to stop reading. Have optional argument to
             start at key X, so one can pickup where one left off.
         
 0.3.0:
@@ -17,7 +17,9 @@ Milestone releases
 
 0.4.0:
     Planned Features:
-        Add new devo command to show daily devotional for today, tomorrow, yesterday
-            or arbitrary date (in MM.DD format)
-        Add support for listing devotionals seperate from parent category of
-            lexicons in list command
+        Add new devo command to show daily devotional for today, tomorrow,
+            yesterday or arbitrary date (in MM.DD format or as a month and day
+            combination)
+        Add support for listing devotionals separate from parent category of
+            lexicons in list commands
+        Add support for unorthodox modules as a separate category
