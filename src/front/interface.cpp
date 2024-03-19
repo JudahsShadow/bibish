@@ -126,20 +126,7 @@ validCommands Interface::processCommand(Command parsedCommand) {
         return commandPart;
     }
     else if(commandPart == cmdDevo) {
-        Pager devotionPager;
-        std::list<page> devotionPages;
-        std::string devotionText;
-
-        this->library.devotion.setDevotion(this->selectedVersion);
-
-        devotionText = this->library.devotion.getDevo( \
-            parsedCommand.argumentPart.front());
-
-        devotionPager.setSize(this->display.getHeight(),this->display.getWidth());
-
-        devotionPages = devotionPager.getPagedText(devotionText);
-
-        this->display.displayPages(devotionPages);
+        this->commandDevo(parsedCommand);
         return commandPart;
     }
     else {
@@ -391,4 +378,21 @@ void Interface::commandRead(Command parsedCommand) {
     this->library.readMode.setModule(this->selectedVersion);
     reference = parsedCommand.argumentPart.front();
     this->library.readMode.showText(reference.c_str());
+}
+
+void Interface::commandDevo(Command parsedCommand) {
+    Pager devotionPager;
+    std::list<page> devotionPages;
+    std::string devotionText;
+
+    this->library.devotion.setDevotion(this->selectedVersion);
+
+    devotionText = this->library.devotion.getDevo( \
+    parsedCommand.argumentPart.front());
+
+    devotionPager.setSize(this->display.getHeight(),this->display.getWidth());
+
+    devotionPages = devotionPager.getPagedText(devotionText);
+
+    this->display.displayPages(devotionPages);
 }
