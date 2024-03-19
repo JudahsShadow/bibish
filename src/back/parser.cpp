@@ -269,7 +269,7 @@ std::string Parser::parseDate(std::string date) {
         day = dateTime.substr(8,2);
         numericDate = std::stoi(day);
         numericDate++;
-        if(numericDate < 19) {
+        if(numericDate < 10) {
             day = "0";
             day += std::to_string(numericDate);
         }
