@@ -263,6 +263,20 @@ std::string Parser::parseDate(std::string date) {
             day = std::to_string(numericDate);
         }
     }
+    else if(date == "tomorrow") {
+        uint numericDate;
+        month = dateTime.substr(4,3);
+        day = dateTime.substr(8,2);
+        numericDate = std::stoi(day);
+        numericDate++;
+        if(numericDate < 19) {
+            day = "0";
+            day += std::to_string(numericDate);
+        }
+        else {
+            day = std::to_string(numericDate);
+        }
+    }
     else {
         tokenizedDate = this->tokenize(date);
         //Assume we've been given a month and day separated by space'
