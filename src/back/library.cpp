@@ -22,7 +22,6 @@
 #include <string>
 #include <list>
 #include <iostream>
-#include <cstring>
 
 //SWORD Project Includes
 #include <swmgr.h>
@@ -82,7 +81,7 @@ std::list<std::string> Library::getModuleList(std::string moduleType) {
     std::string book = sword::SWMgr::MODTYPE_GENBOOKS;
     std::string dict = sword::SWMgr::MODTYPE_LEXDICTS;
 
-    const char *category = "";
+    std::string category = "";
 
     sword::SWModule *tempMod;
 
@@ -117,36 +116,35 @@ std::list<std::string> Library::getModuleList(std::string moduleType) {
 
         tempMod = libraryIterator->second;
 
-        category = tempMod->getConfigEntry("Category");
+        if(tempMod->getConfigEntry("Category") == NULL) {
+            category = "";
+        }
+        else {
+            category = tempMod->getConfigEntry("Category");
+        }
 
-        if(category != NULL) {
-
-            //Devotions will never match on straight type, so check category or
-            //features and set the module type to devotion, otherwise accept the
-            //type from the module.
-            if(strncmp("Devotional",category,11) == 0 ||
-                tempMod->getConfig().has("Feature","DailyDevotion")) {
-
-                modType = devo;
-            }
-            //Modules with images aren't supported since this is a text only
-            //application so set the type to something selectedType will never
-            //match against
-            else if(strncmp(category, "Maps",4) == 0 ||
-                strncmp(category,"Images",6) == 0 ||
-                tempMod->getConfig().has("Feature", "Images")) {
-                modType = "Unsupported";
-            }
-            else if(strncmp(category, "Cults / Unorthodox / Questionable Material",42) == 0) {
-                modType = "cultish";
-            }
-            else {
-                modType = tempMod->getType();
-            }
+        //Devotions will never match on straight type, so check category or
+        //features and set the module type to devotion, otherwise accept the
+        //type from the module.
+        if(category == "Devotional" ||
+            tempMod->getConfig().has("Feature","DailyDevotion")) {
+            modType = devo;
+        }
+        //Modules with images aren't supported since this is a text only
+        //application so set the type to something selectedType will never
+        //match against
+        else if(category == "Maps" || category == "Images" ||
+            tempMod->getConfig().has("Feature", "Images")) {
+            modType = "Unsupported";
+        }
+        else if(category == "Cults / Unorthodox / Questionable Material") {
+            modType = "cultish";
         }
         else {
             modType = tempMod->getType();
         }
+
+
         if(modType == selectedType) {
             module = "For ";
             module += tempMod->getDescription();
