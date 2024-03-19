@@ -12,8 +12,9 @@ Changed:
      Unorthodox modules no longer appear with the main modules
 New:
      Added support for devotionals as separate category under list.
-     Added devo command that takes arguments of "today", "yesterday", or a month
-     and day combination, and defaults to today if no argument is given.
+     Added devo command that takes arguments of "today", "yesterday",
+     "tomorrow", or a month and day combination, and defaults to today if no
+     argument is given.
      Added unorthodox to the arguments list takes to show modules of an
      unorthodox nature.
 Fixed:
