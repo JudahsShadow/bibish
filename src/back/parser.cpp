@@ -323,6 +323,7 @@ std::string Parser::parseDate(std::string date) {
     else {
         //We don't have a text month so just pass what we have along
         parsedDate += month;
+        parsedDate += ".";
     }
 
     //For now assume the day portion is valid and add it in
