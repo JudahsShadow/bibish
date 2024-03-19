@@ -14,6 +14,9 @@ show - Shows a passage or entry with the selected work.
     Takes argument of a range of scripture for bibles and commentaries, a key
     for lexicons or dictionaries, a date in the format of MM.DD for devotions,
     and a key path for general books.
+    For general books, a special argument of TOC may be suppied to get the
+    table of contents of the selected genbook, which will show the keypath
+    for all items in the book.
     Given how long key paths for books can be, it is currently recommended to
     paste the key path from the list command if your terminal supports that
 help - Displays basic help message.
