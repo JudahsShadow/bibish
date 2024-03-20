@@ -237,7 +237,7 @@ void Interface::commandShow (Command parsedCommand) {
     this->display.displayPages(pagedText);
 }
 
-validCommands Interface::commandList ( Command parsedCommand ) {
+validCommands Interface::commandList(Command parsedCommand) {
     std::list<std::string> modules;
     
 

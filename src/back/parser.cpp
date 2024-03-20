@@ -72,21 +72,10 @@ Command Parser::parseCommand(std::string command) {
         parsedCommand.commandPart = cmdEmpty;
     }
 
-    //TODO: Find a better way for this corner case than to hard code it.
-    if (tokenizedCommand.empty() && commandPart != "list") {
+    if (tokenizedCommand.empty()) {
         argumentCount = 0;
     } else {
-        //TODO: Fix the further corner-casing this raises
-        if (commandPart == "list" && tokenizedCommand.empty()) {
-            /* If we've gotten here we've encountered a list command with no
-            * arguments, so make it bibles by default.
-            */
-            argumentPart.push_back("bibles");
-            
-        }
-        else {
-            argumentPart = tokenizedCommand;
-        }
+        argumentPart = tokenizedCommand;
     }
 
     if (commandPart == ("show")) {
