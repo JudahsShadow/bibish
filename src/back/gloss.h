@@ -23,6 +23,7 @@
 
 //STL Includes
 #include <string>
+#include <list>
 
 //SWORD Includes
 #include <swmgr.h>
@@ -33,6 +34,7 @@ class Gloss
 public:
     void setSwordLibrary(sword::SWMgr *swordLib);
     void setGlossary(std::string gloss);
+    std::list<std::string> getWord(std::string fromWord);
 private:
     sword::SWMgr *swordLibrary;
     std::string toLang;

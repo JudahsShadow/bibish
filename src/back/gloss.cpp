@@ -20,6 +20,7 @@
 
 //STL Includes
 #include <string>
+#include <list>
 
 //SWORD Includes
 #include <swmgr.h>
@@ -34,4 +35,34 @@ void Gloss::setSwordLibrary(sword::SWMgr *swordLib) {
 
 void Gloss::setGlossary(std::string gloss) {
     this->glossary = this->swordLibrary->getModule(gloss.c_str());
+}
+
+std::list<std::string> Gloss::getWord(std::string fromWord) {
+    std::list<std::string> entryPages;
+    std::string toFrom;
+
+    if(this->glossary.getConfigEntry("GlossaryFrom") != NULL) {
+        this->fromLang = this->glossary.getConfigEntry("GlossaryFrom");
+    }
+
+    if(this->glossary.getConfigEntry("GlossaryTo") != NULL) {
+        this->toLang = this->glossary.getConfigEntry("GlossaryTo");
+    }
+
+    this->glossary.setKeyText(fromWord);
+
+    toFrom = "From ";
+    toFrom += this->fromLang;
+    toFrom += " ";
+    toFrom += fromWord;
+    toFrom += "\n";
+    toFrom += "To ";
+    toFrom += this->toLang;
+    toFrom += " ";
+    toFrom += this->glossary.stripText();
+
+    entryPages.push_back(toFrom);
+
+    return entryPages;
+
 }
