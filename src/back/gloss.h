@@ -39,7 +39,7 @@ private:
     sword::SWMgr *swordLibrary;
     std::string toLang;
     std::string fromLang;
-    sword::SWModule glossary;
+    sword::SWModule *glossary;
 };
 
 #endif // GLOSS_H

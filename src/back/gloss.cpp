@@ -41,15 +41,15 @@ std::list<std::string> Gloss::getWord(std::string fromWord) {
     std::list<std::string> entryPages;
     std::string toFrom;
 
-    if(this->glossary.getConfigEntry("GlossaryFrom") != NULL) {
-        this->fromLang = this->glossary.getConfigEntry("GlossaryFrom");
+    if(this->glossary->getConfigEntry("GlossaryFrom") != NULL) {
+        this->fromLang = this->glossary->getConfigEntry("GlossaryFrom");
     }
 
-    if(this->glossary.getConfigEntry("GlossaryTo") != NULL) {
-        this->toLang = this->glossary.getConfigEntry("GlossaryTo");
+    if(this->glossary->getConfigEntry("GlossaryTo") != NULL) {
+        this->toLang = this->glossary->getConfigEntry("GlossaryTo");
     }
 
-    this->glossary.setKeyText(fromWord);
+    this->glossary->setKeyText(fromWord.c_str());
 
     toFrom = "From ";
     toFrom += this->fromLang;
@@ -59,7 +59,7 @@ std::list<std::string> Gloss::getWord(std::string fromWord) {
     toFrom += "To ";
     toFrom += this->toLang;
     toFrom += " ";
-    toFrom += this->glossary.stripText();
+    toFrom += this->glossary->stripText();
 
     entryPages.push_back(toFrom);
 
