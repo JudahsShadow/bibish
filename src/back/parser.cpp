@@ -150,6 +150,16 @@ Command Parser::parseCommand(std::string command) {
         }
         parsedCommand.argumentPart.push_back(date);
     }
+    else if(commandPart == "gloss") {
+        std::string word;
+
+        //Take the first "token" as the word and ignore everything else
+        word = argumentPart.front();
+
+        parsedCommand.commandPart = cmdGloss;
+
+        parsedCommand.argumentPart.push_back(word);
+    }
     else {
         //Add a general case to just pass arguments to the back as a list
         while(!argumentPart.empty()) {
