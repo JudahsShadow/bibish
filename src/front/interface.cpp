@@ -129,6 +129,12 @@ validCommands Interface::processCommand(Command parsedCommand) {
         this->commandDevo(parsedCommand);
         return commandPart;
     }
+    else if(commandPart == cmdGloss) {
+        Pager glossaryPager;
+        std::list<std::string> glossPages;
+
+        return commandPart;
+    }
     else {
         //Invalid command head out.
         return cmdUnknown;
@@ -325,21 +331,11 @@ void Interface::commandSearch(Command parsedCommand) {
     std::string results = "";
     std::string searchTerms = "";
 
-    std::cerr << "Top of commandSearch" << std::endl;
-
     resultsPager.setSize(this->display.getHeight(),this->display.getWidth());
-
-    std::cerr << "Set resultsPager" << std::endl;
-
-    std::cerr << "Attempting to set module: " << this->selectedVersion << std::endl;
 
     this->library.searcher.setModule(this->selectedVersion);
 
-    std::cerr << "Set module" << std::endl;
-
     this->library.searcher.setDisplay(this->display);
-
-    std::cerr << "Set display" << std::endl;
 
     //If no argument is provided to the command, prompt for the
     //search terms, otherwise recombine the arguments into a string
