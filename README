@@ -6,7 +6,7 @@ quit - Exits the program.
 list - Lists installed modules (bibles by default) and their short names for the
     select command.
     Takes arguments of bible, commentaries, devotions, books, dictionaries,
-    lexicons, unorthodox
+    lexicons, unorthodox, glossaries
     Any other arguments will result in the list of bibles being displayed.
 select - Selects a module for use.
     Takes argument of a module short name. Short name is case sensitive.

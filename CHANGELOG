@@ -19,3 +19,8 @@ New:
      unorthodox nature.
 Fixed:
      Spacing is now correct when bailing out early from paged text. Fixes #5
+0.5.0
+Changed:
+     Glossaries no longer appear with lexicons
+New:
+     Added support for glossaries as a separate category under list.
