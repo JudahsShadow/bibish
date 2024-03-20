@@ -26,15 +26,18 @@
 
 //SWORD Includes
 #include <swmgr.h>
+#include <swmodule.h>
 
 class Gloss
 {
 public:
     void setSwordLibrary(sword::SWMgr *swordLib);
+    void setGlossary(std::string gloss);
 private:
     sword::SWMgr *swordLibrary;
     std::string toLang;
     std::string fromLang;
+    sword::SWModule glossary;
 };
 
 #endif // GLOSS_H

@@ -17,11 +17,21 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  */
+
+//STL Includes
+#include <string>
+
+//SWORD Includes
+#include <swmgr.h>
+
 //Project Includes
 #include "../back/gloss.h"
 
-#include <swmgr.h>
 
 void Gloss::setSwordLibrary(sword::SWMgr *swordLib) {
     this->swordLibrary = swordLib;
+}
+
+void Gloss::setGlossary(std::string gloss) {
+    this->glossary = this->swordLibrary->getModule(gloss.c_str());
 }
