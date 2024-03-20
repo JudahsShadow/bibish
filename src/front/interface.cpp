@@ -261,6 +261,9 @@ validCommands Interface::commandList ( Command parsedCommand ) {
         else if(parsedCommand.argumentPart.front() == "unorthodox") {
             modules = this->library.getUnorthodox();
         }
+        else if(parsedCommand.argumentPart.front() == "glossaries") {
+            modules = this->library.getGlossaries();
+        }
         
         if(modules.empty()) {
             std::cerr <<  "No modules of type ";

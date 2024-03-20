@@ -67,6 +67,12 @@ std::list<std::string> Library::getUnorthodox() {
     return unorthodox;
 }
 
+std::list<std::string> Library::getGlossaries() {
+    std::list<std::string> glossaries;
+    glossaries = this->getModuleList("glossary");
+    return glossaries;
+}
+
 
 std::list<std::string> Library::getModuleList(std::string moduleType) {
     std::string module = "";
@@ -102,6 +108,9 @@ std::list<std::string> Library::getModuleList(std::string moduleType) {
     }
     else if(moduleType == "unorthodox") {
         selectedType = "cultish";
+    }
+    else if(moduleType == "glossary") {
+        selectedType = "glossary";
     }
     else {
             //We should never get here but you never know.
@@ -140,6 +149,10 @@ std::list<std::string> Library::getModuleList(std::string moduleType) {
         else if(category == "Cults / Unorthodox / Questionable Material") {
             modType = "cultish";
         }
+        else if(category == "Glossaries" ||
+            tempMod->getConfig().has("Feature","Glossary")) {
+                modType = "glossary";
+            }
         else {
             modType = tempMod->getType();
         }

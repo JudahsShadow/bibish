@@ -110,7 +110,8 @@ Command Parser::parseCommand(std::string command) {
            argumentPart.front() == "books" ||
            argumentPart.front() == "dictionaries" ||
            argumentPart.front() == "lexicons" ||
-           argumentPart.front() == "unorthodox") {
+           argumentPart.front() == "unorthodox" ||
+           argumentPart.front() == "glossaries") {
 
             parsedCommand.argumentPart.push_back(argumentPart.front());
         }
