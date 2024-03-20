@@ -112,7 +112,7 @@ Command Parser::parseCommand(std::string command) {
         parsedCommand.commandPart = cmdList;
     }
     else if(commandPart == "search") {
-        //For now, assume all arguments are part of tdhe search query
+        //For now, assume all arguments are part of the search query
         //in the future look at this to parse actual command arguments when
         //those exist for search.
         std::string query = "";
@@ -229,36 +229,31 @@ std::string Parser::parseDate(std::string date) {
     std::string day;
     std::list<std::string> tokenizedDate;
 
-    //compute today's date for use with today and yesterday as an argument
-    auto now = std::chrono::system_clock::now();
-    std::time_t t_dateTime = std::chrono::system_clock::to_time_t(now);
-    std::string dateTime = std::ctime(&t_dateTime);
-
-
-    if(date == "today") {
-        month = dateTime.substr(4,3);
-        day = dateTime.substr(8,2);
-    }
-    else if(date == "yesterday") {
+    //If we have today, tomorrow, or yesterday calculate the current date and
+    //handle accordingly
+    if(date =="today" || date == "tomorrow" || date == "yesterday") {
         uint numericDate;
+        auto now = std::chrono::system_clock::now();
+        std::time_t t_dateTime = std::chrono::system_clock::to_time_t(now);
+        std::string dateTime = std::ctime(&t_dateTime);
+
+        //We are only interested in the 3 letter month and the 2 digit day out
+        //of the date stamp, pull those out of the timestamp string
         month = dateTime.substr(4,3);
         day = dateTime.substr(8,2);
+
+        //Make the date a uint to increment and decrement
         numericDate = std::stoi(day);
-        numericDate--;
-        if(numericDate < 10) {
-            day = "0";
-            day += std::to_string(numericDate);
+
+        if(date == "yesterday") {
+            numericDate--;
         }
-        else {
-            day = std::to_string(numericDate);
+        else if(date == "tomorrow") {
+            numericDate++;
         }
-    }
-    else if(date == "tomorrow") {
-        uint numericDate;
-        month = dateTime.substr(4,3);
-        day = dateTime.substr(8,2);
-        numericDate = std::stoi(day);
-        numericDate++;
+
+        //If the uint date is < 10 add a padding 0 at the front to conform with
+        //the module key
         if(numericDate < 10) {
             day = "0";
             day += std::to_string(numericDate);
