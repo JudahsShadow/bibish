@@ -43,7 +43,7 @@ class Interface {
         validCommands processCommand(Command parsedCommand);
         
         void commandShow(Command parsedCommand);
-        validCommands commandList(Command parsedCommand);
+        void commandList(Command parsedCommand);
         void commandSelect(Command parsedCommand);
         void commandSearch(Command parsedCommand);
         void commandRead(Command parsedCommand);

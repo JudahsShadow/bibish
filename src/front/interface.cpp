@@ -190,11 +190,11 @@ int Interface::runInterface() {
             returnCode = -1;
             break;
         }
-        parsedCommand.commandPart = processCommand(parsedCommand);
 
         this->display.displayPrompt();
         std::getline(std::cin, command);
         parsedCommand = commandParser.parseCommand(command);
+        parsedCommand.commandPart = processCommand(parsedCommand);
     }
 
     delete swordLibrary;
@@ -259,7 +259,7 @@ void Interface::commandShow (Command parsedCommand) {
     this->display.displayPages(pagedText);
 }
 
-validCommands Interface::commandList(Command parsedCommand) {
+void Interface::commandList(Command parsedCommand) {
     std::list<std::string> modules;
     
 
@@ -293,7 +293,6 @@ validCommands Interface::commandList(Command parsedCommand) {
             std::cerr << " found. Please install in another front-end.";
             std::cerr <<  std::endl;
             this->display.displaySpacer(1);
-            return cmdError;
         }
         std::string curMod;
         std::string moduleList = "";
@@ -311,7 +310,6 @@ validCommands Interface::commandList(Command parsedCommand) {
         modulePages = modulePager.getPagedText(moduleList);
         
         this->display.displayPages(modulePages);
-        return parsedCommand.commandPart;
 }
 
 void Interface::commandSelect(Command parsedCommand) {
