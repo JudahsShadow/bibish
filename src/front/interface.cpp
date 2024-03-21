@@ -101,7 +101,7 @@ validCommands Interface::processCommand(Command parsedCommand) {
             return commandPart;
         }
     } else if(commandPart == cmdList) {
-        commandPart = this->commandList(parsedCommand);
+        commandList(parsedCommand);
         return commandPart;
     } else if (commandPart == cmdSelect) {
         this->commandSelect(parsedCommand);
@@ -191,10 +191,11 @@ int Interface::runInterface() {
             break;
         }
 
+        parsedCommand.commandPart = processCommand(parsedCommand);
+
         this->display.displayPrompt();
         std::getline(std::cin, command);
         parsedCommand = commandParser.parseCommand(command);
-        parsedCommand.commandPart = processCommand(parsedCommand);
     }
 
     delete swordLibrary;

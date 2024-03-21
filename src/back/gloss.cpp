@@ -53,7 +53,7 @@ std::string Gloss::getWord(std::string fromWord) {
     toFrom = "From ";
     toFrom += this->fromLang;
     toFrom += " ";
-    toFrom += fromWord;
+    toFrom += this->glossary->getKeyText();
     toFrom += "\n";
     toFrom += "To ";
     toFrom += this->toLang;
