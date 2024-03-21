@@ -37,8 +37,7 @@ void Gloss::setGlossary(std::string gloss) {
     this->glossary = this->swordLibrary->getModule(gloss.c_str());
 }
 
-std::list<std::string> Gloss::getWord(std::string fromWord) {
-    std::list<std::string> entryPages;
+std::string Gloss::getWord(std::string fromWord) {
     std::string toFrom;
 
     if(this->glossary->getConfigEntry("GlossaryFrom") != NULL) {
@@ -61,8 +60,6 @@ std::list<std::string> Gloss::getWord(std::string fromWord) {
     toFrom += " ";
     toFrom += this->glossary->stripText();
 
-    entryPages.push_back(toFrom);
-
-    return entryPages;
+    return toFrom;
 
 }

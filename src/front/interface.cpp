@@ -56,6 +56,7 @@ void Interface::initalize() {
     this->library.genbook.setSwordLibrary(swordLibrary);
     this->library.searcher.setSwordLibrary(swordLibrary);
     this->library.devotion.setSwordLibrary(swordLibrary);
+    this->library.glossary.setSwordLibrary(swordLibrary);
     
     std::cout << "Initialized, proceeding to shell..." << std::endl;
 }
@@ -131,7 +132,22 @@ validCommands Interface::processCommand(Command parsedCommand) {
     }
     else if(commandPart == cmdGloss) {
         Pager glossaryPager;
-        std::list<std::string> glossPages;
+        std::list<Page> glossPages;
+        std::string word;
+        std::string glossEntry;
+
+        this->library.glossary.setGlossary(this->selectedVersion);
+
+        word = parsedCommand.argumentPart.front();
+
+        glossEntry = this->library.glossary.getWord(word);
+
+        glossaryPager.setSize(this->display.getHeight(),
+                              this->display.getWidth());
+
+        glossPages = glossaryPager.getPagedText(glossEntry);
+
+        this->display.displayPages(glossPages);
 
         return commandPart;
     }
