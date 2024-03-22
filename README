@@ -35,7 +35,10 @@ about - Shows some basic information about the application, including license
 devo - Shows the daily devotional for a given month and day in either the full
     month name, or three letter abbreviation followed by a day, (i.e. February
     24 or Jan 31), or a date in the format  MM.DD (i.e. 04.21). This command
-    will also accept today, yesterday, and tomorrow as arugments and show the
+    will also accept today, yesterday, and tomorrow as arguments and show the
     entry for those days. Defaults to showing today if no argument is given.
     If a work other than a dauly devotional is selected, then the module will
     display the nearest match to the key provided in the argument.
+gloss - Shows the glossary entry for a given word. This is different from the
+    show command, in that, it will also display the to/from languages, where
+    show only shows the key text and the entry.

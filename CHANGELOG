@@ -22,5 +22,7 @@ Fixed:
 0.5.0
 Changed:
      Glossaries no longer appear with lexicons
+     Added a space between the key text and the lexicon entry.
 New:
      Added support for glossaries as a separate category under list.
+     Added gloss command to interface with glossaries.

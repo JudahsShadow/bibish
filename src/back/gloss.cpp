@@ -39,6 +39,7 @@ void Gloss::setGlossary(std::string gloss) {
 
 std::string Gloss::getWord(std::string fromWord) {
     std::string toFrom;
+    std::string keyText;
 
     if(this->glossary->getConfigEntry("GlossaryFrom") != NULL) {
         this->fromLang = this->glossary->getConfigEntry("GlossaryFrom");
@@ -50,10 +51,12 @@ std::string Gloss::getWord(std::string fromWord) {
 
     this->glossary->setKeyText(fromWord.c_str());
 
+    keyText = this->glossary->getKeyText();
+
     toFrom = "From ";
     toFrom += this->fromLang;
     toFrom += " ";
-    toFrom += this->glossary->getKeyText();
+    toFrom += keyText;
     toFrom += "\n";
     toFrom += "To ";
     toFrom += this->toLang;

@@ -37,6 +37,7 @@ std::string Lexicon::getEntry(std::string entry) {
     module->setKeyText(entry.c_str());
     
     lexEntry = module->getKeyText();
+    lexEntry += " ";
     lexEntry += module->renderText();    
 
     return lexEntry;
