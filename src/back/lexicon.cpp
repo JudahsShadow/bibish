@@ -19,6 +19,7 @@
 
 //STD and STL includes
 #include <string>
+#include <algorithm>
 
 //SWORD includes
 #include <swkey.h>
@@ -31,7 +32,11 @@
 std::string Lexicon::getEntry(std::string entry) {
     std::string lexEntry;
     sword::SWKey lexKey;
-    sword::SWModule *module ;
+    sword::SWModule *module;
+
+    std::transform(entry.begin(), entry.end(), entry.begin(),
+                   [](unsigned char c) {return std::toupper(c);});
+
     
     module = this->swordLibrary->getModule(this->lexiDict.c_str());
     module->setKeyText(entry.c_str());

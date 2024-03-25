@@ -21,6 +21,9 @@
 //STL Includes
 #include <string>
 #include <list>
+#include <cstring>
+#include <cctype>
+#include <algorithm>
 
 //SWORD Includes
 #include <swmgr.h>
@@ -40,6 +43,10 @@ void Gloss::setGlossary(std::string gloss) {
 std::string Gloss::getWord(std::string fromWord) {
     std::string toFrom;
     std::string keyText;
+    std::string upperWord;
+
+    std::transform(fromWord.begin(), fromWord.end(), fromWord.begin(),
+                   [](unsigned char c) {return std::toupper(c);});
 
     if(this->glossary->getConfigEntry("GlossaryFrom") != NULL) {
         this->fromLang = this->glossary->getConfigEntry("GlossaryFrom");

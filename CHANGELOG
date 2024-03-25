@@ -23,6 +23,7 @@ Fixed:
 Changed:
      Glossaries no longer appear with lexicons
      Added a space between the key text and the lexicon entry.
+     Uppercase lexicon/glossary entries to better match on keys.
 New:
      Added support for glossaries as a separate category under list.
      Added gloss command to interface with glossaries.

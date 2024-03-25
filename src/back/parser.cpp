@@ -24,6 +24,7 @@
 #include <sstream>
 #include <chrono>
 #include <ctime>
+#include <clocale>
 #include <iostream>
 
 //Project Includes
@@ -243,6 +244,8 @@ std::string Parser::parseDate(std::string date) {
     //handle accordingly
     if(date =="today" || date == "tomorrow" || date == "yesterday") {
         uint numericDate;
+        const char* locale;
+
         auto now = std::chrono::system_clock::now();
         std::time_t t_dateTime = std::chrono::system_clock::to_time_t(now);
         std::string dateTime = std::ctime(&t_dateTime);
