@@ -131,24 +131,7 @@ validCommands Interface::processCommand(Command parsedCommand) {
         return commandPart;
     }
     else if(commandPart == cmdGloss) {
-        Pager glossaryPager;
-        std::list<Page> glossPages;
-        std::string word;
-        std::string glossEntry;
-
-        this->library.glossary.setGlossary(this->selectedVersion);
-
-        word = parsedCommand.argumentPart.front();
-
-        glossEntry = this->library.glossary.getWord(word);
-
-        glossaryPager.setSize(this->display.getHeight(),
-                              this->display.getWidth());
-
-        glossPages = glossaryPager.getPagedText(glossEntry);
-
-        this->display.displayPages(glossPages);
-
+        this->commandGloss(parsedCommand);
         return commandPart;
     }
     else {
@@ -409,4 +392,24 @@ void Interface::commandDevo(Command parsedCommand) {
     devotionPages = devotionPager.getPagedText(devotionText);
 
     this->display.displayPages(devotionPages);
+}
+
+void Interface::commandGloss(Command parsedCommand) {
+    Pager glossaryPager;
+    std::list<Page> glossPages;
+    std::string word;
+    std::string glossEntry;
+
+    this->library.glossary.setGlossary(this->selectedVersion);
+
+    word = parsedCommand.argumentPart.front();
+
+    glossEntry = this->library.glossary.getWord(word);
+
+    glossaryPager.setSize(this->display.getHeight(), this->display.getWidth());
+
+    glossPages = glossaryPager.getPagedText(glossEntry);
+
+    this->display.displayPages(glossPages);
+
 }
