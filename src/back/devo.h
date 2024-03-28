@@ -25,6 +25,7 @@
 
 //SWORD Project Includes
 #include <swmgr.h>
+#include <swmodule.h>
 
 class Devo
 {
@@ -36,6 +37,7 @@ public:
 
 private:
     sword::SWMgr *swordLibrary;
+    sword::SWModule *devotional;
     std::string mod;
 };
 

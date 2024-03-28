@@ -26,6 +26,9 @@ Changed:
      Uppercase lexicon/glossary entries to better match on keys.
      Use SWKeys on lexicon based modules (lexicons/dictionaries, devotionals,
      glossaries). Probable fix for #6.
+     Changed all module referencing classes to have a module attribute and use
+     this-> to reference it instead of a module variable local to the
+     appropriate getXXX function, for consistency.
 New:
      Added support for glossaries as a separate category under list.
      Added gloss command to interface with glossaries.

@@ -39,22 +39,20 @@ std::string Devo::getDevo(std::string date) {
     Parser dateParser;
     std::string parsedDate;
     std::string devo;
-    sword::SWModule *devotion;
-    std::string keyText;
     sword::SWKey devoKey;
+
 
     parsedDate = dateParser.parseDate(date);
 
     devoKey.setText(parsedDate.c_str());
     devoKey.setPersist(true);
 
-    devotion = this->swordLibrary->getModule(this->mod.c_str());
-    devotion->setKey(devoKey);
+    this->devotional = this->swordLibrary->getModule(this->mod.c_str());
+    this->devotional->setKey(devoKey);
 
-    keyText = devotion->getKeyText();
-    devo = keyText;
+    devo = this->devotional->getKeyText();
     devo += "\n";
-    devo += devotion->stripText();
+    devo += this->devotional->stripText();
 
     return devo;
 

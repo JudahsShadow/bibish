@@ -50,21 +50,20 @@ std::string Passage::getText(std::string reference) {
     sword::ListKey refRange;
 
     //Module variables
-    sword::SWModule *module = \
-        this->swordLibrary->getModule(this->version.c_str());
+    this->module = this->swordLibrary->getModule(this->version.c_str());
     sword::VerseKey key;
 
 
     refRange = key.parseVerseList(reference.c_str(), key, true);
     for(refRange = sword::TOP; !refRange.popError(); refRange++) {
-        module->setKey(refRange);
+        this->module->setKey(refRange);
         text += " "; //TODO: Fix this to show the book name on the first verse
         //TODO: show chap and verse only after the first verse
-        text += module->getKeyText();
+        text += this->module->getKeyText();
         text += " ";
         //use stripText() instead of renderText() because we don't want anything
         //but text
-        text += module->stripText();
+        text += this->module->stripText();
     }
 
     return text;

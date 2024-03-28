@@ -37,6 +37,7 @@ class Passage {
     private:
         std::string version;
         sword::SWMgr *swordLibrary;
+        sword::SWModule *module;
 };
 
 #endif // PASSAGE_H
