@@ -27,6 +27,7 @@
 
 //SWORD Includes
 #include <swmgr.h>
+#include <swkey.h>
 
 //Project Includes
 #include "../back/gloss.h"
@@ -44,6 +45,7 @@ std::string Gloss::getWord(std::string fromWord) {
     std::string toFrom;
     std::string keyText;
     std::string upperWord;
+    sword::SWKey glossKey;
 
     std::transform(fromWord.begin(), fromWord.end(), fromWord.begin(),
                    [](unsigned char c) {return std::toupper(c);});
@@ -56,7 +58,10 @@ std::string Gloss::getWord(std::string fromWord) {
         this->toLang = this->glossary->getConfigEntry("GlossaryTo");
     }
 
-    this->glossary->setKeyText(fromWord.c_str());
+    glossKey.setText(fromWord.c_str());
+    glossKey.setPersist(true);
+
+    this->glossary->setKey(glossKey);
 
     keyText = this->glossary->getKeyText();
 

@@ -72,7 +72,7 @@ std::string Genbook::getText(std::string key) {
 
     this->mod = swordLibrary->getModule(this->book.c_str());
 
-    this->mod->setKey(key.c_str());
+    this->mod->setKeyText(key.c_str());
     text += this->mod->getKeyText();
     text += "\n";
     text += this->mod->stripText();

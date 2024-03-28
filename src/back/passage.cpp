@@ -51,7 +51,7 @@ std::string Passage::getText(std::string reference) {
 
     //Module variables
     sword::SWModule *module = \
-        swordLibrary->getModule(this->version.c_str());
+        this->swordLibrary->getModule(this->version.c_str());
     sword::VerseKey key;
 
 

@@ -25,6 +25,7 @@
 //SWORD Project Includes
 #include <swmgr.h>
 #include <swmodule.h>
+#include <swkey.h>
 
 //Project Includes
 #include "../back/devo.h"
@@ -40,10 +41,15 @@ std::string Devo::getDevo(std::string date) {
     std::string devo;
     sword::SWModule *devotion;
     std::string keyText;
+    sword::SWKey devoKey;
 
     parsedDate = dateParser.parseDate(date);
+
+    devoKey.setText(parsedDate.c_str());
+    devoKey.setPersist(true);
+
     devotion = this->swordLibrary->getModule(this->mod.c_str());
-    devotion->setKey(parsedDate.c_str());
+    devotion->setKey(devoKey);
 
     keyText = devotion->getKeyText();
     devo = keyText;

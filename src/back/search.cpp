@@ -56,7 +56,8 @@ void Search::percentUpdate(char percent, void *userData) {
 
 
 std::string Search::search(std::string searchString) {
-    int searchType = -2; //multi- word is what we will use for now
+    //multi- word is what we will use for now
+    int searchType = -2;
     sword::ListKey results;
     char lineLen = 80;
     std::string verses = "";

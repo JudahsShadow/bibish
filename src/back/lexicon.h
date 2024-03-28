@@ -24,6 +24,7 @@
 
 //SWORD Project Includes
 #include <swmgr.h>
+#include <swmodule.h>
 
 class Lexicon
 {
@@ -37,6 +38,7 @@ public:
 private:
 
     sword::SWMgr *swordLibrary;
+    sword::SWModule *mod;
     std::string lexiDict;
 };
 

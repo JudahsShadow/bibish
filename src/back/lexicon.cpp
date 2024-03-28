@@ -37,13 +37,15 @@ std::string Lexicon::getEntry(std::string entry) {
     std::transform(entry.begin(), entry.end(), entry.begin(),
                    [](unsigned char c) {return std::toupper(c);});
 
-    
+    lexKey.setText(entry.c_str());
+    lexKey.setPersist(true);
+
     module = this->swordLibrary->getModule(this->lexiDict.c_str());
-    module->setKeyText(entry.c_str());
-    
+    module->setKey(lexKey);
+
     lexEntry = module->getKeyText();
     lexEntry += " ";
-    lexEntry += module->renderText();    
+    lexEntry += module->stripText();
 
     return lexEntry;
 }
