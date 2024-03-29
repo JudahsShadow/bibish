@@ -43,9 +43,8 @@ void Gloss::setGlossary(std::string gloss) {
 
 std::string Gloss::getWord(std::string fromWord) {
     std::string toFrom;
-    std::string keyText;
+    std::string entryText;
     std::string upperWord;
-    sword::SWKey glossKey;
 
     std::transform(fromWord.begin(), fromWord.end(), fromWord.begin(),
                    [](unsigned char c) {return std::toupper(c);});
@@ -58,22 +57,19 @@ std::string Gloss::getWord(std::string fromWord) {
         this->toLang = this->glossary->getConfigEntry("GlossaryTo");
     }
 
-    glossKey.setText(fromWord.c_str());
-    glossKey.setPersist(true);
+    this->glossary->setKeyText(fromWord.c_str());
 
-    this->glossary->setKey(glossKey);
-
-    keyText = this->glossary->getKeyText();
+    entryText = this->glossary->stripText();
 
     toFrom = "From ";
     toFrom += this->fromLang;
     toFrom += " ";
-    toFrom += keyText;
+    toFrom += this->glossary->getKeyText();
     toFrom += "\n";
     toFrom += "To ";
     toFrom += this->toLang;
     toFrom += " ";
-    toFrom += this->glossary->stripText();
+    toFrom += entryText;
 
     return toFrom;
 

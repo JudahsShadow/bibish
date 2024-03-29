@@ -31,21 +31,21 @@
 
 std::string Lexicon::getEntry(std::string entry) {
     std::string lexEntry;
-    sword::SWKey lexKey;
     sword::SWModule *module;
+    std::string entryText;
 
     std::transform(entry.begin(), entry.end(), entry.begin(),
                    [](unsigned char c) {return std::toupper(c);});
 
-    lexKey.setText(entry.c_str());
-    lexKey.setPersist(true);
 
     module = this->swordLibrary->getModule(this->lexiDict.c_str());
-    module->setKey(lexKey);
+    module->setKeyText(entry.c_str());
+
+    entryText = module->stripText();
 
     lexEntry = module->getKeyText();
     lexEntry += " ";
-    lexEntry += module->stripText();
+    lexEntry += entryText;
 
     return lexEntry;
 }
