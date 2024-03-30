@@ -382,6 +382,14 @@ void Interface::commandDevo(Command parsedCommand) {
     std::list<page> devotionPages;
     std::string devotionText;
 
+    if(this->selectedVersion == "") {
+        this->display.displayHeader();
+        this->display.displaySpacer(1);
+        std::cerr << "No module selected. Try Select";
+        std::cerr << std::endl;
+        return;
+    }
+
     this->library.devotion.setDevotion(this->selectedVersion);
 
     devotionText = this->library.devotion.getDevo( \
@@ -399,6 +407,14 @@ void Interface::commandGloss(Command parsedCommand) {
     std::list<Page> glossPages;
     std::string word;
     std::string glossEntry;
+
+    if(this->selectedVersion == "") {
+        this->display.displayHeader();
+        this->display.displaySpacer(1);
+        std::cerr << "No module selected. Try Select";
+        std::cerr << std::endl;
+        return;
+    }
 
     this->library.glossary.setGlossary(this->selectedVersion);
 

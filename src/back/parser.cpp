@@ -90,18 +90,23 @@ Command Parser::parseCommand(std::string command) {
     }
     else if (commandPart == "select") {
         //select has only one argument, stick it in line and ignore the rest
-        parsedCommand.argumentPart.push_back(argumentPart.front());
+        if (!argumentPart.empty()) {
+            parsedCommand.argumentPart.push_back(argumentPart.front());
+        } else {
+            parsedCommand.argumentPart.push_back("");
+        }
         parsedCommand.commandPart = cmdSelect;
     }
     else if (commandPart == "list") {
-        if(argumentPart.front() == "bibles" ||
+        if(!argumentPart.empty() &&
+          (argumentPart.front() == "bibles" ||
            argumentPart.front() == "commentaries" ||
            argumentPart.front() == "devotions" ||
            argumentPart.front() == "books" ||
            argumentPart.front() == "dictionaries" ||
            argumentPart.front() == "lexicons" ||
            argumentPart.front() == "unorthodox" ||
-           argumentPart.front() == "glossaries") {
+           argumentPart.front() == "glossaries")) {
 
             parsedCommand.argumentPart.push_back(argumentPart.front());
         }
@@ -155,7 +160,11 @@ Command Parser::parseCommand(std::string command) {
         std::string word;
 
         //Take the first "token" as the word and ignore everything else
-        word = argumentPart.front();
+        if(!argumentPart.empty()) {
+            word = argumentPart.front();
+        } else {
+            word = "";
+        }
 
         parsedCommand.commandPart = cmdGloss;
 
