@@ -32,3 +32,8 @@ Changed:
 New:
      Added support for glossaries as a separate category under list.
      Added gloss command to interface with glossaries.
+Fixed:
+     Eliminate crashes for argument-less commands (ArrayBolt3). Fixes #7
+     Eliminate crashes when no module is selected on devo and gloss commands
+     (ArrayBolt3)
+
