@@ -73,6 +73,12 @@ std::list<std::string> Library::getGlossaries() {
     return glossaries;
 }
 
+std::list<std::string> Library::getEssays() {
+    std::list<std::string> essays;
+    essays = this->getModuleList("essays");
+    return essays;
+}
+
 
 std::list<std::string> Library::getModuleList(std::string moduleType) {
     std::string module = "";
@@ -111,6 +117,9 @@ std::list<std::string> Library::getModuleList(std::string moduleType) {
     }
     else if(moduleType == "glossary") {
         selectedType = "glossary";
+    }
+    else if(moduleType == "essays") {
+        selectedType = "essays";
     }
     else {
             //We should never get here but you never know.
@@ -152,7 +161,10 @@ std::list<std::string> Library::getModuleList(std::string moduleType) {
         else if(category == "Glossaries" ||
             tempMod->getConfig().has("Feature","Glossary")) {
                 modType = "glossary";
-            }
+        }
+        else if(category == "Essays") {
+            modType = "essays";
+        }
         else {
             modType = tempMod->getType();
         }

@@ -270,7 +270,10 @@ void Interface::commandList(Command parsedCommand) {
         else if(parsedCommand.argumentPart.front() == "glossaries") {
             modules = this->library.getGlossaries();
         }
-        
+        else if(parsedCommand.argumentPart.front() == "essays") {
+            modules = this->library.getEssays();
+        }
+
         if(modules.empty()) {
             std::cerr <<  "No modules of type ";
             std::cerr <<  parsedCommand.argumentPart.front();

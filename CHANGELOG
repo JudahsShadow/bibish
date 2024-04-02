@@ -32,6 +32,7 @@ Changed:
 New:
      Added support for glossaries as a separate category under list.
      Added gloss command to interface with glossaries.
+     Added support for essays as a separate category under list.
 Fixed:
      Eliminate crashes for argument-less commands (ArrayBolt3). Fixes #7
      Eliminate crashes when no module is selected on devo and gloss commands
