@@ -36,4 +36,4 @@ Fixed:
      Eliminate crashes for argument-less commands (ArrayBolt3). Fixes #7
      Eliminate crashes when no module is selected on devo and gloss commands
      (ArrayBolt3)
-
+     Fixed an issue where TOC would be duplicated on subsequent calls.
