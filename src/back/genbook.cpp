@@ -40,13 +40,15 @@ void Genbook::setSwordLibrary(sword::SWMgr *swordLib) {
 std::string Genbook::getTOC() {
     sword::TreeKey *defaultKey;
 
+    this->toc = "";
+
     this->mod = swordLibrary->getModule(this->book.c_str());
 
     defaultKey = dynamic_cast<sword::TreeKey*>(this->mod->getKey());
 
     this->walkTree(defaultKey);
 
-    return toc;
+    return this->toc;
 }
 
 void Genbook::setModule(std::string module) {
@@ -56,9 +58,9 @@ void Genbook::setModule(std::string module) {
 void Genbook::walkTree(sword::TreeKey *treeKey) {
     if(treeKey->firstChild()) {
         while(treeKey->nextSibling()) {
-            toc += treeKey->getText();
+            this->toc += treeKey->getText();
             //Add a space after the new line for the tokenizer to split on
-            toc += "\n ";
+            this->toc += "\n ";
             if(treeKey->hasChildren()) {
                 this->walkTree(treeKey);
             }

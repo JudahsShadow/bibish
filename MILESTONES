@@ -23,3 +23,8 @@ Milestone releases
         Add support for listing devotionals separate from parent category of
             lexicons in list commands
         Add support for unorthodox modules as a separate category
+
+0.5.0:
+    Planned Features:
+        Add gloss command to handle glossary modules showing to/from languages
+        Add support for essay category modules as their own category.
