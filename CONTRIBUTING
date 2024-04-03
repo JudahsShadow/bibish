@@ -1,0 +1,40 @@
+How to contribute to BIBISH
+
+Did you find a bug?
+* Make sure that there is not a duplicate bug in the issues tab on the github
+  page. Be sure to check both open and closed issues.
+* If there is not already an issue, be as clear and concise as possible about
+  what happened and how it might be reproduced.
+
+Did you write a patch to fix an issue?
+* In addition to writing a bug report, you should submit a pull request with
+  your proposed changes for review.
+
+Do you want to add a feature or functionality to BIBISH?
+* Create a new feature issue or discussion, and a pull request once you have
+  code written for said feature.
+* BIBISH is being designed to have as few dependencies as possible. So consider
+  very carefully any changes that add new dependencies to the project. If a
+  dependency can be included in one of the existing dependencies (for example
+  the SWORD Project) then that will be accepted more easily than a dependency
+  that directly impacts BIBISH
+* Current dependencies of BIBISH are:
+  * cmake
+  * A C++11 aware compiler
+  * The SWORD Project (http://crosswire.org)
+  * sys/ioctl.h and unistd.h (To determine terminal size)
+* Dependencies that The SWORD Project is typically built against, but are not
+  used by BIBISH directly:
+  * libz
+  * curl
+  * icu
+
+Do you want to translate BIBISH into another language?
+* Great! We want BIBISH to be useful to as many people as possible. Since an
+  i18n package hasn't been decided on yet, start a discussion on github or
+  head over to #bibish on the libera.chat irc network and we can get started
+  on how best to translate BIBISH.
+
+Do you want to contribute in some way that hasn't been mentioned yet?
+* Start a discussion on github or else go to #bibish and  we'll discuss your
+  ideas
