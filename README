@@ -6,7 +6,7 @@ quit - Exits the program.
 list - Lists installed modules (bibles by default) and their short names for the
     select command.
     Takes arguments of bible, commentaries, devotions, books, dictionaries,
-    lexicons, unorthodox, glossaries
+    lexicons, unorthodox, glossaries, essays
     Any other arguments will result in the list of bibles being displayed.
 select - Selects a module for use.
     Takes argument of a module short name. Short name is case sensitive.
@@ -14,11 +14,11 @@ show - Shows a passage or entry with the selected work.
     Takes argument of a range of scripture for bibles and commentaries, a key
     for lexicons or dictionaries, a date in the format of MM.DD for devotions,
     and a key path for general books.
-    For general books, a special argument of TOC may be suppied to get the
-    table of contents of the selected genbook, which will show the keypath
-    for all items in the book.
+    For general books or essays, a special argument of TOC may be supplied to
+    get the table of contents of the selected book/essay, which will show the
+    keypath for all items in the book.
     Given how long key paths for books can be, it is currently recommended to
-    paste the key path from the list command if your terminal supports that
+    paste the key path from the show TOC command if your terminal supports that.
 help - Displays basic help message.
     Accepts an argument of about to display version and license information.
 search - Searches for a multi-word phrase in the selected version
@@ -29,7 +29,7 @@ read - Starts at a given key (reference) and proceeds to display the entire
     Be careful with this command as it loads the entire module into memory and
     will eat up your processor and RAM while doing it.
     The read command is not recommended for modules of type genbook (General
-    Book modules)
+    Book modules) due to the size of those modules.
 about - Shows some basic information about the application, including license
     and version information.
 devo - Shows the daily devotional for a given month and day in either the full
