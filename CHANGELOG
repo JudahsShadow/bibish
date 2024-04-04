@@ -33,8 +33,11 @@ New:
      Added support for glossaries as a separate category under list.
      Added gloss command to interface with glossaries.
      Added support for essays as a separate category under list.
+     Added CONTRIBUTING, CONTRIBUTORS files.
+     Updated LICENSE file so github will detect the project as GPL-2.
 Fixed:
      Eliminate crashes for argument-less commands (ArrayBolt3). Fixes #7
      Eliminate crashes when no module is selected on devo and gloss commands
      (ArrayBolt3)
      Fixed an issue where TOC would be duplicated on subsequent calls.
+     Fixed an issue where TOC was skipping the first node in the tree. Fixes #10
