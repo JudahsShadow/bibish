@@ -57,14 +57,14 @@ void Genbook::setModule(std::string module) {
 
 void Genbook::walkTree(sword::TreeKey *treeKey) {
     if(treeKey->firstChild()) {
-        while(treeKey->nextSibling()) {
+        do {
             this->toc += treeKey->getText();
-            //Add a space after the new line for the tokenizer to split on
+            //Add a space around the new line for the tokenizer to split on
             this->toc += "\n ";
             if(treeKey->hasChildren()) {
                 this->walkTree(treeKey);
             }
-        }
+        } while(treeKey->nextSibling());
         treeKey->parent();
     }
 }

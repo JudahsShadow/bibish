@@ -198,27 +198,28 @@ std::list<std::string> Parser::split(std::string string) {
   std::list<std::string> parts;
   parts.clear();
 
-  // The following algorithm is based on the one found at
+  //The following algorithm is based on the one found at
   //http://www.cplusplus.com/faq/sequences/strings/split/#getline
   while (!tokenStream.eof()) {
-      // Yes I know this is normally "The Wrong Way(TM)" to do this
-      // since you shouldn't read past EOF, but getline is a bit
-      // weird about spacing on stringstreams
+    //Yes I know this is normally "The Wrong Way(TM)" to do this
+    //since you shouldn't read past EOF, but getline is a bit
+    //weird about spacing on stringstreams
 
-      std::string token;
-      std::getline(tokenStream, token, ' ');
+    std::string token;
+    std::getline(tokenStream, token, ' ');
 
-      // do this even if we've already seen EOF. unless token is ""
-      if( token != "") {
-          parts.push_back(token);
-      }
+
+    // do this even if we've already seen EOF. unless token is ""
+    if(token != "") {
+        parts.push_back(token);
+    }
   }
 
   return parts;
 
 }
 
-std::string Parser::detokenize(std::list< std::string > tokens) {
+std::string Parser::detokenize(std::list<std::string> tokens) {
     std::string noTokens = "";
 
     if(tokens.empty()) {
@@ -231,7 +232,7 @@ std::string Parser::detokenize(std::list< std::string > tokens) {
     return noTokens;
 }
 
-std::string Parser::combine(std::list< std::string > stringList) {
+std::string Parser::combine(std::list<std::string> stringList) {
     std::string combinedString = "";
     while(!stringList.empty()) {
         combinedString += stringList.front();

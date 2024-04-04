@@ -110,7 +110,7 @@ std::list<page> Pager::getPagedText(std::string text) {
                 currentLine = "";
                 if(newLineCount > 1) {
                     currentLine += "\n";
-                    currentPage.content +=currentLine;
+                    currentPage.content += currentLine;
                     currentLine = "";
                 }
                 lineCount += newLineCount;
