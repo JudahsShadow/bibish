@@ -44,6 +44,9 @@ private:
     //this is static so it can be accessed in the percentUpdate function
     //that the sword api needs to be static
     static Display searchDisplay;
+
+    int searchTypeMultiWord = -2;
+    int searchTypeExact = -1;
 };
 
 #endif // SEARCH_H
