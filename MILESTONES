@@ -28,3 +28,6 @@ Milestone releases
     Planned Features:
         Add gloss command to handle glossary modules showing to/from languages
         Add support for essay category modules as their own category.
+0.6.0:
+    Planned Features:
+        Support for exact phrase as well as multi-word searches

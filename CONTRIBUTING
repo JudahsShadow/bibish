@@ -28,6 +28,7 @@ Do you want to add a feature or functionality to BIBISH?
   * libz
   * curl
   * icu
+  * regex.h (SWORD possibly provides this if it isn't available externally)
 
 Do you want to translate BIBISH into another language?
 * Great! We want BIBISH to be useful to as many people as possible. Since an
