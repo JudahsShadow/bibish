@@ -45,8 +45,11 @@ private:
     //that the sword api needs to be static
     static Display searchDisplay;
 
-    int searchTypeMultiWord = -2;
+    int searchTypeRegex = 0;
     int searchTypeExact = -1;
+    int searchTypeMultiWord = -2;
+    int searchTypeEntryAttr = -3;
+    int searchExternal = -4;
 };
 
 #endif // SEARCH_H
