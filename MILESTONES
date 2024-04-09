@@ -31,3 +31,4 @@ Milestone releases
 0.6.0:
     Planned Features:
         Support for exact phrase as well as multi-word searches
+        Support regex searches
