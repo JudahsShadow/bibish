@@ -113,8 +113,8 @@ validCommands Interface::processCommand(Command parsedCommand) {
             return commandPart;
         }
         else {
-            std::cerr << "Error: No Module Selected" << std::endl;
-            std::cerr << "Try select." << std::endl;
+            std::cerr << "No Module Selected. Try select." << std::endl;
+            this->display.displaySpacer();
             return commandPart;
         }
     }
@@ -226,8 +226,9 @@ void Interface::commandShow (Command parsedCommand) {
         this->library.genbook.setModule(this->selectedVersion);
 
         if(ref == "toc"|| ref == "TOC") {
-            std::cout << "Getting book Table of Contents (TOC) this may take several ";
-            std::cout << "moments depending on the size of the work." << std::endl;
+            std::cout << "Getting book Table of Contents (TOC) this may take";
+            std::cout << "several moments depending on the size of the work.";
+            std::cout << std::endl;
 
             text = this->library.genbook.getTOC();
         }
@@ -343,10 +344,10 @@ void Interface::commandSearch(Command parsedCommand) {
     if (parsedCommand.argumentPart.empty() ||
         parsedCommand.argumentPart.front() == "") {
         this->display.displayHeader();
-        this->display.displaySpacer(3);
-        std::cout << "Pick a search type" << std::endl;
         std::cout << "1 - Exact Phrase" << std::endl;
         std::cout << "2 - Multi-word" << std::endl;
+        this->display.displaySpacer(2);
+        std::cout << "Pick a search type: ";
 
         std::string choice;
         int choiceNum;
@@ -367,7 +368,7 @@ void Interface::commandSearch(Command parsedCommand) {
 
         this->display.clearScreen();
         this->display.displayHeader();
-        this->display.displaySpacer(2);
+        this->display.displaySpacer();
         std::cout << "Enter a word or phrase to search for: ";
         std::getline(std::cin,searchTerms);
 
@@ -404,9 +405,9 @@ void Interface::commandRead(Command parsedCommand) {
 
     if(this->selectedVersion == "") {
         this->display.displayHeader();
-        this->display.displaySpacer(1);
         std::cerr << "No module selected. Try Select";
         std::cerr << std::endl;
+        this->display.displaySpacer(1);
         return;
     }
 
@@ -424,9 +425,9 @@ void Interface::commandDevo(Command parsedCommand) {
 
     if(this->selectedVersion == "") {
         this->display.displayHeader();
-        this->display.displaySpacer(1);
         std::cerr << "No module selected. Try Select";
         std::cerr << std::endl;
+        this->display.displaySpacer(1);
         return;
     }
 
@@ -450,9 +451,9 @@ void Interface::commandGloss(Command parsedCommand) {
 
     if(this->selectedVersion == "") {
         this->display.displayHeader();
-        this->display.displaySpacer(1);
         std::cerr << "No module selected. Try Select";
         std::cerr << std::endl;
+        this->display.displaySpacer(1);
         return;
     }
 

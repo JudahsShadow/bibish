@@ -52,4 +52,4 @@ Fixed:
      Search now correctly paginates results from modules without spaces in their
      keys (genbooks, lexicons)
      Leading spaces removed from cases where spaces were added for pagination
-     purposes (i.e. genbook toc entries, lexicon search results)
+     purposes (i.e. genbook TOC entries, lexicon search results)
