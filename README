@@ -22,9 +22,11 @@ show - Shows a passage or entry with the selected work.
 help - Displays basic help message.
     Accepts an argument of about to display version and license information.
 search - Searches for a multi-word phrase in the selected version
-    Takes argument of multi for multi-word search, exact for exact phrase search
-    and the word(s) or phrase(s) to search for.
+    Takes argument of multi for multi-word search, exact for exact phrase
+    search, regex for regular expression search, and the word(s) or phrase(s) to
+    search for.
     Currently searches the whole module.
+    Currently searches are case insensitive
 read - Starts at a given key (reference) and proceeds to display the entire
     module from there.
     Be careful with this command as it loads the entire module into memory and

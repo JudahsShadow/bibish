@@ -44,8 +44,9 @@ Fixed:
 0.6.0
 Changed:
 New:
-     Search now accepts arguments of multi or exact before the search terms
-     for either multi-word or exact phrase searching respectively
+     Search now accepts arguments of multi, exact, or regex before the search
+     terms for multi-word, exact phrase, or regular expression searching
+     respectively.
      Not supplying any argument now prompts for the search type as well as
      search terms.
 Fixed:

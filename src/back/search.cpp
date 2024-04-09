@@ -71,7 +71,6 @@ std::string Search::search(std::string searchString) {
         // verses = results.getElement()->userData;
       verses += (const char*)results;
       verses += "\n ";
-    // std::cerr << (__u64)results.getElement()->userData;
       results++;
     }
     if(verses == "") {

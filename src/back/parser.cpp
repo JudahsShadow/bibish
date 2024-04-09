@@ -124,7 +124,8 @@ Command Parser::parseCommand(std::string command) {
         //with assuming the rest is the search query
         if(!argumentPart.empty() &&
             (argumentPart.front() == "multi" ||
-            argumentPart.front() == "exact" ||)) {
+            argumentPart.front() == "exact" ||
+            argumentPart.front() == "regex")) {
 
             parsedCommand.argumentPart.push_front(argumentPart.front());
             argumentPart.pop_front();

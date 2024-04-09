@@ -346,7 +346,8 @@ void Interface::commandSearch(Command parsedCommand) {
         this->display.displayHeader();
         std::cout << "1 - Exact Phrase" << std::endl;
         std::cout << "2 - Multi-word" << std::endl;
-        this->display.displaySpacer(2);
+        std::cout << "3 - Regex (Advanced Option)" << std::endl;
+        this->display.displaySpacer(3);
         std::cout << "Pick a search type: ";
 
         std::string choice;
@@ -361,8 +362,11 @@ void Interface::commandSearch(Command parsedCommand) {
         else if(choiceNum == 2) {
             this->library.searcher.setSearchType(SEARCHTYPEMULTIWORD);
         }
+        else if(choiceNum == 3) {
+            this->library.searcher.setSearchType(SEARCHTYPEREGEX);
+        }
         else {
-            //If an invalid choide is made do multi-word
+            //If an invalid choice is made do multi-word
             this->library.searcher.setSearchType(SEARCHTYPEMULTIWORD);
         }
 
@@ -382,8 +386,12 @@ void Interface::commandSearch(Command parsedCommand) {
             this->library.searcher.setSearchType(SEARCHTYPEEXACT);
             parsedCommand.argumentPart.pop_front();
         }
+        else if(parsedCommand.argumentPart.front() == "regex") {
+            this->library.searcher.setSearchType(SEARCHTYPEREGEX);
+            parsedCommand.argumentPart.pop_front();
+        }
         else {
-            //no search type given, assume multi-word
+            //no or invalid search type given, assume multi-word
             this->library.searcher.setSearchType(SEARCHTYPEMULTIWORD);
         }
         searchTerms = parsedCommand.argumentPart.front();
