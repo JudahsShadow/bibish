@@ -30,6 +30,7 @@
 
 //Project Includes
 #include "../back/search.h"
+#include "../back/types.h"
 
 Display Search::searchDisplay;
 
@@ -57,7 +58,7 @@ void Search::percentUpdate(char percent, void *userData) {
 
 std::string Search::search(std::string searchString) {
     //multi- word is what we will use for now
-    int searchType = this->searchTypeMultiWord;
+    int searchType = SEARCHTYPEMULTIWORD;
     sword::ListKey results;
     char lineLen = 80;
     std::string verses = "";
@@ -71,7 +72,7 @@ std::string Search::search(std::string searchString) {
         //or maybe make that a separate method?
         // verses = results.getElement()->userData;
       verses += (const char*)results;
-      verses.append("\n");
+      verses += "\n";
     // std::cerr << (__u64)results.getElement()->userData;
       results++;
     }
@@ -82,4 +83,6 @@ std::string Search::search(std::string searchString) {
 
 }
 
-
+void Search::setSearchType(int searchType) {
+    this->selectedSearchType = searchType;
+}

@@ -74,4 +74,12 @@ typedef Command command;
 
 //convenience type so the project doesn't have to depend on glibc
 typedef unsigned int uint;
+
+//Search type defines for use in various places
+#define SEARCHTYPEREGEX 0;
+#define SEARCHTYPEEXACT -1;
+#define SEARCHTYPEMULTIWORD -2;
+#define SEARCHTYPEETNRTYATTR -3;
+#define SEARCHTYPEEXTERNAL -4;
+
 #endif // TYPES_H

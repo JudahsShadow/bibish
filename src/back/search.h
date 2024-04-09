@@ -35,6 +35,7 @@ public:
     void setSwordLibrary(sword::SWMgr *library);
     void setModule(std::string module);
     void setDisplay(Display display);
+    void setSearchType(int searchType);
 
     std::string search(std::string searchString);
 private:
@@ -45,11 +46,7 @@ private:
     //that the sword api needs to be static
     static Display searchDisplay;
 
-    int searchTypeRegex = 0;
-    int searchTypeExact = -1;
-    int searchTypeMultiWord = -2;
-    int searchTypeEntryAttr = -3;
-    int searchExternal = -4;
+    int selectedSearchType;
 };
 
 #endif // SEARCH_H
