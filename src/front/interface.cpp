@@ -338,11 +338,34 @@ void Interface::commandSearch(Command parsedCommand) {
 
     this->library.searcher.setDisplay(this->display);
 
-    this->library.searcher.setSearchType(SEARCHTYPEMULTIWORD);
-
     //If no argument is provided to the command, prompt for the
-    //search terms, otherwise recombine the arguments into a string
-    if (parsedCommand.argumentPart.empty()) {
+    //search type and terms, otherwise recombine the arguments into a string
+    if (parsedCommand.argumentPart.empty() ||
+        parsedCommand.argumentPart.front() == "") {
+        this->display.displayHeader();
+        this->display.displaySpacer(3);
+        std::cout << "Pick a search type" << std::endl;
+        std::cout << "1 - Exact Phrase" << std::endl;
+        std::cout << "2 - Multi-word" << std::endl;
+
+        std::string choice;
+        int choiceNum;
+
+        std::getline(std::cin,choice);
+        choiceNum = std::stoi(choice);
+
+        if(choiceNum == 1) {
+            this->library.searcher.setSearchType(SEARCHTYPEEXACT);
+        }
+        else if(choiceNum == 2) {
+            this->library.searcher.setSearchType(SEARCHTYPEMULTIWORD);
+        }
+        else {
+            //If an invalid choide is made do multi-word
+            this->library.searcher.setSearchType(SEARCHTYPEMULTIWORD);
+        }
+
+        this->display.clearScreen();
         this->display.displayHeader();
         this->display.displaySpacer(2);
         std::cout << "Enter a word or phrase to search for: ";
@@ -350,6 +373,18 @@ void Interface::commandSearch(Command parsedCommand) {
 
     }
     else {
+        if(parsedCommand.argumentPart.front() == "multi") {
+            this->library.searcher.setSearchType(SEARCHTYPEMULTIWORD);
+            parsedCommand.argumentPart.pop_front();
+        }
+        else if(parsedCommand.argumentPart.front() == "exact") {
+            this->library.searcher.setSearchType(SEARCHTYPEEXACT);
+            parsedCommand.argumentPart.pop_front();
+        }
+        else {
+            //no search type given, assume multi-word
+            this->library.searcher.setSearchType(SEARCHTYPEMULTIWORD);
+        }
         searchTerms = parsedCommand.argumentPart.front();
     }
 

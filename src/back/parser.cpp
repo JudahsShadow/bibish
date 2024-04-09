@@ -119,9 +119,16 @@ Command Parser::parseCommand(std::string command) {
         parsedCommand.commandPart = cmdList;
     }
     else if(commandPart == "search") {
-        //For now, assume all arguments are part of the search query
-        //in the future look at this to parse actual command arguments when
-        //those exist for search.
+        //Check the first part of the argument. If it's there and either multi
+        //or exact (search types) push that on the argument list and proceed
+        //with assuming the rest is the search query
+        if(!argumentPart.empty() &&
+            (argumentPart.front() == "multi" ||
+            argumentPart.front() == "exact")) {
+
+            parsedCommand.argumentPart.push_front(argumentPart.front());
+            argumentPart.pop_front();
+        }
         std::string query = "";
         query = detokenize(argumentPart);
         parsedCommand.argumentPart.push_back(query);
