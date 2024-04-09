@@ -41,3 +41,7 @@ Fixed:
      (ArrayBolt3)
      Fixed an issue where TOC would be duplicated on subsequent calls.
      Fixed an issue where TOC was skipping the first node in the tree. Fixes #10
+0.6.0
+Changed:
+New:
+Fixed:
