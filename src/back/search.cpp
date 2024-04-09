@@ -72,7 +72,7 @@ std::string Search::search(std::string searchString) {
         //or maybe make that a separate method?
         // verses = results.getElement()->userData;
       verses += (const char*)results;
-      verses += "\n";
+      verses += "\n ";
     // std::cerr << (__u64)results.getElement()->userData;
       results++;
     }
