@@ -76,10 +76,10 @@ typedef Command command;
 typedef unsigned int uint;
 
 //Search type defines for use in various places
-#define SEARCHTYPEREGEX 0;
-#define SEARCHTYPEEXACT -1;
-#define SEARCHTYPEMULTIWORD -2;
-#define SEARCHTYPEETNRTYATTR -3;
-#define SEARCHTYPEEXTERNAL -4;
+#define SEARCHTYPEREGEX 0
+#define SEARCHTYPEEXACT -1
+#define SEARCHTYPEMULTIWORD -2
+#define SEARCHTYPEETNRTYATTR -3
+#define SEARCHTYPEEXTERNAL -4
 
 #endif // TYPES_H

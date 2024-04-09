@@ -338,6 +338,8 @@ void Interface::commandSearch(Command parsedCommand) {
 
     this->library.searcher.setDisplay(this->display);
 
+    this->library.searcher.setSearchType(SEARCHTYPEMULTIWORD);
+
     //If no argument is provided to the command, prompt for the
     //search terms, otherwise recombine the arguments into a string
     if (parsedCommand.argumentPart.empty()) {

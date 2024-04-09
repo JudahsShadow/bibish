@@ -57,16 +57,14 @@ void Search::percentUpdate(char percent, void *userData) {
 
 
 std::string Search::search(std::string searchString) {
-    //multi- word is what we will use for now
-    int searchType = SEARCHTYPEMULTIWORD;
     sword::ListKey results;
-    char lineLen = 80;
+    char lineLen = this->searchDisplay.getWidth();
     std::string verses = "";
 
     
-    results = this->module->search(searchString.c_str(),searchType,
-                            REG_ICASE, 0,0, &percentUpdate,
-                            &lineLen);
+    results = this->module->search(searchString.c_str(),
+                            this->selectedSearchType,REG_ICASE, 0,0,
+                            &percentUpdate,&lineLen);
     while(!results.popError()) {
         //TODO: Set this to return more than just verse references
         //or maybe make that a separate method?
