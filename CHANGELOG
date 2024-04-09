@@ -45,3 +45,5 @@ Fixed:
 Changed:
 New:
 Fixed:
+     Search now correctly paginates results from modules without spaces in their
+     keys (genbooks, lexicons)

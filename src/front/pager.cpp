@@ -101,7 +101,12 @@ std::list<page> Pager::getPagedText(std::string text) {
                     currentWord.replace(newLineLoc,1,"");
                 }
             }
-            currentLine += currentWord + " ";
+            if(currentWord.find_first_not_of(" ") != std::string::npos) {
+                currentLine += currentWord + " ";
+            }
+            else {
+                currentLine += currentWord;
+            }
             colCount += currentWord.length() + 1;
             currentWord = "";
             if(newLineCount > 0) {
