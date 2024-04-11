@@ -43,7 +43,6 @@ std::string Devo::getDevo(std::string date) {
 
     parsedDate = dateParser.parseDate(date);
 
-
     this->devotional = this->swordLibrary->getModule(this->mod.c_str());
     this->devotional->setKeyText(parsedDate.c_str());
 

@@ -80,11 +80,10 @@ Command Parser::parseCommand(std::string command) {
     }
 
     if (commandPart == ("show")) {
-        // TODO:Don't hard-code this  all we should have to parse is
-        // making sure all the components of the argument
-        // are one for passing back to the interface
         std::string reference = "";
+
         reference = detokenize(argumentPart);
+
         parsedCommand.argumentPart.push_back(reference);
         parsedCommand.commandPart = cmdShow;
     }
@@ -263,7 +262,6 @@ std::string Parser::parseDate(std::string date) {
     //handle accordingly
     if(date =="today" || date == "tomorrow" || date == "yesterday") {
         uint numericDate;
-        const char* locale;
 
         auto now = std::chrono::system_clock::now();
         std::time_t t_dateTime = std::chrono::system_clock::to_time_t(now);
@@ -296,6 +294,7 @@ std::string Parser::parseDate(std::string date) {
     }
     else {
         tokenizedDate = this->tokenize(date);
+
         //Assume we've been given a month and day separated by space'
         month = tokenizedDate.front();
         day = tokenizedDate.back();

@@ -48,11 +48,10 @@ void Search::setDisplay(Display display) {
 
 
 void Search::percentUpdate(char percent, void *userData) {
-    //TODO: Hook this into the display class
     uint percentage;
     percentage = (int) percent;
     
-    searchDisplay.displayPercentage(percent);
+    searchDisplay.displayPercentage(percentage);
 }
 
 
@@ -63,15 +62,15 @@ std::string Search::search(std::string searchString) {
 
     
     results = this->module->search(searchString.c_str(),
-                            this->selectedSearchType,REG_ICASE, 0,0,
-                            &percentUpdate,&lineLen);
+                                this->selectedSearchType,REG_ICASE, 0,0,
+                                &percentUpdate,&lineLen);
     while(!results.popError()) {
         //TODO: Set this to return more than just verse references
         //or maybe make that a separate method?
         // verses = results.getElement()->userData;
-      verses += (const char*)results;
-      verses += "\n ";
-      results++;
+        verses += (const char*)results;
+        verses += "\n ";
+        results++;
     }
     if(verses == "") {
         verses = "No results found\n";

@@ -43,7 +43,8 @@ typedef Page page;
 /* Enumerated data type for commands. parseCommand in the Parser class
  * will take a command in, figure out what it is supposed to be based
  * on known localized equivalents to the commands.
- * Commands listed in an, as added order
+ * Commands listed in an, as added order with cmdUnknown, cmdEmpty, cmdError
+ * at the bottom
  */
 enum validCommands {
     cmdQuit,

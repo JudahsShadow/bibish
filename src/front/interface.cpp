@@ -74,23 +74,20 @@ validCommands Interface::processCommand(Command parsedCommand) {
     /*This is the basis of the main program loop. This evaluates parsedCommand
     * and then acts accordingly.
     */
-    //TODO: Split this into functions
-
-    Parser worksParser;
 
     validCommands commandPart;
 
     commandPart = parsedCommand.commandPart;
 
-    std::string tempBibles;
-
     if(commandPart == cmdQuit) {
         //since we're quitting do nothing here
         return commandPart;
-    } else if(commandPart == cmdShow) {
+    }
+    else if(commandPart == cmdShow) {
         this->commandShow(parsedCommand);
         return commandPart;
-    } else if(commandPart == cmdHelp) {
+    }
+    else if(commandPart == cmdHelp) {
         if(parsedCommand.argumentPart.front() == "about" ||
            parsedCommand.argumentPart.front() == "About") {
             this->display.displayAbout();
@@ -100,10 +97,12 @@ validCommands Interface::processCommand(Command parsedCommand) {
             this->display.displayHelp();
             return commandPart;
         }
-    } else if(commandPart == cmdList) {
+    }
+    else if(commandPart == cmdList) {
         commandList(parsedCommand);
         return commandPart;
-    } else if (commandPart == cmdSelect) {
+    }
+    else if (commandPart == cmdSelect) {
         this->commandSelect(parsedCommand);
         return commandPart;
     }
@@ -149,10 +148,12 @@ int Interface::runInterface() {
     
     //Initialize the interface
     this->initalize();
+
     this->display.clearScreen();
     this->display.displayHeader();
     this->display.displaySpacer();
     this->display.displayPrompt();
+
     std::getline(std::cin, command);
     
     parsedCommand = commandParser.parseCommand(command);
@@ -166,7 +167,8 @@ int Interface::runInterface() {
         if(parsedCommand.commandPart == cmdUnknown) {
             std::cerr << "Error! invalid command! (Try ?)" << std::endl;
             this->display.displaySpacer(1);
-        } else if(parsedCommand.commandPart == cmdError) {
+        }
+        else if(parsedCommand.commandPart == cmdError) {
             //Some error encountered. Since some are unrecoverable, Back out.
             std::cerr << "Unrecoverable error encountered Aborting...";
             std::cerr << std::endl;
@@ -351,7 +353,7 @@ void Interface::commandSearch(Command parsedCommand) {
         std::cout << "Pick a search type: ";
 
         std::string choice;
-        int choiceNum;
+        uint choiceNum;
 
         std::getline(std::cin,choice);
         choiceNum = std::stoi(choice);
@@ -422,6 +424,7 @@ void Interface::commandRead(Command parsedCommand) {
     this->library.readMode.setDisplay(this->display);
     this->library.readMode.setSwordLibrary(this->swordLibrary);
     this->library.readMode.setModule(this->selectedVersion);
+
     reference = parsedCommand.argumentPart.front();
     this->library.readMode.showText(reference.c_str());
 }

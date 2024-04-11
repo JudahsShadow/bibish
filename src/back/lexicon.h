@@ -36,9 +36,9 @@ public:
     void setSwordLibrary(sword::SWMgr *swordLib);
     
 private:
-
     sword::SWMgr *swordLibrary;
     sword::SWModule *mod;
+
     std::string lexiDict;
 };
 

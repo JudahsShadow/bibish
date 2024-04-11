@@ -39,12 +39,12 @@ public:
 
     std::string search(std::string searchString);
 private:
-    static void percentUpdate(char percent,void *userData);
     sword::SWMgr *swordLibrary;
     sword::SWModule *module;
-    //this is static so it can be accessed in the percentUpdate function
+    //This is static so it can be accessed in the percentUpdate function
     //that the sword api needs to be static
     static Display searchDisplay;
+    static void percentUpdate(char percent,void *userData);
 
     int selectedSearchType;
 };

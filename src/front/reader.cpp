@@ -46,7 +46,7 @@ void Reader::showText(sword::SWBuf key) {
     
     this->pager.setSize(this->display.getHeight(),this->display.getWidth());
     
-    pagedText = pager.getPagedText(text);
+    pagedText = this->pager.getPagedText(text);
     this->display.displayPages(pagedText);
 }
 

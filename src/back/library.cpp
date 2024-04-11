@@ -160,7 +160,7 @@ std::list<std::string> Library::getModuleList(std::string moduleType) {
         }
         else if(category == "Glossaries" ||
             tempMod->getConfig().has("Feature","Glossary")) {
-                modType = "glossary";
+            modType = "glossary";
         }
         else if(category == "Essays") {
             modType = "essays";

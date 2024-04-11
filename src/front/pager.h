@@ -32,6 +32,7 @@ class Pager {
     public:
         Pager();
         ~Pager();
+
         void setSize(uint rowSize,uint colSize = 80);
         std::list<page> getPagedText(std::string text);
     private:

@@ -35,17 +35,20 @@ class Display {
         void displaySpacer(int spacing = 0);
         void displayHelp();
         void displayAbout();
+
         void clearScreen();
+
         void setHeight(uint size);
         uint getHeight();
         void setWidth(uint size);
         uint getWidth();
+
         void displayPages(std::list<page> text);
+
         void displayPercentage(uint percent);
     private:
         uint screenHeight;
         uint screenWidth;
-
 };
 
 #endif // DISPLAY_H

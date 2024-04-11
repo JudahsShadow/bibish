@@ -34,5 +34,6 @@ int main(int argc, char **argv) {
 
     Interface *ui = new Interface();
     exitCode = ui->runInterface();
+
     return exitCode;
 }

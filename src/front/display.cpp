@@ -66,6 +66,7 @@ void Display::displayHelp() {
 
     this->clearScreen();
     this->displayHeader();
+
     helpPager.setSize(this->screenHeight,this->screenWidth);
     helpPages = helpPager.getPagedText(msgHelp);
     this->displayPages(helpPages);

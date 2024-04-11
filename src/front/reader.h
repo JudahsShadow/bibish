@@ -34,12 +34,15 @@
 class Reader {
 public:
     void setDisplay(Display display);
-    void showText(sword::SWBuf  key = "");
     void setModule(std::string module);
     void setSwordLibrary(sword::SWMgr *library);
+
+    void showText(sword::SWBuf  key = "");
+
 private:
     Display display;
     Pager pager;
+
     std::string selectedModule;
     sword::SWMgr *swordLibrary;
     

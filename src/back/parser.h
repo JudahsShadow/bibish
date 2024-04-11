@@ -40,6 +40,7 @@ class Parser {
     private:
         std::list<std::string> tokens;
         uint argumentCount;
+
         std::list<std::string> split(std::string string);
         std::string combine(std::list<std::string> stringList);
 };

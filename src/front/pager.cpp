@@ -120,7 +120,8 @@ std::list<page> Pager::getPagedText(std::string text) {
                 }
                 lineCount += newLineCount;
             }
-        } else {
+        }
+        else {
             //TODO: Do stuff about words that are by themselves longer than the
             //width.
             currentLine += "\n";

@@ -37,9 +37,10 @@ public:
     std::string getWord(std::string fromWord);
 private:
     sword::SWMgr *swordLibrary;
+    sword::SWModule *glossary;
+
     std::string toLang;
     std::string fromLang;
-    sword::SWModule *glossary;
 };
 
 #endif // GLOSS_H

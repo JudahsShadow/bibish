@@ -51,8 +51,10 @@ class Interface {
         void commandGloss(Command parsedCommand);
 
         std::string selectedVersion;
+
         Display display;
         Library library;
+
         sword::SWMgr *swordLibrary;
 };
 

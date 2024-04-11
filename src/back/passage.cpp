@@ -53,8 +53,8 @@ std::string Passage::getText(std::string reference) {
     this->module = this->swordLibrary->getModule(this->version.c_str());
     sword::VerseKey key;
 
-
     refRange = key.parseVerseList(reference.c_str(), key, true);
+
     for(refRange = sword::TOP; !refRange.popError(); refRange++) {
         this->module->setKey(refRange);
         text += " "; //TODO: Fix this to show the book name on the first verse
