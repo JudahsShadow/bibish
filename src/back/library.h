@@ -37,6 +37,7 @@
 #include "../back/devo.h"
 #include "../back/gloss.h"
 #include "../front/reader.h"
+#include "../front/info.h"
 
 class Library {
     public:

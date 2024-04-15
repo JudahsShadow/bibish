@@ -53,8 +53,8 @@ std::string Info::getInfo() {
     info += "Module Type: ";
     info += this->mod->getType();
     info += "\n";
-    if(description !- "") {
-        info += "About: "
+    if(description != "") {
+        info += "About: ";
         info += description;
         info += "\n";
     }
