@@ -31,6 +31,7 @@ SET (frontend_src ${CMAKE_CURRENT_SOURCE_DIR}/src/front/display.cpp
 		  ${CMAKE_CURRENT_SOURCE_DIR}/src/front/interface.cpp
 		  ${CMAKE_CURRENT_SOURCE_DIR}/src/front/pager.cpp
 		  ${CMAKE_CURRENT_SOURCE_DIR}/src/front/reader.cpp
+		  ${CMAKE_CURRENT_SOURCE_DIR}/src/front/info.cpp
 )
 
 source_group("frontend_src" FILES ${frontend_src})
