@@ -37,6 +37,7 @@ class Parser {
         Command parseCommand(std::string command);
         std::string detokenize(std::list<std::string> tokens);
         std::string parseDate(std::string date);
+        std::string parseConf(std::string text);
     private:
         std::list<std::string> tokens;
         uint argumentCount;

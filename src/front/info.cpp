@@ -26,6 +26,7 @@
 #include <swmodule.h>
 
 //Project Includes
+#include "../back/parser.h"
 #include "../front/info.h"
 
 void Info::setSwordLibrary(sword::SWMgr *library) {
@@ -39,9 +40,13 @@ void Info::setModule(std::string module) {
 std::string Info::getInfo() {
     std::string info;
     std::string description = "";
+    std::string parsedDescription;
+    Parser rtfParser;
 
     if(this->mod->getConfigEntry("About") != NULL) {
         description = this->mod->getConfigEntry("About");
+        parsedDescription = rtfParser.parseConf(description);
+        description = parsedDescription;
     }
 
     info += "Module Name: ";

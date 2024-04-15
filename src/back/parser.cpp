@@ -354,3 +354,55 @@ std::string Parser::parseDate(std::string date) {
 
     return parsedDate;
 }
+
+std::string Parser::parseConf(std::string text) {
+    std::string parsedText;
+    std::string rtfNewLine = "\\par";
+    std::string nextPara = "\\pard";
+    std::string aHref = "<a href=\"";
+    std::string endOpen = "\">";
+    std::string closeTag = "</a>";
+    std::size_t matchPos;
+
+    //RTF specs use \pard to indicate the next paragraph should be styled
+    //normally, we don't do any styling so strip these out first to prevent
+    //the nexxt loop from turning them into \nd
+    matchPos = text.find(nextPara);
+    while(matchPos != std::string::npos) {
+        text.replace(matchPos,5,"");
+        matchPos = text.find(nextPara);
+    }
+
+    //\par is a paragraph marker in the RTF specs that conf modules can use.
+    //Go through the provided string and turn any remaining \par to \n.
+    matchPos = text.find(rtfNewLine);
+    while(matchPos != std::string::npos) {
+        text.replace(matchPos,4,"\n");
+        matchPos = text.find(rtfNewLine);
+    }
+
+    //Strip out any <a href=" found in the conf text
+    matchPos = text.find(aHref);
+    while(matchPos != std::string::npos) {
+        text.replace(matchPos,9,"");
+        matchPos = text.find(aHref);
+    }
+
+    //Strip out the end of any anchor tags and replace with a space
+    matchPos = text.find(endOpen);
+    while(matchPos != std::string::npos) {
+        text.replace(matchPos,2," ");
+        matchPos = text.find(endOpen);
+    }
+
+    //Strip out any closing tags from anchors
+    matchPos = text.find(closeTag);
+    while(matchPos != std::string::npos) {
+        text.replace(matchPos,4,"");
+        matchPos = text.find(closeTag);
+    }
+
+    parsedText = text;
+
+    return parsedText;
+}
