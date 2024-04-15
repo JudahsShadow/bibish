@@ -32,3 +32,9 @@ Milestone releases
     Planned Features:
         Support for exact phrase as well as multi-word searches
         Support regex searches
+
+0.7.0:
+    Planned Features:
+        Add new info command to show information about modules
+        Add new strongs command to search for Strong's numbers in supported
+            modules
