@@ -134,6 +134,18 @@ validCommands Interface::processCommand(Command parsedCommand) {
         this->commandGloss(parsedCommand);
         return commandPart;
     }
+    else if(commandPart == cmdInfo) {
+        std::string modInfo;
+        Pager infoPager;
+        std::list<page> infoPages;
+
+        modInfo = this->library.infoSys.getInfo();
+
+        infoPager.setSize(this->display.getHeight(),this->display.getWidth());
+        infoPages = infoPager.getPagedText(modInfo);
+
+        this->display.displayPages(infoPages);
+    }
     else {
         //Invalid command head out.
         return cmdUnknown;
