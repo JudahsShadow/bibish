@@ -51,6 +51,7 @@ class Library {
         Reader readMode;
         Devo devotion;
         Gloss glossary;
+        Info infoSys;
 
         std::list<std::string> getBibles();
         std::list<std::string> getCommentaries();

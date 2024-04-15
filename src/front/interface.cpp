@@ -57,6 +57,7 @@ void Interface::initalize() {
     this->library.searcher.setSwordLibrary(swordLibrary);
     this->library.devotion.setSwordLibrary(swordLibrary);
     this->library.glossary.setSwordLibrary(swordLibrary);
+    this->library.infoSys.setSwordLibrary(swordLibrary);
     
     std::cout << "Initialized, proceeding to shell..." << std::endl;
 }
