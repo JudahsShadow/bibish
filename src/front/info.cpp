@@ -40,6 +40,7 @@ void Info::setModule(std::string module) {
 std::string Info::getInfo() {
     std::string info;
     std::string description = "";
+    std::string moduleVersion= "";
     std::string parsedDescription;
     Parser rtfParser;
 
@@ -47,6 +48,10 @@ std::string Info::getInfo() {
         description = this->mod->getConfigEntry("About");
         parsedDescription = rtfParser.parseConf(description);
         description = parsedDescription;
+    }
+
+    if(this->mod->getConfigEntry("Version") != NULL) {
+        moduleVersion = this->mod->getConfigEntry("Version");
     }
 
     info += "Module Name: ";
@@ -58,12 +63,16 @@ std::string Info::getInfo() {
     info += "Module Type: ";
     info += this->mod->getType();
     info += "\n";
+    if(moduleVersion != "") {
+        info += "Module Version: ";
+        info += moduleVersion;
+        info += "\n";
+    }
     if(description != "") {
         info += "About: ";
         info += description;
         info += "\n";
     }
-
 
     return info;
 }
