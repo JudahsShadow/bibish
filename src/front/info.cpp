@@ -35,3 +35,30 @@ void Info::setSwordLibrary(sword::SWMgr *library) {
 void Info::setModule(std::string module) {
     this->mod = this->swordLibrary->getModule(module.c_str());
 }
+
+std::string Info::getInfo() {
+    std::string info;
+    std::string description = "";
+
+    if(this->mod->getConfigEntry("About") != NULL) {
+        description = this->mod->getConfigEntry("About");
+    }
+
+    info += "Module Name: ";
+    info += this->mod->getDescription();
+    info += "\n";
+    info += "Module Short Name: ";
+    info += this->mod->getName();
+    info += "\n";
+    info += "Module Type: ";
+    info += this->mod->getType();
+    info += "\n";
+    if(description !- "") {
+        info += "About: "
+        info += description;
+        info += "\n";
+    }
+
+
+    return info;
+}

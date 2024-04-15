@@ -31,6 +31,8 @@ class Info {
         void setSwordLibrary(sword::SWMgr *library);
         void setModule(std::string module);
 
+        std::string getInfo();
+
     private:
         sword::SWModule *mod;
         sword::SWMgr *swordLibrary;
