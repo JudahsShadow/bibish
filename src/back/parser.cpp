@@ -178,6 +178,13 @@ Command Parser::parseCommand(std::string command) {
 
         parsedCommand.argumentPart.push_back(word);
     }
+    else if(commandPart == "info") {
+        parsedCommand.commandPart = cmdInfo;
+
+        //info takes no arguments for now so pass back an empty string
+        //TODO: Add arguments to get specific info from modules.
+        parsedCommand.argumentPart.push_front("");
+    }
     else {
         //Add a general case to just pass arguments to the back as a list
         while(!argumentPart.empty()) {
