@@ -139,12 +139,16 @@ validCommands Interface::processCommand(Command parsedCommand) {
         Pager infoPager;
         std::list<page> infoPages;
 
+        this->library.infoSys.setModule(this->selectedVersion);
+
         modInfo = this->library.infoSys.getInfo();
 
         infoPager.setSize(this->display.getHeight(),this->display.getWidth());
         infoPages = infoPager.getPagedText(modInfo);
 
         this->display.displayPages(infoPages);
+
+        return commandPart;
     }
     else {
         //Invalid command head out.
