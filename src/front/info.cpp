@@ -76,3 +76,24 @@ std::string Info::getInfo() {
 
     return info;
 }
+
+std::string Info::getCopyright() {
+    std::string copyrightInfo = "No copyright info found.\n";
+    std::string parsedCopyright;
+    Parser rtfParser;
+
+    if(this->mod->getConfigEntry("ShortCopyright") != NULL) {
+        copyrightInfo = this->mod->getConfigEntry("ShortCopyright");
+        parsedCopyright = rtfParser.parseConf(copyrightInfo);
+        copyrightInfo = parsedCopyright;
+        copyrightInfo += "\n";
+    }
+
+    if(this->mod->getConfigEntry("DistributionLicense") != NULL) {
+        copyrightInfo = this->mod->getConfigEntry("DistribugtionLicense");
+        parsedCopyright = rtfParser.parseConf(copyrightInfo);
+        copyrightInfo = parsedCopyright;
+    }
+
+    return copyrightInfo;
+}
