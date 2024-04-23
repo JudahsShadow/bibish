@@ -24,6 +24,7 @@
 //SWORD Project Includes
 #include <swmgr.h>
 #include <swmodule.h>
+#include <wbasicfilter.h>
 
 //Project Includes
 #include "../back/parser.h"
@@ -43,6 +44,7 @@ std::string Info::getInfo() {
     std::string moduleVersion= "";
     std::string parsedDescription;
     Parser rtfParser;
+
 
     if(this->mod->getConfigEntry("About") != NULL) {
         description = this->mod->getConfigEntry("About");

@@ -362,7 +362,16 @@ std::string Parser::parseConf(std::string text) {
     std::string aHref = "<a href=\"";
     std::string endOpen = "\">";
     std::string closeTag = "</a>";
+    std::string alignCenter = "\\qc";
     std::size_t matchPos;
+
+    //Strip out centering for now.
+    //TODO: Actually center the text
+    matchPos = text.find(alignCenter);
+    while(matchPos != std::string::npos) {
+        text.replace(matchPos,3,"");
+        matchPos = text.find(alignCenter);
+    }
 
     //RTF specs use \pard to indicate the next paragraph should be styled
     //normally, we don't do any styling so strip these out first to prevent
