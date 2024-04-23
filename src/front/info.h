@@ -32,6 +32,7 @@ class Info {
         void setModule(std::string module);
 
         std::string getInfo();
+        std::string getCopyright();
 
     private:
         sword::SWModule *mod;

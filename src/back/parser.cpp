@@ -181,9 +181,15 @@ Command Parser::parseCommand(std::string command) {
     else if(commandPart == "info") {
         parsedCommand.commandPart = cmdInfo;
 
-        //info takes no arguments for now so pass back an empty string
-        //TODO: Add arguments to get specific info from modules.
-        parsedCommand.argumentPart.push_front("");
+        //Check the argument(s) for a valid subtype of info
+        //Currently copyright and pass it on, otherwise ignore everything
+        if(!argumentPart.empty() &&
+            argumentPart.front() == "copyright") {
+            parsedCommand.argumentPart.push_back(argumentPart.front());
+        }
+        else {
+            parsedCommand.argumentPart.push_back("");
+        }
     }
     else {
         //Add a general case to just pass arguments to the back as a list
