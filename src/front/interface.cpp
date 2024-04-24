@@ -141,11 +141,15 @@ validCommands Interface::processCommand(Command parsedCommand) {
 
         this->library.infoSys.setModule(this->selectedVersion);
 
-        modInfo = this->library.infoSys.getInfo();
+        if(parsedCommand.argumentPart.empty()) {
+            modInfo = this->library.infoSys.getInfo();
+        }
+        else if(parsedCommand.argumentPart.front() == "copyright") {
+            modInfo = this->library.infoSys.getCopyright();
+        }
 
         infoPager.setSize(this->display.getHeight(),this->display.getWidth());
         infoPages = infoPager.getPagedText(modInfo);
-
         this->display.displayPages(infoPages);
 
         return commandPart;

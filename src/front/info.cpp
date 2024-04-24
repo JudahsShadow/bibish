@@ -78,7 +78,7 @@ std::string Info::getInfo() {
 }
 
 std::string Info::getCopyright() {
-    std::string copyrightInfo = "No copyright info found.\n";
+    std::string copyrightInfo = "";
     std::string parsedCopyright;
     Parser rtfParser;
 
