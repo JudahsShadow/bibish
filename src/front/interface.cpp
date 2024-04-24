@@ -492,6 +492,14 @@ void Interface::commandInfo(Command parsedCommand) {
     Pager infoPager;
     std::list<page> infoPages;
 
+    if(this->selectedVersion == "") {
+        this->display.displayHeader();
+        std::cerr << "No module selected. Try Select";
+        std::cerr << std::endl;
+        this->display.displaySpacer(1);
+        return;
+    }
+
     this->library.infoSys.setModule(this->selectedVersion);
 
     if(parsedCommand.argumentPart.empty() ||
