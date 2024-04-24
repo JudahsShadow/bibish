@@ -135,24 +135,7 @@ validCommands Interface::processCommand(Command parsedCommand) {
         return commandPart;
     }
     else if(commandPart == cmdInfo) {
-        std::string modInfo;
-        Pager infoPager;
-        std::list<page> infoPages;
-
-        this->library.infoSys.setModule(this->selectedVersion);
-
-        if(parsedCommand.argumentPart.empty() ||
-            parsedCommand.argumentPart.front() == "") {
-            modInfo = this->library.infoSys.getInfo();
-        }
-        else if(parsedCommand.argumentPart.front() == "copyright") {
-            modInfo = this->library.infoSys.getCopyright();
-        }
-
-        infoPager.setSize(this->display.getHeight(),this->display.getWidth());
-        infoPages = infoPager.getPagedText(modInfo);
-        this->display.displayPages(infoPages);
-
+        this->commandInfo(parsedCommand);
         return commandPart;
     }
     else {
@@ -501,5 +484,26 @@ void Interface::commandGloss(Command parsedCommand) {
     glossPages = glossaryPager.getPagedText(glossEntry);
 
     this->display.displayPages(glossPages);
+
+}
+
+void Interface::commandInfo(Command parsedCommand) {
+    std::string modInfo;
+    Pager infoPager;
+    std::list<page> infoPages;
+
+    this->library.infoSys.setModule(this->selectedVersion);
+
+    if(parsedCommand.argumentPart.empty() ||
+        parsedCommand.argumentPart.front() == "") {
+        modInfo = this->library.infoSys.getInfo();
+    }
+    else if(parsedCommand.argumentPart.front() == "copyright") {
+        modInfo = this->library.infoSys.getCopyright();
+    }
+
+    infoPager.setSize(this->display.getHeight(),this->display.getWidth());
+    infoPages = infoPager.getPagedText(modInfo);
+    this->display.displayPages(infoPages);
 
 }
