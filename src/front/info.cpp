@@ -40,7 +40,7 @@ void Info::setModule(std::string module) {
 std::string Info::getInfo() {
     std::string info;
     std::string description = "";
-    std::string moduleVersion= "";
+    std::string moduleVersion = "";
     std::string parsedDescription;
     Parser rtfParser;
 
@@ -63,11 +63,13 @@ std::string Info::getInfo() {
     info += "Module Type: ";
     info += this->mod->getType();
     info += "\n";
+
     if(moduleVersion != "") {
         info += "Module Version: ";
         info += moduleVersion;
         info += "\n";
     }
+
     if(description != "") {
         info += "About: ";
         info += description;
@@ -78,7 +80,8 @@ std::string Info::getInfo() {
 }
 
 std::string Info::getCopyright() {
-    std::string copyrightInfo = "";
+    std::string copyrightInfo;
+    std::string distroInfo;
     std::string parsedCopyright;
     Parser rtfParser;
 
@@ -88,12 +91,21 @@ std::string Info::getCopyright() {
         copyrightInfo = parsedCopyright;
         copyrightInfo += "\n";
     }
+    else {
+        copyrightInfo += "No copyright info found\n";
+    }
 
     if(this->mod->getConfigEntry("DistributionLicense") != NULL) {
-        copyrightInfo = this->mod->getConfigEntry("DistributionLicense");
-        parsedCopyright = rtfParser.parseConf(copyrightInfo);
-        copyrightInfo = parsedCopyright;
+        distroInfo = this->mod->getConfigEntry("DistributionLicense");
+        parsedCopyright = rtfParser.parseConf(distroInfo);
+        copyrightInfo += "Distribution Terms: ";
+        copyrightInfo += parsedCopyright;
+        copyrightInfo += "\n";
+    }
+    else {
+        copyrightInfo += "No distribution terms found\n";
     }
 
     return copyrightInfo;
 }
+// kate: indent-mode cstyle; indent-width 4; replace-tabs on;
