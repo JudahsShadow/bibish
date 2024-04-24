@@ -45,3 +45,5 @@ devo - Shows the daily devotional for a given month and day in either the full
 gloss - Shows the glossary entry for a given word. This is different from the
     show command, in that, it will also display the to/from languages, where
     show only shows the key text and the entry.
+info - Shows information about the currently selected module. Takes copyright as
+    an argument to show copyright and distribution information about the module.
