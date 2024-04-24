@@ -90,7 +90,7 @@ std::string Info::getCopyright() {
     }
 
     if(this->mod->getConfigEntry("DistributionLicense") != NULL) {
-        copyrightInfo = this->mod->getConfigEntry("DistribugtionLicense");
+        copyrightInfo = this->mod->getConfigEntry("DistributionLicense");
         parsedCopyright = rtfParser.parseConf(copyrightInfo);
         copyrightInfo = parsedCopyright;
     }

@@ -141,7 +141,8 @@ validCommands Interface::processCommand(Command parsedCommand) {
 
         this->library.infoSys.setModule(this->selectedVersion);
 
-        if(parsedCommand.argumentPart.empty()) {
+        if(parsedCommand.argumentPart.empty() ||
+            parsedCommand.argumentPart.front() == "") {
             modInfo = this->library.infoSys.getInfo();
         }
         else if(parsedCommand.argumentPart.front() == "copyright") {
