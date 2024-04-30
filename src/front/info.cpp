@@ -87,17 +87,17 @@ std::string Info::getCopyright() {
     std::string parsedCopyright;
     Parser rtfParser;
 
-    if(this->mod->getConfigEntry("ShortCopyright") != NULL) {
-        shortCopyrightInfo = this->mod->getConfigEntry("ShortCopyright");
-        parsedCopyright = rtfParser.parseConf(shortCopyrightInfo);
-        copyrightInfo = parsedCopyright;
-        copyrightInfo += "\n";
-    }
-    else if(this->mod->getConfigEntry("Copyright") != NULL) {
+    if(this->mod->getConfigEntry("Copyright") != NULL) {
         fullCopyrightInfo = this->mod->getConfigEntry("Copyright");
         parsedCopyright = rtfParser.parseConf(fullCopyrightInfo);
         copyrightInfo += "Copyright: ";
         copyrightInfo += parsedCopyright;
+        copyrightInfo += "\n";
+    }
+    else if(this->mod->getConfigEntry("ShortCopyright") != NULL) {
+        shortCopyrightInfo = this->mod->getConfigEntry("ShortCopyright");
+        parsedCopyright = rtfParser.parseConf(shortCopyrightInfo);
+        copyrightInfo = parsedCopyright;
         copyrightInfo += "\n";
     }
     else {
