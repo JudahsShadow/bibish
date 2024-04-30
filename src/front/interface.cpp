@@ -50,14 +50,15 @@ void Interface::initalize() {
     this->swordLibrary = new sword::SWMgr(
                          new sword::MarkupFilterMgr(sword::FMT_PLAIN));
     
-    this->library.setSwordLibrary(swordLibrary);
-    this->library.passage.setLibrary(swordLibrary);
-    this->library.lexicon.setSwordLibrary(swordLibrary);
-    this->library.genbook.setSwordLibrary(swordLibrary);
-    this->library.searcher.setSwordLibrary(swordLibrary);
-    this->library.devotion.setSwordLibrary(swordLibrary);
-    this->library.glossary.setSwordLibrary(swordLibrary);
-    this->library.infoSys.setSwordLibrary(swordLibrary);
+    this->library.setSwordLibrary(this->swordLibrary);
+    this->library.passage.setLibrary(this->swordLibrary);
+    this->library.lexicon.setSwordLibrary(this->swordLibrary);
+    this->library.genbook.setSwordLibrary(this->swordLibrary);
+    this->library.searcher.setSwordLibrary(this->swordLibrary);
+    this->library.devotion.setSwordLibrary(this->swordLibrary);
+    this->library.glossary.setSwordLibrary(this->swordLibrary);
+    this->library.infoSys.setSwordLibrary(this->swordLibrary);
+    this->library.strongMan.setSwordLibrary(this->swordLibrary);
     
     std::cout << "Initialized, proceeding to shell..." << std::endl;
 }

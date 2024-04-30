@@ -36,6 +36,7 @@
 #include "../back/genbook.h"
 #include "../back/devo.h"
 #include "../back/gloss.h"
+#include "../back/strongs.h"
 #include "../front/reader.h"
 #include "../front/info.h"
 
@@ -53,6 +54,7 @@ class Library {
         Devo devotion;
         Gloss glossary;
         Info infoSys;
+        Strongs strongMan;
 
         std::list<std::string> getBibles();
         std::list<std::string> getCommentaries();
