@@ -32,6 +32,9 @@ class Strongs {
     public:
         void setSwordLibrary(sword::SWMgr *library);
         void setModule(std::string module);
+
+        std::string findStrongsNumber(std::string number);
+        std::string findStrongsEntry(std::string word);
     private:
         sword::SWMgr *swordLibrary;
         sword::SWModule *mod;

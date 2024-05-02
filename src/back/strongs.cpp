@@ -36,3 +36,24 @@ void Strongs::setSwordLibrary(sword::SWMgr *library) {
 void Strongs::setModule(std::string module) {
     this->mod = this->swordLibrary->getModule(module.c_str());
 }
+
+std::string Strongs::findStrongsNumber(std::string number) {
+    std::string strongsRefs;
+
+    if(!this->mod->getConfig().has("Feature","StrongsNumbers")) {
+        strongsRefs = "Module does not support Strong's Numbers";
+    }
+
+    return strongsRefs;
+}
+
+std::string Strongs::findStrongsEntry(std::string word) {
+    std::string strongsEntries;
+
+    if(!this->mod->getConfig().has("Feature","GreekDef") ||
+        !this->mod->getConfig().has("Feature","HebrewDef")) {
+          strongsEntries = "Module is not a Greek/Hebrew Lexicon";
+        }
+
+    return strongsEntries;
+}
