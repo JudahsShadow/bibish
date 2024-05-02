@@ -23,6 +23,8 @@ SET (backend_src ${CMAKE_CURRENT_SOURCE_DIR}/src/back/parser.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/back/genbook.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/back/devo.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/back/gloss.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/src/back/strongs.cpp
+
 )
 
 source_group("backend_src" FILES ${backend_src})
