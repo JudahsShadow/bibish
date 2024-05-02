@@ -191,7 +191,7 @@ Command Parser::parseCommand(std::string command) {
             parsedCommand.argumentPart.push_back("");
         }
     }
-    else if(commandPart == "strong=") {
+    else if(commandPart == "strongs") {
         parsedCommand.commandPart = cmdStrongs;
 
         if(!argumentPart.empty()) {
