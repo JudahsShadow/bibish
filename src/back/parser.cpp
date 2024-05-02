@@ -211,6 +211,9 @@ Command Parser::parseCommand(std::string command) {
                 parsedCommand.argumentPart.push_back(firstArg);
             }
         }
+        else {
+            parsedCommand.argumentPart.push_back("");
+        }
     }
     else {
         //Add a general case to just pass arguments to the back as a list

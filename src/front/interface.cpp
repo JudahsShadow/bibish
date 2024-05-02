@@ -141,13 +141,33 @@ validCommands Interface::processCommand(Command parsedCommand) {
     }
     else if(commandPart == cmdStrongs) {
         std::string strongsResults;
+        std::string searchTerms;
+        Pager strongsPager;
+        std::list<page> strongsPages;
 
-        if(this->selectedVersion == "") {
-            std::cerr <<  "Error: No version selected. (Try select)";
-            std::cerr << std::endl;
-            this->display.displaySpacer(1);
+        this->library.strongMan.setModule(this->selectedVersion);
+        this->library.strongMan.setDisplay(this->display);
+
+        searchTerms = parsedCommand.argumentPart.front();
+
+        if(searchTerms.find_first_of("G0") != std::string::npos ||
+            searchTerms.find_first_of("H0") != std::string::npos) {
+            //We've got a Strong's Number and are looking for where it occurs
+        }
+        else {
+            //We've got some word(s) and are looking for the associated strong's
+            //number
+            strongsResults = this->library.strongMan.findStrongsEntry( \
+                searchTerms);
         }
 
+        strongsPager.setSize(this->display.getHeight(),
+                             this->display.getWidth());
+        strongsPages = strongsPager.getPagedText(strongsResults);
+
+        this->display.clearScreen();
+        this->display.displayHeader();
+        this->display.displayPages(strongsPages);
 
         return commandPart;
     }

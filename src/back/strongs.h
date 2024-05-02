@@ -28,16 +28,21 @@
 #include <swmgr.h>
 #include <swmodule.h>
 
+//Projecte INcludes
+#include "../front/display.h"
+
 class Strongs {
     public:
         void setSwordLibrary(sword::SWMgr *library);
         void setModule(std::string module);
+        void setDisplay(Display display);
 
         std::string findStrongsNumber(std::string number);
         std::string findStrongsEntry(std::string word);
     private:
         sword::SWMgr *swordLibrary;
         sword::SWModule *mod;
+        Display searchDisplay;
 };
 
 #endif // STRONGS_H

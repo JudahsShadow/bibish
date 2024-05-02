@@ -50,15 +50,22 @@ std::string Strongs::findStrongsNumber(std::string number) {
 std::string Strongs::findStrongsEntry(std::string word) {
     std::string strongsEntries;
     Search strongsSearcher;
-
-    if(!this->mod->getConfig().has("Feature","GreekDef") ||
+    if(!this->mod->getConfig().has("Feature","GreekDef") &&
         !this->mod->getConfig().has("Feature","HebrewDef")) {
           strongsEntries = "Module is not a Greek/Hebrew Lexicon";
     }
     else {
         strongsSearcher.setSearchType(SEARCHTYPEMULTIWORD);
+        strongsSearcher.setSwordLibrary(this->swordLibrary);
+        strongsSearcher.setModule(this->mod->getName());
+        strongsSearcher.setDisplay(this->searchDisplay);
+
         strongsEntries = strongsSearcher.search(word);
     }
 
     return strongsEntries;
+}
+
+void Strongs::setDisplay(Display display) {
+    this->searchDisplay = display;
 }
