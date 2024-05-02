@@ -139,6 +139,18 @@ validCommands Interface::processCommand(Command parsedCommand) {
         this->commandInfo(parsedCommand);
         return commandPart;
     }
+    else if(commandPart == cmdStrongs) {
+        std::string strongsResults;
+
+        if(this->selectedVersion == "") {
+            std::cerr <<  "Error: No version selected. (Try select)";
+            std::cerr << std::endl;
+            this->display.displaySpacer(1);
+        }
+
+
+        return commandPart;
+    }
     else {
         //Invalid command head out.
         return cmdUnknown;
