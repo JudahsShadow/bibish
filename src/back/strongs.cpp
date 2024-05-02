@@ -27,7 +27,7 @@
 
 //Project Includes
 #include "../back/strongs.h"
-
+#include "../back/search.h"
 
 void Strongs::setSwordLibrary(sword::SWMgr *library) {
     this->swordLibrary = library;
@@ -49,11 +49,16 @@ std::string Strongs::findStrongsNumber(std::string number) {
 
 std::string Strongs::findStrongsEntry(std::string word) {
     std::string strongsEntries;
+    Search strongsSearcher;
 
     if(!this->mod->getConfig().has("Feature","GreekDef") ||
         !this->mod->getConfig().has("Feature","HebrewDef")) {
           strongsEntries = "Module is not a Greek/Hebrew Lexicon";
-        }
+    }
+    else {
+        strongsSearcher.setSearchType(SEARCHTYPEMULTIWORD);
+        strongsEntries = strongsSearcher.search(word);
+    }
 
     return strongsEntries;
 }
