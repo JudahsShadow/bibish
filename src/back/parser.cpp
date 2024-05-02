@@ -191,6 +191,27 @@ Command Parser::parseCommand(std::string command) {
             parsedCommand.argumentPart.push_back("");
         }
     }
+    else if(commandPart == "strong=") {
+        parsedCommand.commandPart = cmdStrongs;
+
+        if(!argumentPart.empty()) {
+            std::string firstArg;
+
+            firstArg = argumentPart.front();
+            if(firstArg.find_first_of("G0") != std::string::npos ||
+                firstArg.find_first_of("H0") != std::string::npos) {
+                //First argument looks like a strongs number so push it
+                //on the argument list for searching.
+                parsedCommand.argumentPart.push_front(firstArg);
+            }
+            else {
+                //We dont' have a strong's number so detokenize everything
+                //to search the lexicon for the word(s)
+                firstArg = this->detokenize(argumentPart);
+                parsedCommand.argumentPart.push_back(firstArg);
+            }
+        }
+    }
     else {
         //Add a general case to just pass arguments to the back as a list
         while(!argumentPart.empty()) {
