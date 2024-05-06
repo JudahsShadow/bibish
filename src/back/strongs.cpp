@@ -39,9 +39,18 @@ void Strongs::setModule(std::string module) {
 
 std::string Strongs::findStrongsNumber(std::string number) {
     std::string strongsRefs;
+    Search strongsSearcher;
 
     if(!this->mod->getConfig().has("Feature","StrongsNumbers")) {
         strongsRefs = "Module does not support Strong's Numbers";
+    }
+    else {
+        strongsSearcher.setSearchType(SEARCHTYPEETNRTYATTR);
+        strongsSearcher.setSwordLibrary(this->swordLibrary);
+        strongsSearcher.setModule(this->mod->getName());
+        strongsSearcher.setDisplay(this->searchDisplay);
+
+        strongsRefs = strongsSearcher.search(number);
     }
 
     return strongsRefs;

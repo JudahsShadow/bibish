@@ -150,9 +150,15 @@ validCommands Interface::processCommand(Command parsedCommand) {
 
         searchTerms = parsedCommand.argumentPart.front();
 
-        if(searchTerms.find_first_of("G0") != std::string::npos ||
-            searchTerms.find_first_of("H0") != std::string::npos) {
+        if(searchTerms.starts_with("G") || searchTerms.starts_with("H")) {
             //We've got a Strong's Number and are looking for where it occurs
+            std::string searchString;
+
+            searchString = "Word//Lemma./";
+            searchString += searchTerms;
+            searchString += "/";
+            strongsResults = this->library.strongMan.findStrongsNumber( \
+                searchString);
         }
         else {
             //We've got some word(s) and are looking for the associated strong's
