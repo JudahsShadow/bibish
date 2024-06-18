@@ -24,6 +24,7 @@
 //SWORD Project Includes
 #include <swmgr.h>
 #include <swmodule.h>
+#include <swconfig.h>
 
 //Project Includes
 #include "../back/parser.h"
@@ -42,6 +43,7 @@ std::string Info::getInfo() {
     std::string description = "";
     std::string moduleVersion = "";
     std::string parsedDescription;
+    std::string featureSet = "";
     Parser rtfParser;
 
     if(this->mod->getConfigEntry("About") != NULL) {
@@ -52,6 +54,21 @@ std::string Info::getInfo() {
 
     if(this->mod->getConfigEntry("Version") != NULL) {
         moduleVersion = this->mod->getConfigEntry("Version");
+    }
+
+    if(this->mod->getConfigEntry("Feature") != NULL) {
+        sword::ConfigEntMap::const_iterator begin;
+        sword::ConfigEntMap::const_iterator end;
+
+        begin = this->mod->getConfig().lower_bound("Feature");
+        end = this->mod->getConfig().upper_bound("Feature");
+
+        while(begin != end) {
+            featureSet += "Feature: ";
+            featureSet += begin->second;
+            featureSet += "\n";
+            ++begin;
+        }
     }
 
     info += "Module Name: ";
@@ -67,6 +84,11 @@ std::string Info::getInfo() {
     if(moduleVersion != "") {
         info += "Module Version: ";
         info += moduleVersion;
+        info += "\n";
+    }
+
+    if(featureSet != "") {
+        info += featureSet;
         info += "\n";
     }
 

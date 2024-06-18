@@ -151,10 +151,11 @@ validCommands Interface::processCommand(Command parsedCommand) {
         searchTerms = parsedCommand.argumentPart.front();
 
         if(searchTerms.starts_with("G") || searchTerms.starts_with("H")) {
-            //We've got a Strong's Number and are looking for where it occurs
+            //We're assuming this is a Strong's Number and are looking for where
+            //it occurs
             std::string searchString;
 
-            searchString = "Word//Lemma./";
+            searchString = "Word//Lemma/";
             searchString += searchTerms;
             searchString += "/";
             strongsResults = this->library.strongMan.findStrongsNumber( \
