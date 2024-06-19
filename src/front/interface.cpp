@@ -158,7 +158,7 @@ validCommands Interface::processCommand(Command parsedCommand) {
             searchString = "Word//Lemma/";
             searchString += searchTerms;
             searchString += "/";
-            strongsResults = this->library.strongMan.findStrongsNumber( \
+            strongsResults = this->library.strongMan.findStrongsNumber(
                 searchString);
 
             if(strongsResults == "No results found\n") {
@@ -167,16 +167,26 @@ validCommands Interface::processCommand(Command parsedCommand) {
                 std::string prefix;
                 int numericNumber;
 
-                std::cout << "No results found trying again without leading 0s";
+                this->display.clearScreen();
+                std::cout << "No results found press enter to try again ";
+                std::cout << "without leading 0s or enter q to abort.";
                 std::cout << std::endl;
 
-                numericNumber = std::stoi(searchTerms.substr(1,searchTerms.length()));
+                std::string dummy;
+                std::getline(std::cin,dummy);
+
+                if(dummy == "q") {
+                    return commandPart;
+                }
+
+                numericNumber = std::stoi(
+                    searchTerms.substr(1,searchTerms.length()));
                 prefix = searchTerms.substr(0,1);
                 strippedNumber = prefix + std::to_string(numericNumber);
                 searchString = "Word//Lemma/";
                 searchString += strippedNumber;
                 searchString += "/";
-                strongsResults = this->library.strongMan.findStrongsNumber( \
+                strongsResults = this->library.strongMan.findStrongsNumber(
                     searchString);
 
 
