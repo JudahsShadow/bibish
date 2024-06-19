@@ -150,7 +150,7 @@ validCommands Interface::processCommand(Command parsedCommand) {
 
         searchTerms = parsedCommand.argumentPart.front();
 
-        if(searchTerms.starts_with("G") || searchTerms.starts_with("H")) {
+        if(searchTerms.starts_with("G0") || searchTerms.starts_with("H0")) {
             //We're assuming this is a Strong's Number and are looking for where
             //it occurs
             std::string searchString;
@@ -160,6 +160,27 @@ validCommands Interface::processCommand(Command parsedCommand) {
             searchString += "/";
             strongsResults = this->library.strongMan.findStrongsNumber( \
                 searchString);
+
+            if(strongsResults == "No results found\n") {
+                //We didn't get results so try again with stripping leading 0s
+                std::string strippedNumber;
+                std::string prefix;
+                int numericNumber;
+
+                std::cout << "No results found trying again without leading 0s";
+                std::cout << std::endl;
+
+                numericNumber = std::stoi(searchTerms.substr(1,searchTerms.length()));
+                prefix = searchTerms.substr(0,1);
+                strippedNumber = prefix + std::to_string(numericNumber);
+                searchString = "Word//Lemma/";
+                searchString += strippedNumber;
+                searchString += "/";
+                strongsResults = this->library.strongMan.findStrongsNumber( \
+                    searchString);
+
+
+            }
         }
         else {
             //We've got some word(s) and are looking for the associated strong's
